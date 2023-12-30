@@ -5,10 +5,13 @@
         {{ restaurant.name }}
       </li>
     </ul>
-    <v-text-field
-        v-model="newRestaurantName"
-        label="New Restaurant Name"/>
-    <v-btn @click="addElement()">Add Element</v-btn>
+    <span class="p-float-label">
+      <InputText
+          id="newRestaurantName"
+          v-model="newRestaurantName"/>
+      <label for="newRestaurantName">Neuer Restaurant Name</label>
+    </span>
+    <Button @click="addElement()">Add Element</Button>
   </div>
 </template>
 <script setup>
