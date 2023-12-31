@@ -13,6 +13,7 @@
 }
 
 h1 {
-  font-family: 'Abril Fatface', cursive;
+  font-family: 'Abril Fatface', 'Times new roman';
+  font-weight: 500;
 }
 </style>
