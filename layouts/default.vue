@@ -1,9 +1,9 @@
 <template>
-  <v-app>
-    <v-layout>
+  <v-layout>
+    <v-app>
       <slot/>
-    </v-layout>
-  </v-app>
+    </v-app>
+  </v-layout>
 </template>
 
 <style>
@@ -17,3 +17,5 @@ h1 {
   font-weight: 500;
 }
 </style>
+<script setup lang="ts">
+</script>
