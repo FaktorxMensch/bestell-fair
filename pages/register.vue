@@ -37,9 +37,11 @@ const accepted = ref(false)
           <h1 class="text-4xl mb-4">Willkommen bei <span class="text-teal-900">FairDish</span></h1>
           <p class="text-lg mb-8">Registriere dich jetzt als Partner und profitiere von den Vorteilen.</p>
           <v-text-field rounded autofocus="" variant="outlined" label="E-Mail" v-model="email" type="email"/>
-          <v-text-field rounded variant="outlined" label="Passwort" type="password" v-model="password"/>
+          <v-text-field rounded variant="outlined" label="Passwort" type="password" v-model="password"
+                        min-length="6"
+                        :error-messages="password.length>1 && password.length<6 ? ['Passwort muss mindestens 6 Zeichen lang sein.'] : []"
+          />
           <v-text-field rounded variant="outlined" label="Passwort wiederholen" type="password" v-model="password_repeat"
-                        :error="password !== password_repeat"
                         :error-messages="password !== password_repeat && password_repeat.length>1 ? ['Passwörter stimmen nicht überein.'] : []"
           />
           <v-checkbox label="Ich akzeptiere die AGB und Datenschutzbestimmungen." v-model="accepted"/>
