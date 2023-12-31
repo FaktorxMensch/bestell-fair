@@ -8,8 +8,7 @@
     <v-text-field
         v-model="newRestaurantName"
         label="New Restaurant Name"/>
-    <v-btn @click="addElement()">Add Element</v-btn>
-    <v-form @submit="addElement()">
+    <v-form @submit.prevent="addElement">
       <v-container>
         <v-text-field variant="outlined" v-model="formData.name" label="Name"></v-text-field>
         <v-text-field variant="outlined" v-model="formData.location" label="Location"></v-text-field>
@@ -53,16 +52,16 @@ const paymentMethods = [
   'other'
 ]
 const formData = ref({
-  name: '',
-  location: '',
-  description: '',
-  contact_email: '',
-  contact_phone: '',
+  name: 'foo',
+  location: 'fdsa',
+  description: 'fdsa',
+  contact_email: 'fdsa',
+  contact_phone: 'fdsa',
   payment_methods: [],
   tags: [],
-  website: '',
+  website: 'fdsa',
 })
-const fetchData = async function() {
+const fetchData = async function () {
   const {data, error} = await supabase
       .from('restaurants')
       .select('*')
@@ -72,10 +71,13 @@ const fetchData = async function() {
 await fetchData()
 const newRestaurantName = ref('')
 const addElement = async () => {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
       .from('restaurants')
       .insert([
-      formData.value
+        {
+          ...formData.value,
+          slug: slugFromName(formData.value.name)
+        }
       ])
       .select('*')
   if (error) console.log(error)
@@ -83,6 +85,9 @@ const addElement = async () => {
     restaurants.value = [...restaurants.value, ...data]
     newRestaurantName.value = ''
   }
+}
 
+const slugFromName = (name) => {
+  return name.toLowerCase().replace(/ /g, '-')
 }
 </script>
