@@ -68,6 +68,7 @@ const fetchData = async function () {
   if (error) console.log(error)
   else restaurants.value = data
 }
+
 await fetchData()
 const newRestaurantName = ref('')
 const addElement = async () => {
