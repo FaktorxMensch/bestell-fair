@@ -3,7 +3,7 @@ const supabase = useSupabaseClient()
 const email = ref('')
 
 const signInWithOtp = async () => {
-  const { error } = await supabase.auth.signInWithOtp({
+  const {error} = await supabase.auth.signInWithOtp({
     email: email.value,
     options: {
       // Figure out baseurl
@@ -15,10 +15,13 @@ const signInWithOtp = async () => {
 </script>
 <template>
   <div>
-    <button @click="signInWithOtp">
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>Fairdish</v-toolbar-title>
+    </v-app-bar>
+    <v-btn @click="signInWithOtp">
       Sign In with E-Mail
-    </button>
-    <input
+    </v-btn>
+    <v-text-field
         v-model="email"
         type="email"
     />
