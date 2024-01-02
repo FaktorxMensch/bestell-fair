@@ -20,7 +20,7 @@ watch(user, (newUser) => {
 })
 </script>
 <template>
-  <v-main class="flex py-12 mt-20">
+  <v-main class="flex">
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">
         <img
@@ -28,7 +28,7 @@ watch(user, (newUser) => {
             class="h-full w-full bg-orange-400 object-cover"
         />
       </v-col>
-      <v-col cols="12" md="6" class="flex flex-col justify-center min-h-48">
+      <v-col cols="12" md="6" class="flex flex-col justify-center py-12 mt-20 min-h-48">
         <v-form @submit.prevent="signInWithPassword" class="ms-8 me-16">
           <h1 class="text-4xl mb-8">Willkommen bei <span class="text-teal-900">Bestell Fair!</span></h1>
           <p class="text-lg mb-8">Melde dich in deinem Account an, um Dein Konto zu verwalten.</p>
