@@ -10,13 +10,16 @@ const signInWithPassword = async () => {
   })
   if (error) console.log(error)
 }
+
+const user = useSupabaseUser()
+watch(user, (newUser) => {
+  if (newUser) {
+    const router = useRouter()
+    router.push('/partners')
+  }
+})
 </script>
 <template>
-  <v-app-bar app>
-    <v-toolbar-title>
-      <h1 class="text-4xl text-teal-900">FairDish</h1>
-    </v-toolbar-title>
-  </v-app-bar>
   <v-main class="flex">
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">
@@ -27,11 +30,11 @@ const signInWithPassword = async () => {
       </v-col>
       <v-col cols="12" md="6" class="flex flex-col justify-center min-h-48">
         <v-form @submit.prevent="signInWithPassword" class="ms-8 me-16">
-          <h1 class="text-4xl mb-8">Willkommen bei <span class="text-teal-900">FairDish</span></h1>
+          <h1 class="text-4xl mb-8">Willkommen bei <span class="text-teal-900">Bestell Fair!</span></h1>
           <p class="text-lg mb-8">Melde dich in deinem Account an, um Dein Konto zu verwalten.</p>
           <v-text-field rounded autofocus="" variant="outlined" label="E-Mail" v-model="email" type="email"/>
           <v-text-field rounded variant="outlined" label="Passwort" type="password" v-model="password"/>
-          <v-btn rounded size="large" variant="flat" color="teal-darken-3" @click="signInWithPassword">Anmelden</v-btn>
+          <v-btn rounded size="large" variant="flat" color="teal-darken-3" @click="signInWithPassword">Login</v-btn>
           <!-- register -->
           <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2">
             Neu hier? Registrieren

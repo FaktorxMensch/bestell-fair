@@ -19,11 +19,6 @@ const signUp = async () => {
 const accepted = ref(false)
 </script>
 <template>
-  <v-app-bar app>
-    <v-toolbar-title>
-      <h1 class="text-4xl text-teal-900">FairDish</h1>
-    </v-toolbar-title>
-  </v-app-bar>
   <v-main class="flex">
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">
