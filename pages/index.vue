@@ -4,7 +4,7 @@
 
     <!-- HERO -->
     <div class="text-800 flex flex-col md:flex-row">
-      <div class="col-12 flex-1 md:col-6 p-8 md:text-left flex flex-col justify-center md:items-start">
+      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
           <span class="block text-6xl font-bold mb-1">Faire Vorbestellung</span>
           <div class="text-4xl font-bold mb-7">Vorbestellen ohne Provision zu zahlen</div>
@@ -21,8 +21,8 @@
           </div>
         </section>
       </div>
-      <div class="col-12 flex-1 md:col-6 overflow-hidden">
-        <img src="/partner/draw_authentication_fs1.jpeg" alt="Image" class="md:ml-auto block"
+      <div class="col-12 flex-1 md:col-6 overflow-hidden hidden lg:block">
+        <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto block"
              style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);min-height: calc(100vh - 64px);"/>
       </div>
     </div>
@@ -34,9 +34,8 @@
         <span class="text-gray-900">Eine Plattform, </span>
         <span class="text-teal-800">viele Vorteile</span>
       </div>
-      <div class="text-gray-700 lg:text-2xl text-lg mb-8">Wir entwickeln unsere Plattform stetig weiter, um mehr Ideen
-        zu
-        verwirklichen.
+      <div class="text-gray-700 lg:text-2xl text-lg mb-8">Wir entwickeln unsere Plattform stetig weiter, um für alle
+        Beteiligten einen Mehrwert zu schaffen.
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-16 lg:max-w-6xl mx-auto">
@@ -96,13 +95,16 @@
       </div>
     </div>
 
+    <!--    <img src="/landing/draw_authentication_fs2.jpeg" alt="Image" class="w-full object-cover" style="height: 500px;"/>-->
 
     <!-- PRICING -->
 
     <div class="bg-gray-200 px-4 py-16 lg:px-24">
-      <div class="text-gray-900 font-bold text-6xl mb-4 text-center">Unsere Preise</div>
-      <div class="text-gray-700 text-xl mb-6 text-center leading-relaxed">
-        Wir bieten drei verschiedene Pakete an, um für alle einen fairen Preis zu gewährleisten.
+      <div class="text-gray-900 font-bold text-6xl mb-4 text-center">Preise</div>
+      <div class="text-gray-700 lg:text-2xl text-lg mb-8 text-center">
+        Wir bieten drei verschiedene Pakete an, um für alle einen fairen und bezahlbaren Preis zu ermöglichen.
+        <br/>
+        *Zukünftige Funktionen
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:max-w-6xl mx-auto">
@@ -111,11 +113,11 @@
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
               <div class="text-gray-900 font-medium text-xl mb-2">Supporti</div>
-              <div class="text-gray-600">Alle Funktionen</div>
+              <div class="text-gray-600">Alle Funktionen, unterstützt andere Partner</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">22€</span>
-                <span class="ml-2 text-gray-600">pro Monat</span>
+                <span class="ml-2 text-gray-600">pro Monat + freiwillig Soli-Beitrag</span>
               </div>
               <hr class="my-3 border-t border-gray-300"/>
               <ul class="list-none p-0 m-0 flex-grow">
@@ -157,11 +159,11 @@
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
               <div class="text-gray-900 font-medium text-xl mb-2">Supporti</div>
-              <div class="text-gray-600">Alle Funktionen</div>
+              <div class="text-gray-600">Alle Funktionen, unterstützt andere Partner</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">220€</span>
-                <span class="ml-2 text-gray-600">pro Jahr</span>
+                <span class="ml-2 text-gray-600">pro Jahr + freiwillig Soli-Beitrag</span>
               </div>
               <hr class="my-3 border-t border-gray-300"/>
               <ul class="list-none p-0 m-0 flex-grow">
@@ -203,11 +205,11 @@
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
               <div class="text-gray-900 font-medium text-xl mb-2">Soli-Plan</div>
-              <div class="text-gray-600">Alle Funktionen (Preis-Differenz wird vom Soli-Topf gezahlt)</div>
+              <div class="text-gray-600">Alle Funktionen</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
-                <span class="font-bold text-2xl text-gray-900">85€</span>
-                <span class="ml-2 text-gray-600">pro Jahr, bitte sprich uns per E-mail an.</span>
+                <span class="font-bold text-2xl text-gray-900">110€</span>
+                <span class="ml-2 text-gray-600">pro Jahr (Differenz aus Soli-Topf)</span>
               </div>
               <hr class="my-3 border-t border-gray-300"/>
               <ul class="list-none p-0 m-0 flex-grow">
@@ -245,13 +247,13 @@
     </div>
 
 
-
   </v-main>
 </template>
 <style>
 footer a:hover {
   text-decoration: underline;
 }
+
 footer a::after {
   content: ' ›';
 }

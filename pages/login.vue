@@ -20,7 +20,7 @@ watch(user, (newUser) => {
 })
 </script>
 <template>
-  <v-main class="flex">
+  <v-main class="flex py-12 mt-20">
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">
         <img

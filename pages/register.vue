@@ -19,7 +19,7 @@ const signUp = async () => {
 const accepted = ref(false)
 </script>
 <template>
-  <v-main class="flex">
+  <v-main class="flex py-12 mt-20">
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">
         <img
@@ -36,7 +36,8 @@ const accepted = ref(false)
                         min-length="6"
                         :error-messages="password.length>1 && password.length<6 ? ['Passwort muss mindestens 6 Zeichen lang sein.'] : []"
           />
-          <v-text-field rounded variant="outlined" label="Passwort wiederholen" type="password" v-model="password_repeat"
+          <v-text-field rounded variant="outlined" label="Passwort wiederholen" type="password"
+                        v-model="password_repeat"
                         :error-messages="password !== password_repeat && password_repeat.length>1 ? ['Passwörter stimmen nicht überein.'] : []"
           />
           <v-checkbox label="Ich akzeptiere die AGB und Datenschutzbestimmungen." v-model="accepted"/>
