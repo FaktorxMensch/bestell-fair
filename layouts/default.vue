@@ -11,7 +11,7 @@
         <v-spacer/>
         <div class="flex gap-2 mx-2 hidden md:flex">
           <v-btn rounded size="large" variant="flat" href="/login">Login</v-btn>
-          <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/register">Jetzt Partner werden</v-btn>
+          <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner werden</v-btn>
         </div>
       </v-app-bar>
 
