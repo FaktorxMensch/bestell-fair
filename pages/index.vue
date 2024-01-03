@@ -6,8 +6,8 @@
     <div class="text-800 flex flex-col md:flex-row">
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
-          <span class="block text-6xl font-bold mb-1">Faire Vorbestellung</span>
-          <div class="text-4xl font-bold mb-7">Vorbestellen ohne Provision zu zahlen</div>
+          <span class="block text-4xl sm:text-6xl font-bold mb-1">Faire Vorbestellung</span>
+          <div class="text-2xl sm:text-4xl font-bold mb-7">Vorbestellen ohne Provision zu zahlen</div>
           <p class="mt-0 mb-5 text-xl text-700 line-height-3">
             Unser Team hat es sich zur Aufgabe gemacht, die Gastronomie in der Dresdner Neustadt zu unterstützen.
             Wir bieten eine Plattform, auf der du deine Lieblingsgerichte vorbestellen kannst, um sie dann bei deinem
