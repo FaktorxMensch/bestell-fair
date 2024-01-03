@@ -5393,6 +5393,11 @@ svgo@^3.0.5:
     csso "5.0.5"
     picocolors "^1.0.0"
 
+sweetalert2@^11.10.2:
+  version "11.10.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.10.2.tgz#084fba88028e7ab5667ceed00e4201dda7d25294"
+  integrity sha512-BYlIxGw6OF9Rw2z1wlnh1U+fvHHkvtg4BGyimV9nZxQRGvCBfx9uonxgwuYpJuYqCtM+2W1KOm8iMIEb/2v7Hg==
+
 tailwind-config-viewer@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/tailwind-config-viewer/-/tailwind-config-viewer-1.7.3.tgz#3e448cad29545aa31613a5d82c61798ee93c4e88"

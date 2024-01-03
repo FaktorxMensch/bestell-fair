@@ -6,5 +6,12 @@ export default defineNuxtConfig({
         redirectOptions: {
             exclude: ["/", "/login", "/register", "/kontakt", "/partner-werden"],
         }
-    }
+    },
+    imports: {
+        presets: [{
+            // run yarn add sweetalert2
+            from: 'sweetalert2',
+            imports: [{name: 'default', as: 'Swal'}],
+        }]
+    },
 })
