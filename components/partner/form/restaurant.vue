@@ -1,14 +1,43 @@
 <template>
   <div>
-    <v-form @submit.prevent="addElement">
+    <v-form @submit.prevent="addElement" class="mt-12">
       <!--      <v-container>-->
-      <v-text-field variant="outlined" v-model="formData.name" label="Name"></v-text-field>
-      <v-text-field variant="outlined" v-model="formData.location" label="Location"></v-text-field>
-      <v-textarea variant="outlined" v-model="formData.description" label="Description"></v-textarea>
-      <v-text-field variant="outlined" v-model="formData.contact_email" label="Contact Email"></v-text-field>
-      <v-text-field variant="outlined" v-model="formData.contact_phone" label="Contact Phone"></v-text-field>
-      <v-text-field variant="outlined" v-model="formData.website" label="Website"></v-text-field>
-      <v-btn type="submit" color="primary">Submit</v-btn>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field rounded
+                        class="-mt-6"
+                        variant="outlined" v-model="formData.name" label="Name des Restaurants"></v-text-field>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field rounded variant="outlined" v-model="formData.contact_name"
+                        class="-mt-6"
+                        label="Name der Ansprechperson"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field rounded variant="outlined" v-model="formData.contact_email"
+                        class="-mt-6"
+                        label="Kontakt E-Mail"></v-text-field>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field rounded variant="outlined" v-model="formData.contact_phone"
+                        class="-mt-6"
+                        label="Kontakt Telefon"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-text-field rounded variant="outlined" v-model="formData.website"
+                    label="Webseite (falls vorhanden)"></v-text-field>
+      <v-text-field rounded variant="outlined" v-model="formData.location"
+                    label="Adresse (Strasse, PLZ, Ort)"></v-text-field>
+      <v-textarea
+          rounded
+          variant="outlined" v-model="formData.description" label="Beschreibung"></v-textarea>
+      <v-btn rounded type="submit" color="teal" size="large"
+             class="w-full"
+             :disabled="!formData.name || !formData.location || !formData.description || !formData.contact_email || !formData.contact_phone"
+      >Anfrage senden
+      </v-btn>
       <!--      </v-container>-->
     </v-form>
 
@@ -21,6 +50,7 @@ const formData = ref({
   name: '',
   location: '',
   description: '',
+  contact_name: '',
   contact_email: '',
   contact_phone: '',
   website: '',
