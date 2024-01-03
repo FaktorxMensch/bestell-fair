@@ -29,7 +29,7 @@ const accepted = ref(false)
       </v-col>
       <v-col cols="12" md="6" class="flex flex-col justify-center py-12 mt-20 min-h-48">
         <v-form @submit.prevent="signUp" class="ms-8 me-16">
-          <h1 class="text-4xl mb-4">Willkommen bei <span class="text-teal-900">FairDish</span></h1>
+          <h1 class="text-4xl mb-4">Willkommen bei <span class="text-teal-900">Bestell Fair!</span></h1>
           <p class="text-lg mb-8">Registriere dich jetzt als Partner und profitiere von den Vorteilen.</p>
           <v-text-field rounded autofocus="" variant="outlined" label="E-Mail" v-model="email" type="email"/>
           <v-text-field rounded variant="outlined" label="Passwort" type="password" v-model="password"
