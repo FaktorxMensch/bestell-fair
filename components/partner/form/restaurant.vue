@@ -34,8 +34,9 @@
           rounded
           variant="outlined" v-model="formData.description" label="Beschreibung"></v-textarea>
       <v-btn rounded type="submit" color="teal" size="large"
+             variant="flat"
              class="w-full"
-             :disabled="!formData.name || !formData.location || !formData.description || !formData.contact_email || !formData.contact_phone"
+             :isabled="!formData.name || !formData.location || !formData.description || !formData.contact_email || !formData.contact_phone"
       >Anfrage senden
       </v-btn>
       <!--      </v-container>-->
@@ -55,6 +56,8 @@ const formData = ref({
   contact_phone: '',
   website: '',
 })
+
+const emit = defineEmits(['done'])
 const addElement = async () => {
   const {data, error} = await supabase
       .from('restaurants')
@@ -65,8 +68,23 @@ const addElement = async () => {
         }
       ])
       .select('*')
-  if (error) console.log(error)
-  else {
+  if (error) {
+    console.log(error)
+    Swal.fire({
+      title: 'Fehler!',
+      text: 'Bitte versuche es später noch einmal. '+error.message,
+      icon: 'error',
+      confirmButtonText: 'Schließen'
+    })
+  } else {
+    await Swal.fire({
+      title: 'Danke für Deine Anfrage!',
+      text: 'Wir melden uns bei Dir.',
+      icon: 'success',
+      confirmButtonText: 'Schließen'
+    })
+    // emit done event
+    emit('done')
   }
 }
 
