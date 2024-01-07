@@ -28,7 +28,6 @@
     </div>
 
     <!-- SCREENSHOTS -->
-
     <div class="bg-gray-100 px-4 py-8 md:px-6 lg:px-8 text-center">
       <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
         <span class="text-gray-900">Schnell erklärt, </span>
@@ -76,9 +75,27 @@
 
     </div>
 
+    <div class="bg-white flex  flex-col md:flex-row">
+      <!-- badge "In kürze verfügbar" -->
+      <div class="col-12 flex-1 md:col-6 overflow-hidden hidden lg:block">
+        <img src="/landing/table_qr.jpeg" alt="Image" class="md:ml-auto block" style="clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
+      </div>
+      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
+        <section class="flex flex-col lg:px-12 gap-2">
+          <div class="bg-teal-800 text-white text-center w-56 rounded-full py-2 px-4 mb-4">In Kürze verfügbar</div>
+          <span class="block text-4xl sm:text-6xl font-bold mb-1">Vom Tisch bestellen</span>
+          <div class="text-2xl sm:text-4xl font-bold mb-7">Bestelle direkt am Tisch ohne Speisekarte</div>
+          <p class="mt-0 mb-5 text-xl text-700 line-height-3">
+            Wir entwickeln gerade eine Funktion, mit der du direkt am Tisch bestellen kannst. Dazu musst du nur den
+            QR-Code auf dem Tisch scannen und kannst dann direkt deine Bestellung aufgeben. So kannst du ganz einfach
+            deine Lieblingsgerichte vorbestellen und dann bei deinem Lieblingsrestaurant abholen.
+          </p>
+        </section>
+      </div>
+    </div>
 
     <!-- FEATURES -->
-    <div class="px-4 py-8 md:px-6 lg:px-8 text-center">
+    <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-neutral-100">
       <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
         <span class="text-gray-900">Eine Plattform, </span>
         <span class="text-teal-800">viele Vorteile</span>
