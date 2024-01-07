@@ -78,7 +78,7 @@
     <div class="bg-white flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex-1 md:col-6 overflow-hidden hidden lg:block">
-        <img src="/landing/table_qr.jpeg" alt="Image" class="md:ml-auto block" style="clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
+        <img src="/landing/table_qr.jpeg" alt="Image" class="md:ml-auto block" style="clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
       </div>
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
