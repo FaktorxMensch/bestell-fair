@@ -27,9 +27,58 @@
       </div>
     </div>
 
+    <!-- SCREENSHOTS -->
+
+    <div class="bg-gray-100 px-4 py-8 md:px-6 lg:px-8 text-center">
+      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
+        <span class="text-gray-900">Schnell erklärt, </span>
+        <span class="text-teal-800"> was wir tun</span>
+      </div>
+      <div class="text-gray-700 max-w-6xl my-4 mx-auto lg:text-xl text-lg mb-8">Wir haben eine Plattform entwickelt, die
+        es
+        dir ermöglicht,
+        deine Lieblingsgerichte vorzubestellen und dann bei deinem Lieblingsrestaurant abzuholen. Dabei verzichten wir
+        auf eine Provision, sodass die Restaurants den vollen Betrag erhalten.
+      </div>
+
+      <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-8 text-gray-900">So wird bestellt:</div>
+      <!-- Beispiel Bild 1 -->
+      <div class="examples">
+        <div>
+          <img src="/landing/screenshots/img7.jpeg" alt="Image"/>
+          <h2>1. Direkte Webseiten Integration</h2>
+        </div>
+        <div>
+          <img src="/landing/screenshots/img6.jpeg" alt="Image"/>
+          <h2>2. Speisekarte mit Vorbestellung</h2>
+        </div>
+        <div>
+          <img src="/landing/screenshots/img5.jpeg" alt="Image"/>
+          <h2>3. Bestellung abschicken</h2>
+        </div>
+        <div>
+          <img src="/landing/screenshots/img4.jpeg" alt="Image"/>
+          <h2>4. Zusammenfassung</h2>
+        </div>
+      </div>
+
+      <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-8 text-gray-900">Das passiert im Hintergrund:</div>
+      <div class="examples">
+        <div>
+          <img src="/landing/screenshots/img3.jpeg" alt="Image"/>
+          <h2>1. Neue Bestellung gemeldet</h2>
+        </div>
+        <div>
+          <img src="/landing/screenshots/img2.jpeg" alt="Image"/>
+          <h2>2. Bestellung wird zur Abholung bereitet</h2>
+        </div>
+      </div>
+
+    </div>
+
 
     <!-- FEATURES -->
-    <div class="bg-gray-100 px-4 py-8 md:px-6 lg:px-8 text-center">
+    <div class="px-4 py-8 md:px-6 lg:px-8 text-center">
       <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
         <span class="text-gray-900">Eine Plattform, </span>
         <span class="text-teal-800">viele Vorteile</span>
@@ -147,7 +196,8 @@
                 </li>
               </ul>
               <hr class="mb-3 border-t border-gray-300 mt-auto"/>
-              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner werden
+              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner
+                werden
               </v-btn>
             </div>
           </div>
@@ -193,7 +243,8 @@
                 </li>
               </ul>
               <hr class="mb-3 border-t border-gray-300 mt-auto"/>
-              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner werden
+              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner
+                werden
               </v-btn>
             </div>
           </div>
@@ -257,6 +308,55 @@ footer a:hover {
 footer a::after {
   content: ' ›';
 }
+
+/* .examples immer links das bild rechts der text. bzw auf mobilen geräten alles undereinander */
+.examples {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
+.examples div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 300px;
+  margin: 10px;
+}
+
+.examples div img {
+  width: 350px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.examples div h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .examples {
+    flex-direction: column;
+  }
+
+  .examples div {
+    width: 100%;
+  }
+
+  .examples div img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 </style>
 <script setup lang="ts">
 </script>
