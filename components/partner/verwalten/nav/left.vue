@@ -1,19 +1,20 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app clipped>
-    <v-list dense>
-      <v-list-tile v-for="item in items" :key="item.title" @click="">
-        <v-list-tile-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+  <v-navigation-drawer
+      theme="dark"
+  >
+    <v-list nav>
+      <v-list-item prepend-icon="mdi-email" title="Inbox" value="inbox"></v-list-item>
+      <v-list-item prepend-icon="mdi-account-supervisor-circle" title="Supervisors" value="supervisors"></v-list-item>
+      <v-list-item prepend-icon="mdi-clock-start" title="Clock-in" value="clockin"></v-list-item>
+      <v-list-item prepend-icon="mdi-star" title="Starred" value="starred"></v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-spacer/>
+      <v-list-item prepend-icon="mdi-account-supervisor-circle" title="Supervisors" value="supervisors"></v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-footer app fixed>
-    <span>&copy; 2017 <a href="https://faktorxmensch.com" target="_blank">Faktor&times;Mensch</a></span>
-  </v-footer>
+
 </template>
 <script setup>
 const items = [

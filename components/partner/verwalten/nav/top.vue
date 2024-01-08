@@ -1,6 +1,9 @@
 <template>
-<v-toolbar app fixed clipped-left>
-  <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-  <v-toolbar-title>Application</v-toolbar-title>
-</v-toolbar>
+  <v-app-bar app color="teal-darken-4" dark>
+    <v-toolbar-title>Partner Verwalten</v-toolbar-title>
+    <v-spacer/>
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+  </v-app-bar>
 </template>
