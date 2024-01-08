@@ -6,7 +6,13 @@
         + Einsteluge
         + Zahlung
         + Accousts
-        → Infororationeos</li>
+        → Infororationeos
+      </li>
     </ul>
   </div>
 </template>
+<script setup>
+definePageMeta({
+  layout: 'partner-verwalten',
+})
+</script>
