@@ -2,7 +2,7 @@
 const user = useSupabaseUser()
 watch(user, () => {
   if (user.value) {
-    return navigateTo('/')
+    return navigateTo('/login/?confirmed=true')
   }
 }, { immediate: true })
 

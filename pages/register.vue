@@ -12,9 +12,27 @@ const signUp = async () => {
       data: {
         role: 'partner',
       },
+      emailRedirectTo: 'http://localhost:3000/confirm/?redirected=true&email=' + email.value,
     },
   })
-  if (error) console.log(error)
+  if (error) {
+    await Swal.fire({
+      title: 'Fehler',
+      text: error,
+      icon: 'error',
+      confirmButtonText: 'OK',
+    })
+  } else {
+    await Swal.fire({
+      title: 'Erfolgreich registriert',
+      text: 'Du hast dich erfolgreich registriert. Bitte bestätige deine E-Mail Adresse.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+    })
+    await supabase.auth.signOut()
+    const router = useRouter()
+    await router.push('/login')
+  }
 }
 const accepted = ref(false)
 </script>

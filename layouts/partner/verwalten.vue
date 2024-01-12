@@ -10,8 +10,6 @@
     <partner-verwalten-nav-footer/>
   </v-app>
 </template>
-<script setup lang="ts">
-</script>
 <style>
 #partner-verwalten main.v-main {
   background: radial-gradient(

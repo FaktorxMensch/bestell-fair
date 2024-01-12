@@ -54,13 +54,7 @@ h1 {
   font-family: 'Abril Fatface', 'Times new roman';
   font-weight: 500;
 }
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
-  background-color: #008e6d;
-  border-color: #008e6d;
-}
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
-  box-shadow: 0 0 0 4px rgba(0, 142, 109, 0.25);
-}
+
 </style>
 <script setup lang="ts">
 </script>

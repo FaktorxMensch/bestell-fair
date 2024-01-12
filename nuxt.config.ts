@@ -4,8 +4,7 @@ export default defineNuxtConfig({
     modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/supabase", "nuxt-vuetify"],
     supabase: {
         redirectOptions: {
-            exclude: ["/", "/login", "/register", "/kontakt", "/partner-werden","/partner/verwalten",
-                "/partner/verwalten/**"],
+            exclude: ["/", "/login", "/register", "/kontakt", "/partner-werden","/confirm"],
         }
     },
     imports: {
@@ -15,4 +14,5 @@ export default defineNuxtConfig({
             imports: [{name: 'default', as: 'Swal'}],
         }]
     },
+    css: ['~/assets/css/main.sass']
 })
