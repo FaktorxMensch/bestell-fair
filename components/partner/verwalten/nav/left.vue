@@ -4,8 +4,7 @@
   >
     <v-list nav>
       <v-list-item v-for="item in items"
-                   link
-                   :href="`/partner/verwalten/${item.title.toLowerCase()}`"
+                   :to="`/partner/verwalten/${item.title.toLowerCase()}`"
                    :prepend-icon="item.icon" :key="item.title" :title="item.title"></v-list-item>
     </v-list>
   </v-navigation-drawer>
