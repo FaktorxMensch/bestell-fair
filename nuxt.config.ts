@@ -14,5 +14,6 @@ export default defineNuxtConfig({
             imports: [{name: 'default', as: 'Swal'}],
         }]
     },
-    css: ['~/assets/css/main.sass']
+    css: ['~/assets/css/main.sass'],
+    ssr: false,
 })
