@@ -29,6 +29,7 @@ const signInWithPassword = async () => {
 const user = useSupabaseUser()
 watch(user, (newUser) => {
   if (newUser) {
+    // gehe wieder zur ursprünglichen Seite vor dem login
     return navigateTo('/partner/verwalten')
   }
 }, {immediate: true})
