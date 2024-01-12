@@ -22,18 +22,16 @@ const signInWithPassword = async () => {
     })
     error.value = message
   } else {
-    const router = useRouter()
-    router.push('/partner/verwalten')
+    return navigateTo('/partner/verwalten')
   }
 }
 
 const user = useSupabaseUser()
 watch(user, (newUser) => {
   if (newUser) {
-    const router = useRouter()
-    router.push('/partner/verwalten')
+    return navigateTo('/partner/verwalten')
   }
-})
+}, {immediate: true})
 const error = ref('')
 </script>
 <template>
@@ -52,7 +50,9 @@ const error = ref('')
           <v-alert type="error" v-if="error" class="mb-4">{{ error }}</v-alert>
           <v-text-field rounded autofocus="" variant="outlined" label="E-Mail" v-model="email" type="email"/>
           <v-text-field rounded variant="outlined" label="Passwort" type="password" v-model="password"/>
-          <v-btn rounded size="large" type="submit" variant="flat" color="teal-darken-3" @click="signInWithPassword">Login</v-btn>
+          <v-btn rounded size="large" type="submit" variant="flat" color="teal-darken-3" @click="signInWithPassword">
+            Login
+          </v-btn>
           <!-- register -->
           <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2">
             Neu hier? Registrieren
