@@ -18,3 +18,8 @@ const items = [
 ]
 const drawer = ref(true)
 </script>
+<style>
+.v-navigation-drawer .v-list-item-title {
+  @apply text-sm;
+}
+</style>
