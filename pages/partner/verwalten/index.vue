@@ -12,7 +12,5 @@
   </div>
 </template>
 <script setup>
-definePageMeta({
-  layout: 'partner-verwalten',
-})
+definePageMeta({layout: 'partner-verwalten'})
 </script>
