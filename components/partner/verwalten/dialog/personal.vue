@@ -4,7 +4,7 @@
       <v-btn color="teal-darken-3" prepend-icon="mdi-account-plus" v-bind="props"> Neues Konto erstellen</v-btn>
     </template>
     <v-card>
-      <v-card-title> Neues Konto erstellen</v-card-title>
+      <v-card-title><h2 class="text-3xl mt-3">Neues Konto erstellen</h2></v-card-title>
       <v-card-subtitle> Erstelle ein neues Konto für dein Personal mit dem Bestellungen angenommen werden können.
       </v-card-subtitle>
       <v-card-text>
