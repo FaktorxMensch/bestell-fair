@@ -1,24 +1,28 @@
 <template>
   <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ props }">
-      <v-btn color="teal-darken-3" prepend-icon="mdi-account-plus" flat v-bind="props"> Neues Konto erstellen</v-btn>
+      <v-btn color="teal-darken-3" prepend-icon="mdi-account-plus" v-bind="props"> Neues Konto erstellen</v-btn>
     </template>
     <v-card>
       <v-card-title> Neues Konto erstellen</v-card-title>
       <v-card-subtitle> Erstelle ein neues Konto für dein Personal mit dem Bestellungen angenommen werden können.
       </v-card-subtitle>
       <v-card-text>
-        <v-form @submit.prevent="createAccount">
+        <v-form @submit.prevent="createAccount" class="flex flex-col gap-2">
           <v-text-field v-model="form.name" label="Name" required
+                        rounded variant="outlined"
                         :rules="[() => form.name.length >= 3 || 'Name muss mindestens 3 Zeichen lang sein']"
           ></v-text-field>
           <v-text-field v-model="form.email" label="E-Mail" required
+                        rounded variant="outlined"
                         :rules="[() => /.+@.+\..+/.test(form.email) || 'E-Mail ist ungültig']"
           ></v-text-field>
           <v-text-field v-model="form.password" label="Passwort" required type="password"
+                        rounded variant="outlined"
                         :rules="[() => form.password.length >= 8 || 'Passwort muss mindestens 8 Zeichen lang sein']"
           ></v-text-field>
           <v-text-field v-model="form.passwordConfirm" label="Passwort bestätigen" required
+                        rounded variant="outlined"
                         type="password"
                         :rules="[() => form.password === form.passwordConfirm || 'Passwörter stimmen nicht überein']"
           ></v-text-field>
