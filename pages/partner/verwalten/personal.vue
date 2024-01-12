@@ -1,9 +1,18 @@
 <template>
+  <div class="flex items-end">
+    <div>
+      <h1 class="text-3xl font-bold">Personal</h1>
+      <p class="text-gray-500">Verwalte hier die Konten deines Personals, mit denen Bestellungen angenommen werden
+        können.</p>
+    </div>
+    <v-spacer/>
+    <partner-verwalten-dialog-personal/>
+  </div>
   <v-card>
-    <v-card-title>Persönliche Daten</v-card-title>
-    <v-card-text>
-      <v-card v-for="i in []"/>
-    </v-card-text>
+    <partner-verwalten-table-personal/>
+  </v-card>
+  <v-card>
+    <partner-verwalten-form-personal/>
   </v-card>
 </template>
 <script setup>
