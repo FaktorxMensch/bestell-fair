@@ -2,8 +2,11 @@
   <div class="flex items-end">
     <div>
       <h1 class="text-3xl font-bold">Personal</h1>
-      <p class="text-gray-500">Verwalte hier die Konten deines Personals, mit denen Bestellungen angenommen werden
-        können.</p>
+      <p class="text-gray-500">
+        <v-chip color="teal" text-color="white">Neu</v-chip>
+        Verwalte hier die Konten deines Personals, mit denen Bestellungen angenommen werden
+        können.
+      </p>
     </div>
     <v-spacer/>
     <partner-verwalten-dialog-personal/>

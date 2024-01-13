@@ -3,7 +3,6 @@
     <v-toolbar-title>
       <div class="flex items-end gap-2">
         <h1 class="text-3xl">Bestell Fair!</h1>
-        <!--        <span>Partner</span>-->
       </div>
     </v-toolbar-title>
     <v-spacer/>

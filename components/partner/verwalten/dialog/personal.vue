@@ -5,30 +5,24 @@
     </template>
     <v-card>
       <v-card-title><h2 class="text-3xl mt-3">Neues Konto erstellen</h2></v-card-title>
-      <v-card-subtitle> Erstelle ein neues Konto für dein Personal mit dem Bestellungen angenommen werden können.
+      <v-card-subtitle>Mit diesem Konto kann Dein Personal Bestellungen annehmen.
       </v-card-subtitle>
-      <v-card-text>
-        <v-form @submit.prevent="createAccount" class="flex flex-col gap-2">
+        <v-form @submit.prevent="createAccount" class="flex flex-col gap-2 mx-4 mt-6">
           <v-text-field v-model="form.name" label="Name" required
-                        rounded variant="outlined"
                         :rules="[() => form.name.length >= 3 || 'Name muss mindestens 3 Zeichen lang sein']"
           ></v-text-field>
           <v-text-field v-model="form.email" label="E-Mail" required
-                        rounded variant="outlined"
                         :rules="[() => /.+@.+\..+/.test(form.email) || 'E-Mail ist ungültig']"
           ></v-text-field>
           <v-text-field v-model="form.password" label="Passwort" required type="password"
-                        rounded variant="outlined"
                         :rules="[() => form.password.length >= 8 || 'Passwort muss mindestens 8 Zeichen lang sein']"
           ></v-text-field>
           <v-text-field v-model="form.passwordConfirm" label="Passwort bestätigen" required
-                        rounded variant="outlined"
                         type="password"
                         :rules="[() => form.password === form.passwordConfirm || 'Passwörter stimmen nicht überein']"
           ></v-text-field>
           <v-alert type="error" v-if="errorMessage">{{ errorMessage }}</v-alert>
         </v-form>
-      </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn @click="dialog = false"> Abbrechen</v-btn>
@@ -55,10 +49,12 @@ const createAccount = () => {
   supabase.auth.signUp({
     email: form.value.email,
     password: form.value.password,
-    data: {
-      name: form.value.name,
-      role: 'personal',
-      partner_id: user.value.id
+    options: {
+      data: {
+        name: form.value.name,
+        role: 'personal',
+        partner_id: user.value.id
+      }
     }
   }).then(async ({error}) => {
     if (error) {
