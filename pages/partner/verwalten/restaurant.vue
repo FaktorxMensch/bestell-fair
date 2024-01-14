@@ -1,10 +1,5 @@
 <template>
-  <v-card>
-    <v-card-title>Deine Restaurants</v-card-title>
-    <v-card-text>
-      <v-card v-for="i in []"/>
-    </v-card-text>
-  </v-card>
+    <partner-verwalten-form-restaurant/>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})
