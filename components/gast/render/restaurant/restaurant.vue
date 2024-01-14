@@ -26,13 +26,12 @@
 
 
     <div class="bg-gray-100 p-2">
-      <component :is="kontakt" :restaurant="restaurant"/>
+      <component :is="tabs[activeTab].component" :restaurant="restaurant"/>
     </div>
 
   </v-card>
 </template>
 <script setup>
-const kontakt = resolveComponent('gast-render-restaurant-tab-kontakt')
 const props = defineProps({
   restaurant: {
     type: Object,
@@ -40,10 +39,10 @@ const props = defineProps({
   }
 })
 const tabs = ref([
-  {name: 'Übersicht', component: 'gast-render-restaurant-uebersicht', component: 'kontakt'},
-  {name: 'Speisekarte', component: 'gast-render-restaurant-speisekarte', component: 'kontakt'},
-  {name: 'Öffnungszeiten', component: 'gast-render-restaurant-oeffnungszeiten', component: 'kontakt'},
-  {name: 'Kontakt', component: 'gast-render-restaurant-kontakt', component: 'kontakt'},
+  // {name: 'Übersicht', component: resolveComponent('gast-render-restaurant-tab-overview')},
+  {name: 'Speisekarte', component: resolveComponent('gast-render-restaurant-tab-products')},
+  // {name: 'Öffnungszeiten', component: resolveComponent('gast-render-restaurant-tab-opening-hours')},
+  {name: 'Kontakt', component: resolveComponent('gast-render-restaurant-tab-contact')},
 ])
 const activeTab = ref(0)
 </script>
