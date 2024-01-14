@@ -1,118 +1,119 @@
-{
-    "name":"Schmidt",
-    "image":"",
-    "description":"Ein Schmidt zum selber bauen",
-    "price":0,
-    "category":"",
-    "optionGroups":[ // optional
-        {
-            "name": "Art",
-            "mandatory": true,
-            "multiple": false,
-            "default": 0, //optional, wenn optionGroup nicht mandatory
-            "options": [{
-              "name": "Dicker Schmidt",
-              "price": 7.80,
-              "allergens": [
-                "gluten"
-              ],
-              "additives": [
-                ""
-              ],
-              "ingredients": [
-                ""
-              ]
-
-            },
-            {
-              "name": "Langer Schmidt",
-              "price": 8.40,
-              "allergens": [
-                "gluten"
-              ],
-              "additives": [
-                ""
-              ],
-              "ingredients": [
-                ""
-              ]
-            },
-            {
-              "name": "Kartoffel Schmidt",
-              "price": 8.60,
-              "allergens": [
-                ""
-              ],
-              "additives": [
-                ""
-              ],
-              "ingredients": [
-                ""
-              ]
-            }
+[
+  {
+    "name": "Schmidt",
+    "image": "",
+    "description": "Ein Schmidt zum selber bauen",
+    "price": 0,
+    "optionGroups": [
+      // optional
+      {
+        "name": "Art",
+        "mandatory": true,
+        "multiple": false,
+        "default": 7.80,
+        //optional, wenn optionGroup nicht mandatory
+        "options": [
+          {
+            "name": "Dicker Schmidt",
+            "price": 0,
+            "allergens": [
+              "gluten"
+            ],
+            "additives": [
+              ""
+            ],
+            "ingredients": [
+              ""
             ]
-            
-        },
-        {
-            "name": "Füllung",
-            "mandatory": true,
-            "multiple": false,
-            "default": 0, //optional, wenn optionGroup nicht mandatory
-            "options": [{
-              "name": "Seitan vom Spieß",
-              "price": 1.00,
-              "allergens": [
-                "gluten"
-              ],
-              "additives": [
-                ""
-              ],
-              "ingredients": [
-                ""
-              ]
-
-            },
-            {
-              "name": "Sojagyros",
-              "price": 1.00,
-              "allergens": [
-                "gluten"
-              ],
-              "additives": [
-                ""
-              ],
-              "ingredients": [
-                ""
-              ]
-            },
-            {
-              "name": "Antipasti",
-              "price": 1.00,
-              "allergens": [
-                ""
-              ],
-              "additives": [
-                ""
-              ],
-              "ingredients": [
-                ""
-              ]
-            }
+          },
+          {
+            "name": "Langer Schmidt",
+            "price": 0.60,
+            "allergens": [
+              "gluten"
+            ],
+            "additives": [
+              ""
+            ],
+            "ingredients": [
+              ""
             ]
-        }
+          },
+          {
+            "name": "Kartoffel Schmidt",
+            "price": 0.80,
+            "allergens": [
+              ""
+            ],
+            "additives": [
+              ""
+            ],
+            "ingredients": [
+              ""
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Füllung",
+        "mandatory": true,
+        "multiple": false,
+        "default": 0,
+        //optional, wenn optionGroup nicht mandatory
+        "options": [
+          {
+            "name": "Seitan vom Spieß",
+            "price": 1.00,
+            "allergens": [
+              "gluten"
+            ],
+            "additives": [
+              ""
+            ],
+            "ingredients": [
+              ""
+            ]
+          },
+          {
+            "name": "Sojagyros",
+            "price": 1.00,
+            "allergens": [
+              "gluten"
+            ],
+            "additives": [
+              ""
+            ],
+            "ingredients": [
+              ""
+            ]
+          },
+          {
+            "name": "Antipasti",
+            "price": 1.00,
+            "allergens": [
+              ""
+            ],
+            "additives": [
+              ""
+            ],
+            "ingredients": [
+              ""
+            ]
+          }
+        ]
+      }
     ],
     "ingredients": [
-        ""
+      ""
     ],
     "allergens": [
-        ""
+      ""
     ],
     "additives": [
-        ""
+      ""
     ],
     "tags": [
-        ""
+      ""
     ]
-    
-
-}
+  }
+]
