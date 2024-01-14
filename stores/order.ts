@@ -53,6 +53,7 @@ export const useOrderStore = defineStore('order', {
                 restaurant_id: this.restaurant_id,
                 order_fields: this.order_fields,
                 products: this.products,
+                status: 'new',
             })
             if (error) {
                 console.error(error)
