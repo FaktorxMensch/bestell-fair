@@ -57,8 +57,18 @@ export const useOrderStore = defineStore('order', {
             })
             if (error) {
                 console.error(error)
+                await Swal.fire({
+                    title: 'Fehler beim Bestellen',
+                    text: 'Bitte versuche es später noch einmal.',
+                    icon: 'error',
+                })
                 return
             }
+            await Swal.fire({
+                title: 'Bestellung aufgegeben',
+                text: 'Deine Bestellung wurde erfolgreich aufgegeben.',
+                icon: 'success',
+            })
             return data[0].id
         },
     },
