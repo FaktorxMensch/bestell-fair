@@ -55,9 +55,8 @@ const error = ref('')
             Login
           </v-btn>
           <!-- register -->
-          <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2">
-            Neu hier? Registrieren
-          </v-btn>
+<!--          <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2"> Neu hier? Registrieren </v-btn>-->
+          <v-btn rounded size="large" variant="plain" @click="$router.push('/partner-werden')" class="normal-case ms-2"> Neu hier? Partner werden </v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -67,6 +66,5 @@ const error = ref('')
 <style>
 .v-col-md-6 {
   background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.9) 90%, rgb(255, 255, 255) 100%), url('/partner/e.png');
-
 }
 </style>

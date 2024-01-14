@@ -10,7 +10,8 @@
         <!-- have a btn here -->
         <v-spacer/>
         <div class="flex gap-2 mx-2 hidden md:flex">
-          <v-btn rounded size="large" variant="flat" href="/login">Login</v-btn>
+          <v-btn rounded size="large" variant="flat" href="/partner/verwalten" v-if="user">Dashboard</v-btn>
+          <v-btn rounded size="large" variant="flat" href="/login" v-else>Login</v-btn>
           <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner werden</v-btn>
         </div>
       </v-app-bar>
@@ -48,4 +49,5 @@
 
 </style>
 <script setup lang="ts">
+const user = useSupabaseUser()
 </script>
