@@ -23,7 +23,7 @@
     @apply text-3xl font-bold mb-2 mt-3;
   }
 
-  .v-card {
+  .p-4 > .v-card, .p-4 > .v-row > div > .v-card {
     @apply rounded-none border border-solid border-gray-400;
   }
 }
