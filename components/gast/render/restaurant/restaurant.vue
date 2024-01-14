@@ -38,12 +38,12 @@ const props = defineProps({
     required: true
   }
 })
-const tabs = ref([
+const tabs = [
   // {name: 'Übersicht', component: resolveComponent('gast-render-restaurant-tab-overview')},
   {name: 'Speisekarte', component: resolveComponent('gast-render-restaurant-tab-products')},
   // {name: 'Öffnungszeiten', component: resolveComponent('gast-render-restaurant-tab-opening-hours')},
   {name: 'Kontakt', component: resolveComponent('gast-render-restaurant-tab-contact')},
-])
+]
 const activeTab = ref(0)
 </script>
 
