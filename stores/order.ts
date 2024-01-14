@@ -7,13 +7,13 @@ export const useOrderStore = defineStore('order', {
     },
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
-        addProduct(product: Product, quantity: number = 1) {
-            this.products.push({...product, quantity: quantity, price: product.price * quantity})
+        addProduct(product, quantity: number = 1) {
+            this.products.push({...product, quantity: quantity, price.price * quantity})
             this.product_refs.push(product.id)
         },
 
         // have a function to remove a product from the order
-        changeQuantity(product: Product, quantity: number) {
+        changeQuantity(product, quantity: number) {
             if (quantity < 1) {
                 this.removeProduct(product)
                 return
@@ -25,7 +25,7 @@ export const useOrderStore = defineStore('order', {
         },
 
         // have a function to remove a product from the order
-        removeProduct(product: Product) {
+        removeProduct(product) {
             const index = this.product_refs.indexOf(product.id)
             this.products.splice(index, 1)
             this.product_refs.splice(index, 1)
