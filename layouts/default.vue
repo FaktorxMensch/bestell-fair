@@ -18,6 +18,7 @@
 
       <slot/>
 
+      <gast-render-cart/>
 
       <!-- FOOTER -->
       <footer class="bg-gray-900 text-gray-100 py-8 px-4">
