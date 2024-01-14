@@ -23,7 +23,7 @@
           </template>
           <template v-else>
             <p class="text-lg mb-8">Fülle das Formular aus und wir melden uns bei Dir.</p>
-            <partner-form-restaurant @done="done = true"/>
+            <landing-form-restaurant @done="done = true"/>
           </template>
         </div>
       </v-col>
