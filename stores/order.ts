@@ -8,7 +8,7 @@ export const useOrderStore = defineStore('order', {
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
         addProduct(product, quantity: number = 1) {
-            this.products.push({...product, quantity: quantity, price.price * quantity})
+            this.products.push({...product, quantity: quantity, price: product.price * quantity})
             this.product_refs.push(product.id)
         },
 
