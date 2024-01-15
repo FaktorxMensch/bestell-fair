@@ -1,10 +1,10 @@
 <template>
-  <div :class="{'cart-wrapper': true, 'collapsed': !sheet}">
+  <div :class="{'cart-wrapper': true, 'collapsed': !sheet}" v-if="count > 0">
     <header @click="sheet = !sheet" class="flex w-full text-lg uppercase">
       <span class="font-semibold"> Bestellung </span>
       <v-spacer/>
       <v-chip color="teal" text-color="white">
-        {{ totalPrice }}€
+        {{ price }}€
       </v-chip>
       <v-divider class="ms-5 me-3" vertical/>
       <v-icon icon="mdi-chevron-up" size="large" :class="{'rotate-180': sheet}"/>
@@ -15,7 +15,7 @@
     <footer>
       <v-btn size="large" color="teal" text rounded block>
         <v-icon left>mdi-cart</v-icon>
-        <span class="font-semibold"> {{ cartQuantity }} Artikel </span>
+        <span class="font-semibold"> {{ count }} Artikel </span>
       </v-btn>
     </footer>
   </div>
@@ -23,9 +23,9 @@
 </template>
 
 <script setup>
+const orderStore = useOrderStore();
 const sheet = ref(false);
-const cartQuantity = ref(2); // Ersetzen Sie dies durch die tatsächliche Warenkorbmenge
-const totalPrice = ref(12.49); // Ersetzen Sie dies durch den tatsächlichen Gesamtpreis
+const {count,price} = storeToRefs(orderStore);
 </script>
 <style scoped>
 .cart-wrapper {
