@@ -10,6 +10,11 @@ export const useOrderStore = defineStore('order', {
         addProduct(product, quantity: number = 1) {
             this.products.push({...product, quantity: quantity, price: product.price * quantity})
             this.product_refs.push(product.id)
+            Swal.fire({
+                title: 'Produkt hinzugefügt',
+                text: 'Das Produkt wurde erfolgreich hinzugefügt.',
+                icon: 'success',
+            })
         },
 
         // have a function to remove a product from the order
