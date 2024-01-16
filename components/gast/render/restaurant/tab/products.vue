@@ -2,8 +2,7 @@
   <v-card>
     <v-card-title>Speisekarte</v-card-title>
     <v-list :items="productsDummy" item-props lines="three"/>
-    <!--    <v-card-text class="flex flex-col gap-2 btns-text-left">-->
-    <!--    </v-card-text>-->
+    <!--        <v-card-text class="flex flex-col gap-2 btns-text-left"/>-->
   </v-card>
 </template>
 <script setup>
