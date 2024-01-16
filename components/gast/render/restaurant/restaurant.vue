@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="max-w-3xl mx-auto">
     <img
         :src="'https://cuzkisufgqldigyzbkak.supabase.co/storage/v1/object/public/restaurants/'+restaurant.feature_image_url"
         alt="Restaurant Feature Image"

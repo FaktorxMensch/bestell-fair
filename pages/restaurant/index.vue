@@ -1,24 +1,20 @@
 <template>
-  <h1>Alle Restaurants in Deiner Nähe</h1>
-  <v-select label="Sortieren nach" :items="['Entfernung', 'Bewertung', 'Auslastung']"/>
-  <v-select label="Filtern nach" :items="['Entfernung', 'Bewertung', 'Auslastung']"/>
-  <hr/>
-  <v-list class="mt-12">
-    <v-list-item v-for="restaurant in restaurants" :key="restaurant.id">
-      <v-list-item-avatar>
-        <v-img :src="restaurant.logo"/>
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <v-list-item-title>{{ restaurant.name }}</v-list-item-title>
-        <v-list-item-subtitle>{{ restaurant.location }}</v-list-item-subtitle>
-      </v-list-item-content>
-      <v-list-item-action>
-        <v-btn
-            :href="`/restaurant/${restaurant.id}`"
-            color="teal" text>Jetzt bestellen
-        </v-btn>
-      </v-list-item-action>
-    </v-list-item>
+  <v-app-bar>
+    <v-app-bar-title>Restaurants</v-app-bar-title>
+    <v-select label="Sortieren nach" :items="['Entfernung', 'Bewertung', 'Auslastung']"/>
+    <v-select label="Filtern nach" class="mx-2" :items="['Entfernung', 'Bewertung', 'Auslastung']"/>
+  </v-app-bar>
+  <v-list>
+    <v-list-item
+        class="border-b"
+        v-if="restaurants.length > 0"
+        v-for="restaurant in restaurants"
+        :prepend-avatar="'https://cuzkisufgqldigyzbkak.supabase.co/storage/v1/object/public/restaurants/'+restaurant.icon_image_url"
+        :to="'/restaurant/'+restaurant.id"
+        lines="three"
+        :title="restaurant.name"
+        :subtitle="restaurant.description"/>
+    <v-skeleton-loader v-else type="list-item-avatar-three-line" v-for="i in 5"/>
   </v-list>
 </template>
 <script setup>
