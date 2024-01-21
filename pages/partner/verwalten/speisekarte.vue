@@ -12,7 +12,7 @@ const selectedFile = ref(null)
 
 async function uploadFile(file) {
   console.log('Uploading file to Supabase Storage...', user.value.id, file)
-  const {data, error} = await supabase.storage.from('articles').upload(`${user.value.id}/${file.name}`, file, {
+  const {data, error} = await supabase.storage.from('restaurants').upload(`${user.value.id}/products/${file.name}`, file, {
     upsert: true,
   })
   if (error) {
@@ -29,8 +29,8 @@ function resizeImage(file, callback) {
     img.onload = () => {
       const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
-      canvas.width = 400
-      canvas.height = 100
+      canvas.width = 200
+      canvas.height = 200
       // draw image but cover
       const scale = Math.max(canvas.width / img.width, canvas.height / img.height)
       const x = (canvas.width / 2) - (img.width / 2) * scale

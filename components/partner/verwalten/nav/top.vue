@@ -12,17 +12,17 @@
           lines="two"
           prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
           @click=""
-          title="Mervat Otmar"
-          subtitle="Fatima und die 9 Zwerge"
+          :title="user.user_metadata.name"
+          :subtitle="user.email"
       ></v-list-item>
       <v-divider vertical/>
       <v-btn icon="mdi-logout" class="ms-3" @click="logout"/>
     </template>
-
   </v-app-bar>
 </template>
 <script setup>
 const supabase = useSupabaseClient()
+const user = useSupabaseUser()
 const logout = async () => {
   await supabase.auth.signOut()
   const router = useRouter()
