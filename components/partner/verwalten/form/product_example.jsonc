@@ -3,14 +3,14 @@
     "name": "Schmidt",
     "image": "",
     "description": "Ein Schmidt zum selber bauen",
-    "price": 0,
+    "price": 7.80,
     "optionGroups": [
       // optional
       {
         "name": "Art",
         "mandatory": true,
         "multiple": false,
-        "default": 7.80,
+        "default": 0,
         //optional, wenn optionGroup nicht mandatory
         "options": [
           {
