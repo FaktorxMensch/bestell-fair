@@ -36,5 +36,5 @@ const props = defineProps({
     type : Number
   }
 })
-const selected = ref(props.multiple ? [props.options[props.default]] : props.options[props.default])
+const selected = ref(props.multiple ? [props.default] : props.default)
 </script>
