@@ -8,7 +8,7 @@
         <v-btn
             v-if="typeof product.optionGroups == 'undefined' || product.optionGroups.length === 0"
             :icon="'mdi-cart'"
-            @click="addToCart" />
+            @click="addToCart"/>
         <gast-dialog-optiongroups v-else :product="product"/>
       </v-card-actions>
     </v-card-title>
@@ -16,7 +16,7 @@
     <v-card-subtitle>{{ product.description }}</v-card-subtitle>
 
     <v-card-text class="flex flex-col gap-2 btns-text-left">
-      Preis: {{product.price}} Euro
+      Preis: {{ product.price }} Euro
     </v-card-text>
     <v-card-actions>
 
@@ -24,7 +24,7 @@
 
       <v-btn
           :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-          @click="showAdditionalInfo = !showAdditionalInfo" />
+          @click="showAdditionalInfo = !showAdditionalInfo"/>
     </v-card-actions>
 
     <v-expand-transition>
@@ -35,10 +35,10 @@
           <h2>Allergene und Zusatzstoffe</h2>
           <p>Die folgenden Allergene und Zusatzstoffe sind in diesem Produkt enthalten:</p>
           <ul>
-            <li v-for="allergen in product.allergens">{{allergen}}</li>
+            <li v-for="allergen in product.allergens">{{ allergen }}</li>
           </ul>
           <ul>
-            <li v-for="additive in product.additives">{{additive}}</li>
+            <li v-for="additive in product.additives">{{ additive }}</li>
           </ul>
         </v-card-text>
       </div>
@@ -48,16 +48,6 @@
 <script setup>
 const props = defineProps(['restaurant', 'product'])
 const showAdditionalInfo = ref(false)
-const addToCart = () => {
-  console.log('add to cart')
-  const orderStore = useOrderStore()
-  if(props.product.optionGroups.length > 0) {
-    // show dialog
-  } else {
-    orderStore.addProduct(props.product)
-    print('added product')
-  }
-}
+const orderStore = useOrderStore()
+const addToCart = () => orderStore.addProduct(props.product)
 </script>
-<style scoped>
-</style>
