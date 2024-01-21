@@ -17,6 +17,4 @@ onMounted(async () => {
   }
   console.log(data, error)
 });
-
-definePageMeta({ layout:'' });
 </script>
