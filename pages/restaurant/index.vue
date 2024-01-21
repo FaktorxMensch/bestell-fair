@@ -9,7 +9,7 @@
         class="border-b"
         v-if="restaurants.length > 0"
         v-for="restaurant in restaurants"
-        :prepend-avatar="'https://cuzkisufgqldigyzbkak.supabase.co/storage/v1/object/public/restaurants/'+restaurant.icon_image_url"
+        :prepend-avatar="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url"
         :to="'/restaurant/'+restaurant.id"
         lines="three"
         :title="restaurant.name"
