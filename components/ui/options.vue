@@ -6,6 +6,7 @@
             :multiple="props.multiple"
             :mandatory="props.mandatory"
             selected-class="text-primary"
+            v-model="selected"
         >
           <v-chip
               v-for="option in props.options"
@@ -31,5 +32,9 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  default: {
+    type : Number
+  }
 })
+const selected = ref(props.multiple ? [props.options[props.default]] : props.options[props.default])
 </script>
