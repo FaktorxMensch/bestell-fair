@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     supabase: {
         redirectOptions: {
             exclude: ["/", "/login", "/register", "/kontakt", "/partner-werden","/partner/verwalten",
-                "/partner/verwalten/**"],
+                "/partner/verwalten/**","/partner/inbox","/partner/inbox/**"],
         }
     },
     imports: {

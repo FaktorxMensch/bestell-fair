@@ -48,18 +48,18 @@ const changeStaus = () => {
       </v-slide-group>
     </header>
     <main>
-      <bestellung-posten v-for="posten in bestellung.posten" :key="posten.id" :posten="posten"/>
-      <div class="flex justify-between p-4">
-        <span class="text-lg">Gesamtsumme</span>
-        <span class="text-lg">{{ bestellung?.summe }} EUR</span>
-      </div>
+        <partner-inbox-bestellung-posten v-for="posten in bestellung.posten" :key="posten.id" :posten="posten"/>
+        <div class="flex justify-between p-4">
+          <span class="text-lg">Gesamtsumme</span>
+          <span class="text-lg">{{ bestellung?.summe }} EUR</span>
+        </div>
     </main>
   </div>
 </template>
 
 <style scoped>
 .full-dialog {
-  @apply fixed inset-0 z-50 bg-neutral-800 mt-12 overflow-x-auto;
+  @apply fixed inset-0 z-50 bg-neutral-800 mt-16 overflow-x-auto;
 
   header .v-btn {
     @apply flex-1 normal-case font-normal;
