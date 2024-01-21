@@ -3,7 +3,7 @@ export const useOrderStore = defineStore('order', {
     getters: {
         // wieviele (auch count)
         count: (state) => state.products.reduce((acc, cur) => acc + cur.quantity ?? 1, 0),
-        price: (state) => state.products.reduce((acc, cur) => acc + cur.price ?? 0 * cur.quantity ?? 1, 0),
+        price: (state) => state.products.reduce((acc, cur) => acc + cur.price * (cur.quantity ?? 1) ?? 0, 0),
     },
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product

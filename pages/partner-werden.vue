@@ -32,4 +32,5 @@
 </template>
 <script setup lang="ts">
 const done = ref(false)
+definePageMeta({layout:'landing'})
 </script>

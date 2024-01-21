@@ -34,6 +34,8 @@ watch(user, (newUser) => {
   }
 }, {immediate: true})
 const error = ref('')
+
+definePageMeta({layout:'landing'})
 </script>
 <template>
   <v-main class="flex">

@@ -1,14 +1,14 @@
 <template>
   <v-card class="max-w-3xl mx-auto">
     <img
-        :src="'https://cuzkisufgqldigyzbkak.supabase.co/storage/v1/object/public/restaurants/'+restaurant.feature_image_url"
+        :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.feature_image_url"
         alt="Restaurant Feature Image"
         style="object-fit: cover; width: 800px; height: 150px;"
     />
     <div class="flex items-center gap-4 p-4 -mt-6">
       <v-avatar size="130" class="border-4 border-white -mt-6">
         <img
-            :src="'https://cuzkisufgqldigyzbkak.supabase.co/storage/v1/object/public/restaurants/'+restaurant.icon_image_url"
+            :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url"
             alt="Restaurant Icon">
       </v-avatar>
 

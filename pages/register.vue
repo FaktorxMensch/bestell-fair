@@ -37,6 +37,7 @@ const signUp = async () => {
   }
 }
 const accepted = ref(false)
+definePageMeta({layout:'landing'})
 </script>
 <template>
   <v-main class="flex">

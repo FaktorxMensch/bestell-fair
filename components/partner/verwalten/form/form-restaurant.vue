@@ -134,6 +134,7 @@ async function uploadImage(type, event) {
       if (error) {
         console.error('Fehler beim Upload:', error);
       } else {
+        console.log('Bild erfolgreich hochgeladen:', filePath);
         // Bild-URL im Restaurant-Objekt speichern
         restaurant.value[`${type}_image_url`] = filePath;
       }
