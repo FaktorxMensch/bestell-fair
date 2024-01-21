@@ -1,5 +1,5 @@
 <template>
-    <partner-verwalten-form-restaurant/>
+    <partner-verwalten-form-restaurant />
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})

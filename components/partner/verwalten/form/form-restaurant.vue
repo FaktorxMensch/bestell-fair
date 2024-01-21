@@ -51,7 +51,7 @@
         <v-card-title>Vorschau</v-card-title>
         <v-card-text>
           <!-- have feature image and avatar rounded in front of it -->
-          <gast-render-restaurant :restaurant="restaurant"/>
+          <gast-render-restaurant :cache="false" :restaurant="restaurant"/>
         </v-card-text>
       </v-card>
     </v-col>
