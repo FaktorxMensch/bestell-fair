@@ -26,7 +26,7 @@ const openBestellung = (item: any) => {
 </script>
 
 <template>
-  <bestellung-dialog/>
+  <partner-inbox-bestellung-dialog/>
   <v-data-table :headers="headers" :items="bestellungen" items-per-page="50" density="comfortable">
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openBestellung(item)">
