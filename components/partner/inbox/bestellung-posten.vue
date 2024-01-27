@@ -10,7 +10,7 @@ defineProps(['product'])
 <!--      <span class="text-neutral-500">{{ products.kategorie }}</span>-->
     </div>
     <v-spacer/>
-    <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.price }}&times;</div>
+    <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.price }} €</div>
   </div>
 </template>
 
