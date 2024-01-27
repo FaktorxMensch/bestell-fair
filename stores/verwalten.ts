@@ -29,8 +29,49 @@ export const useVerwaltenStore = defineStore('verwalten', {
             }
             this.restaurants = data.map((r) => r.restaurant_id)
         },
-        selectRestaurant(index) {
-            this.restaurantIndex = index
+        setRestaurant(id) {
+            const index = this.restaurants.findIndex((r) => r.id === id)
+            if (index >= 0) {
+                this.restaurantIndex = index
+                return;
+            }
+            if (id == 'CREATE') {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Neues Restaurant',
+                    text: 'Bitte geben Sie den Namen des Restaurants ein',
+                    input: 'text',
+                    showCancelButton: true,
+                    confirmButtonText: 'Erstellen',
+                    cancelButtonText: 'Abbrechen',
+                    showLoaderOnConfirm: true,
+                    preConfirm: async (name) => {
+                        const supabase = useSupabaseClient()
+                        const {data, error} = await supabase
+                            .from('restaurants')
+                            .insert({name: name, slug: name.toLowerCase().replace(' ', '-')+'-'+Math.floor(Math.random()*10000)})
+                        if (error) {
+                            Swal.showValidationMessage(
+                                `Restaurant konnte nicht erstellt werden: ${error.message}`
+                            )
+                        }
+                        return data
+                    },
+                    allowOutsideClick: () => !Swal.isLoading(),
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const restaurant = result.value
+                        this.restaurants.push(restaurant)
+                        this.restaurantIndex = this.restaurants.length - 1
+                    }
+                })
+                return
+            }
+            Swal.fire({
+                icon: 'error',
+                title: 'Restaurant nicht gefunden',
+                text: 'Das Restaurant konnte nicht gefunden werden',
+            })
         },
         async saveRestaurant() {
             const restaurant = this.restaurant

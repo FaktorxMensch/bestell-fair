@@ -62,13 +62,13 @@
 import {useVerwaltenStore} from '~/stores/verwalten'
 
 definePageMeta({layout: 'partner-verwalten'})
-const {handleFileChange} = useFilehandler()
+const {uploadImage} = useFilehandler()
 const verwaltenStore = useVerwaltenStore()
 const {restaurant} = storeToRefs(verwaltenStore)
 
 const fileChange = async (event, product = null) => {
   console.log('event', event)
-  const path = await handleFileChange(event)
+  const path = await uploadImage(event)
   product.image = path
   console.log('path', path)
 }

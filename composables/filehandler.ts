@@ -3,22 +3,6 @@ export const useFilehandler = (width = 300, height = 300) => {
     const user = useSupabaseUser()
     const selectedFile = ref(null)
 
-    async function uploadFile(file): Promise<string> {
-        console.log('Uploading file to Supabase Storage...', user.value.id, file)
-        const {
-            data,
-            error
-        } = await supabase.storage.from('restaurants').upload(`${user.value.id}/products/${file.name}`, file, {
-            upsert: true,
-        })
-        if (error) {
-            console.error('Upload error:', error)
-            return null
-        } else {
-            console.log('File uploaded:', data)
-            return data.path
-        }
-    }
 
     function resizeImage(file, callback) {
         const reader = new FileReader()
@@ -46,20 +30,24 @@ export const useFilehandler = (width = 300, height = 300) => {
         })
     }
 
-    async function handleFileChange(event): Promise<string> {
-        const file = event.target.files[0]
+    async function uploadImage(event): Promise<string> {
+        let file = event.target.files[0]
         if (file) {
             selectedFile.value = file
             const resizedBlob = await resizeImageSync(file)
-            return uploadFile(new File([resizedBlob], file.name, {
-                type: 'image/jpeg',
-                lastModified: Date.now()
-            }))
+            file = new File([resizedBlob], file.name, {type: 'image/jpeg', lastModified: Date.now()})
+            const {
+                data,
+                error
+            } = await supabase.storage.from('restaurants').upload(`${user.value.id}/products/${file.name}`, file, {
+                upsert: true,
+            })
+            return error ? null : data.path
         }
+        return null
     }
 
     return {
-        handleFileChange,
-        selectedFile
+        uploadImage
     }
 }
