@@ -36,33 +36,50 @@ export const useVerwaltenStore = defineStore('verwalten', {
                 return;
             }
             if (id == 'CREATE') {
+                const user = useSupabaseUser()
                 Swal.fire({
                     icon: 'info',
                     title: 'Neues Restaurant',
-                    text: 'Bitte geben Sie den Namen des Restaurants ein',
-                    input: 'text',
+                    html: `
+<p>
+Bitte gebe den Namen des Restaurants ein. Bevor das Restaurant aktiviert wird, prüfen wir die Daten.
+</p>
+<br/>
+    <input id="name" class="swal2-input" placeholder="Restaurantname" required>
+    <input id="location" class="swal2-input" placeholder="Adresse" required>
+  `,
+
+                    inputPlaceholder: 'Restaurantname',
                     showCancelButton: true,
                     confirmButtonText: 'Erstellen',
                     cancelButtonText: 'Abbrechen',
                     showLoaderOnConfirm: true,
-                    preConfirm: async (name) => {
+                    preConfirm: async () => {
+                        const name = (document.getElementById('name') as HTMLInputElement).value
+                        const location = (document.getElementById('location') as HTMLInputElement).value
+
                         const supabase = useSupabaseClient()
                         const {data, error} = await supabase
-                            .from('restaurants')
-                            .insert({name: name, slug: name.toLowerCase().replace(' ', '-')+'-'+Math.floor(Math.random()*10000)})
+                            .from('restaurants_pending')
+                            .insert({name: name, user_id: user.value.id, location: location})
                         if (error) {
                             Swal.showValidationMessage(
                                 `Restaurant konnte nicht erstellt werden: ${error.message}`
                             )
+                            return
                         }
+
                         return data
                     },
                     allowOutsideClick: () => !Swal.isLoading(),
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        const restaurant = result.value
-                        this.restaurants.push(restaurant)
-                        this.restaurantIndex = this.restaurants.length - 1
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Restaurant wird nun überprüft, wir melden uns bei Dir!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        })
                     }
                 })
                 return
