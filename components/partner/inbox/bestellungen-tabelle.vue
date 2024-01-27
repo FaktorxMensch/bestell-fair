@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-const orders = useOrdersStore()
-const bestellungen = computed(() => orders.bestellungen)
+const inboxStore = useInboxStore()
+const {orders} = storeToRefs(inboxStore)
+console.log("Bestellungen: ", orders)
 
 const headers = [
-  {title: 'Zeit', value: 'abholzeit', sortable: true},
+  {title: 'Bestellzeit', value: 'abholzeit', sortable: true},
   {title: 'Gastname', value: 'name'},
   {title: '#', value: 'id'},
   {title: 'Gesamtpreis', value: 'summe', align: 'end'},
@@ -15,23 +16,25 @@ const euro = (value: number) => {
   return value.toFixed(2).replace('.', ',')
 }
 
-const openBestellung = (item: any) => {
+const openOrder = (item: any) => {
   // wenn status Neu, setze auf Erhalten
   if (item.status === 'Neu') {
-    item.status = 'Erhalten'
+    item.status = 'Bestätigt'
     return
   }
-  orders.openBestellung(item)
+  inboxStore.openOrder(item)
 }
 </script>
 
 <template>
   <partner-inbox-bestellung-dialog/>
-  <v-data-table :headers="headers" :items="bestellungen" items-per-page="50" density="comfortable">
+  <v-data-table :headers="headers" :items="orders" items-per-page="50" density="comfortable">
     <template v-slot:item="{ item }">
-      <tr :class="item.status" @click="openBestellung(item)">
-        <td>{{ new Date(item.abholzeit).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>
-        <td>{{ item.name }}</td>
+      <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">
+        <td>{{ new Date(item.created_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>
+<!--        <td>name</td>-->
+<!--        //show name of customer from order_fileds and find obj with key=name ans dhow value-->
+        <td>{{ item.order_fields.map((field)=> JSON.parse(field)).find((field)=> field.name === "Name").value }}</td>
         <td>{{ item.id }}</td>
         <td class="text-end">{{ euro(item.summe) }} EUR</td>
         <td>{{ item.status }}</td>

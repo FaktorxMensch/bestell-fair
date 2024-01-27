@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-const orders = useOrdersStore()
-const bestellung = computed(() => orders.bestellung)
+const inboxStore = useInboxStore()
+const orders = inboxStore.orders
+const {bestellung} = storeToRefs(inboxStore)
+// console.log("Bestellung: ", bestellung)
 
 const changeStaus = () => {
-  orders.closeBestellung()
-  orders.playClick()
+  // orders.closeBestellung()
+  // orders.playClick()
 }
 </script>
 
@@ -48,11 +50,11 @@ const changeStaus = () => {
       </v-slide-group>
     </header>
     <main>
-        <partner-inbox-bestellung-posten v-for="posten in bestellung.posten" :key="posten.id" :posten="posten"/>
-        <div class="flex justify-between p-4">
-          <span class="text-lg">Gesamtsumme</span>
-          <span class="text-lg">{{ bestellung?.summe }} EUR</span>
-        </div>
+      <partner-inbox-bestellung-posten v-for="posten in bestellung.products" :key="posten.id" :posten="posten"/>
+      <div class="flex justify-between p-4">
+        <span class="text-lg">Gesamtsumme</span>
+        <span class="text-lg">{{ bestellung?.summe }} EUR</span>
+      </div>
     </main>
   </div>
 </template>
