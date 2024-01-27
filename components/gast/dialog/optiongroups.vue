@@ -13,16 +13,15 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="text-h5">{{ product.name }}</span>
+        <span class="text-h5">{{ productCopy.name }} ({{productCopy.price}} €)</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-row v-for="og in product.optionGroups">
+          <v-row v-for="og in productCopy.optionGroups">
             {{ og.name }}
-            <ui-options :options="og.options" :mandatory="og.mandatory" :multiple="og.multiple" :default="og.default"/>
+            <ui-options :options="og.options" :mandatory="og.mandatory" :multiple="og.multiple" :default="og.default" v-model="og.selected"/>
           </v-row>
         </v-container>
-        <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -43,13 +42,18 @@
     </v-card>
   </v-dialog>
 </template>
-<script setup lang="ts">
+<script setup>
 const props = defineProps(['product'])
 const dialog = ref(false)
+const productCopy = ref(props.product)
+//watch productCOpy deep
+watch(productCopy, (newVal) => {
+  console.log(newVal)
+}, {deep: true})
 const toggle = () => dialog.value = !dialog.value
 const orderStore = useOrderStore()
 const addToCart = () => {
-  orderStore.addProduct(props.product)
+  orderStore.addProduct(productCopy.value)
   toggle()
 }
 </script>
