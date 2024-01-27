@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-4">
     <h1 class="text-3xl font-bold">Speisekarte</h1>
     <v-btn text="Änderungen speichern"
            variant="flat"
@@ -16,7 +16,12 @@
             <v-text-field label="Preis" v-model="product.price" type="number" suffix="€" step="0.01"/>
             <v-select label="Stichworte" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']" chips=""
                       multiple/>
-            <v-file-input label="Bild" v-model="product.image" @change="handleFileChange"/>
+            <div class="flex">
+              <v-file-input label="Bild" @change="event=>fileChange(event,product)"/>
+              <img
+                  :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image+'?token='+Math.random()"
+                  class="w-12 h-12 ms-2 rounded object-cover" v-if="product.image"/>
+            </div>
           </div>
 
           <v-text-field label="Beschreibung" v-model="product.description"/>
@@ -33,15 +38,20 @@
           </v-alert>
 
         </div>
+        <v-divider class="my-4 border-b border-gray-800"/>
+        <v-btn
+            class="float-right"
+            text color="error" @click="restaurant.products.splice(restaurant.products.indexOf(product), 1)">
+          <v-icon>mdi-delete</v-icon>
+          Dieses Produkt löschen
+        </v-btn>
       </template>
     </v-expansion-panel>
     <v-expansion-panel
         expand-icon="mdi-plus-circle-outline"
         @click="restaurant.products.push({name: 'Neues Produkt #'+(restaurant.products.length+1), price: 0, tags: [], image: null, description: '', ingredients: [], allergens: [], additives: [], optionGroups: []})"
         title="Neues Produkt"
-        ripple
-
-    >
+        ripple>
     </v-expansion-panel>
   </v-expansion-panels>
 
@@ -50,9 +60,17 @@
 
 <script setup>
 import {useVerwaltenStore} from '~/stores/verwalten'
+
 definePageMeta({layout: 'partner-verwalten'})
 const {handleFileChange} = useFilehandler()
 const verwaltenStore = useVerwaltenStore()
 const {restaurant} = storeToRefs(verwaltenStore)
+
+const fileChange = async (event, product = null) => {
+  console.log('event', event)
+  const path = await handleFileChange(event)
+  product.image = path
+  console.log('path', path)
+}
 </script>
 

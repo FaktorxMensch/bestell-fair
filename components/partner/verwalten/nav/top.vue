@@ -15,10 +15,13 @@
           item-value="id"
           label="Restaurant"
           prepend-inner-icon="mdi-store"
-          outlined
           dense
+          variant="solo"
+          density="compact"
           @change="verwaltenStore.setRestaurant(restaurant)"
+          class="me-5"
       />
+      <v-divider vertical/>
       <v-list-item
           lines="two"
           prepend-avatar="/partner/login_avatar.jpeg"
@@ -26,8 +29,8 @@
           :title="user.user_metadata.name"
           :subtitle="user.email"
       ></v-list-item>
-      <v-divider vertical/>
-      <v-btn icon="mdi-logout" class="ms-3" @click="logout"/>
+<!--      <v-divider vertical/>-->
+      <v-btn icon="mdi-logout" @click="logout"/>
     </template>
   </v-app-bar>
 </template>
