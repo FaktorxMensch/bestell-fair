@@ -24,7 +24,7 @@ export const useInboxStore = defineStore('inbox', {
     }),
     actions: {
         playClick() {
-            const audio = new Audio('/click.mp3')
+            const audio = new Audio('/partner/inbox/click.mp3')
             audio.volume = 0.5
             audio.play()
         },
