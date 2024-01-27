@@ -19,7 +19,27 @@
         <v-container>
           <v-row v-for="og in productCopy.optionGroups">
             {{ og.name }}
-            <ui-options :options="og.options" :mandatory="og.mandatory" :multiple="og.multiple" :default="og.default" v-model="og.selected"/>
+<!--            <ui-options :options="og.options" :mandatory="og.mandatory" :multiple="og.multiple" :default="og.default" v-model="og.selected"/>-->
+<!--            <template>-->
+              <v-row justify="space-around">
+                <v-col cols="auto">
+
+                  <v-chip-group
+                      :multiple="og.multiple"
+                      :mandatory="og.mandatory"
+                      selected-class="text-primary"
+                      v-model="og.selected"
+                  >
+                    <v-chip
+                        v-for="option in og.options"
+                        :key="option"
+                    >
+                      {{ option.name }} ({{ option.price }} €)
+                    </v-chip>
+                  </v-chip-group>
+                </v-col>
+              </v-row>
+<!--            </template>-->
           </v-row>
         </v-container>
       </v-card-text>
@@ -56,4 +76,11 @@ const addToCart = () => {
   orderStore.addProduct(productCopy.value)
   toggle()
 }
+watch(dialog, (newValue) => {
+  if(!newValue) return
+  productCopy.value.optionGroups.forEach((og) => {
+    console.log('og',og)
+    og['selected'] = og.default
+  })
+})
 </script>
