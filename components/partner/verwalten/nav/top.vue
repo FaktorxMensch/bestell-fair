@@ -8,6 +8,17 @@
     <v-spacer/>
 
     <template v-slot:append>
+      <v-select
+          v-model="restaurant"
+          :items="restaurants"
+          item-title="name"
+          item-value="id"
+          label="Restaurant"
+          prepend-inner-icon="mdi-store"
+          outlined
+          dense
+          @change="verwaltenStore.setRestaurant(restaurant)"
+      />
       <v-list-item
           lines="two"
           prepend-avatar="/partner/login_avatar.jpeg"
@@ -28,4 +39,8 @@ const logout = async () => {
   const router = useRouter()
   await router.push('/login')
 }
+
+const verwaltenStore = useVerwaltenStore()
+const {restaurant, restaurants} = storeToRefs(verwaltenStore)
+onMounted(verwaltenStore.init)
 </script>
