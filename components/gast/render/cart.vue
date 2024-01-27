@@ -23,6 +23,8 @@
 </template>
 
 <script setup>
+import {useGastStore} from "~/stores/gast.ts";
+
 const gastStore = useGastStore();
 const sheet = ref(false);
 const {count,price} = storeToRefs(gastStore);

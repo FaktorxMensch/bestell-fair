@@ -46,6 +46,7 @@
   </v-card>
 </template>
 <script setup>
+import {useGastStore} from "~/stores/gast.ts";
 const props = defineProps(['restaurant', 'product'])
 const showAdditionalInfo = ref(false)
 const gastStore = useGastStore()

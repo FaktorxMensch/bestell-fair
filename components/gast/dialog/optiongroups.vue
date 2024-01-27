@@ -47,7 +47,9 @@
 const props = defineProps(['product'])
 const dialog = ref(false)
 const toggle = () => dialog.value = !dialog.value
+import {useGastStore} from "~/stores/gast.ts";
 const gastStore = useGastStore()
+
 const addToCart = () => {
   gastStore.addProduct(props.product)
   toggle()
