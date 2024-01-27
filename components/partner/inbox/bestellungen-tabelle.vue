@@ -38,7 +38,7 @@ const openOrder = (item: any) => {
 <!--        <td>name</td>-->
 <!--        //show name of customer from order_fileds and find obj with key=name ans dhow value-->
         <td>{{ item.order_fields.map((field)=> JSON.parse(field)).find((field)=> field.name === "Name").value }}</td>
-        <td>{{ item.i"d }}</td>
+        <td>{{ item.id }}</td>
         <td class="text-end">{{ euro(item.summe) }} EUR</td>
         <td>{{ item.status }}</td>
       </tr>
