@@ -3,13 +3,17 @@
     <partner-verwalten-nav-top/>
     <partner-verwalten-nav-left/>
     <v-main>
-      <div class="p-4">
+      <div class="p-4" v-if="restaurant">
         <slot/>
       </div>
     </v-main>
     <partner-verwalten-nav-footer/>
   </v-app>
 </template>
+<script setup>
+const verwaltenStore = useVerwaltenStore()
+const {restaurant} = storeToRefs(verwaltenStore)
+</script>
 <style>
 #partner-verwalten main.v-main {
   background: radial-gradient(

@@ -26,11 +26,11 @@
 </template>
 <script setup>
 const items = [
-  {title: 'Übersicht', icon: 'mdi-view-dashboard', to: '/'},
+  // {title: 'Übersicht', icon: 'mdi-view-dashboard', to: '/'},
   {title: 'Restaurant', icon: 'mdi-store', to: '/restaurant'},
   {title: 'Speisekarte', icon: 'mdi-food', to: '/speisekarte'},
   // {title: 'Personal', icon: 'mdi-account-group', to: '/personal'},
-  {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
+  // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
 const drawer = ref(true)
 </script>
