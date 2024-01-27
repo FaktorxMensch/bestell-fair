@@ -4,7 +4,7 @@
     <partner-verwalten-nav-left/>
     <v-main>
       <div class="p-4" v-if="restaurant" :key="restaurant">
-        <h1 class="text-3xl font-bold">{{ nav.title }}</h1>
+        <h1 class="text-3xl font-bold">{{ nav?.title }}</h1>
         <slot/>
       </div>
     </v-main>

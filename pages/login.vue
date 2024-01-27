@@ -22,7 +22,8 @@ const signInWithPassword = async () => {
     })
     error.value = message
   } else {
-    return navigateTo('/partner/verwalten')
+    const user = useSupabaseUser()
+    redirectUser(user.value)
   }
 }
 
@@ -30,12 +31,36 @@ const user = useSupabaseUser()
 watch(user, (newUser) => {
   if (newUser) {
     // gehe wieder zur ursprünglichen Seite vor dem login
-    return navigateTo('/partner/verwalten')
+    redirectUser(newUser)
   }
 }, {immediate: true})
 const error = ref('')
 
-definePageMeta({layout:'landing'})
+definePageMeta({layout: 'landing'})
+
+const redirectUser = async (user) => {
+  const {data: restaurant_has_personal, error} = await supabase.from('restaurant_has_personal')
+      .select(`*`)
+      .eq('user_id', user.id);
+  const {data: user_owns_restaurant, error: error2} = await supabase.from('user_owns_restaurant')
+      .select(`*`)
+      .eq('user_id', user.id);
+
+  // wenn es einen Eintrag in restaurant_has_personal gibt, dann ist es ein Personal, sonst ein Restaurant
+  if (restaurant_has_personal.length > 0) {
+    window.location.href = '/partner/inbox'
+  } else if (user_owns_restaurant.length > 0) {
+    window.location.href = '/partner/verwalten'
+  } else {
+    await Swal.fire({
+      title: 'Fehler',
+      text: 'Du bist kein Partner. Bitte registriere dich zuerst.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+    })
+    return navigateTo('/partner-werden')
+  }
+}
 </script>
 <template>
   <v-main class="flex">
@@ -57,8 +82,10 @@ definePageMeta({layout:'landing'})
             Login
           </v-btn>
           <!-- register -->
-<!--          <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2"> Neu hier? Registrieren </v-btn>-->
-          <v-btn rounded size="large" variant="plain" @click="$router.push('/partner-werden')" class="normal-case ms-2"> Neu hier? Partner werden </v-btn>
+          <!--          <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2"> Neu hier? Registrieren </v-btn>-->
+          <v-btn rounded size="large" variant="plain" @click="$router.push('/partner-werden')" class="normal-case ms-2">
+            Neu hier? Partner werden
+          </v-btn>
         </v-form>
       </v-col>
     </v-row>
