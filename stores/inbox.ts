@@ -1,5 +1,6 @@
 /**
  * Store für die Inbox, es muss vor der Verwendung init() aufgerufen werden
+ * @description Dieser Store enthält alle Bestellungen eines Restaurants und kann neue Bestellungen empfangen
  * @method init(restaurant) initialisiert den Store, muss vor der Verwendung aufgerufen werden
  * @method playClick() spielt einen Klick-Sound ab
  * @method openOrder(order) öffnet eine Bestellung
