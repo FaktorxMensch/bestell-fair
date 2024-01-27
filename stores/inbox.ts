@@ -49,7 +49,7 @@ export const useInboxStore = defineStore('inbox', {
                 this.restaurant = restaurant
             }
             const supabase = useSupabaseClient()
-            const {data, error} = await supabase.from('orders').select('*').eq('restaurant_id', this.restaurant.id)
+            const {data, error} = await supabase.from('orders').select('*').eq('restaurant_id', this.restaurant)
             if (error) {
                 console.error(error)
                 return
