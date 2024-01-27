@@ -39,7 +39,7 @@ export const useInboxStore = defineStore('inbox', {
         // get orders for the restaurant
         async init() {
             if (this.initDone) {
-                console.warning('init() already called')
+                console.warn('init() already called')
                 return
             }
             const supabase = useSupabaseClient()
@@ -49,7 +49,6 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
             this.orders = data
-            console.log('orders', this.orders)
             this.updatedAt = new Date()
 
             // listen for new orders
@@ -79,7 +78,7 @@ export const useInboxStore = defineStore('inbox', {
         // set up the listener for new orders
         async listenForNewOrders() {
             if (this.listenerSet) {
-                console.warning('listenForNewOrders() already called')
+                console.warn('listenForNewOrders() already called')
                 return
             }
             const supabase = useSupabaseClient()

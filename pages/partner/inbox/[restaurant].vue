@@ -18,7 +18,7 @@ inboxStore.init() //Insert restaurant id here
       <v-main>
         <v-container fluid>
 <!--          <v-progress-linear v-if="data.pending" indeterminate/>-->
-          <partner-inbox-bestellungen-tabelle /> <!-- v-else/> -->
+          <partner-inbox-orders-table /> <!-- v-else/> -->
         </v-container>
       </v-main>
     </v-app>

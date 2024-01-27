@@ -1,13 +1,27 @@
 <script lang="ts" setup>
+import {orderstatusToColor} from "~/composables/orderstatusToColor";
+
 const inboxStore = useInboxStore()
 const {order} = storeToRefs(inboxStore)
 
 
 const updateOrder = async (status: string) => {
   await inboxStore.updateOrderStatus(order, order.status)
-  inboxStore.closeOrder()
 }
 
+watch(order, (order) => {
+  if (order?.id && typeof document !== 'undefined') {
+    document.addEventListener('keydown', handleKeyPress)
+  } else {
+    document.removeEventListener('keydown', handleKeyPress)
+  }
+})
+
+function handleKeyPress(event) {
+  if (event.key === 'Escape') {
+    inboxStore.closeOrder()
+  }
+}
 
 </script>
 
@@ -22,31 +36,35 @@ const updateOrder = async (status: string) => {
             divided
             density="comfortable"
             variant="tonal"
-            @click="inboxStore.updateOrderStatus(order, order.status)"
+            @click="inboxStore.updateOrderStatus(order, order.status); inboxStore.closeOrder()"
             mandatory
         >
           <v-slide-group-item>
-            <v-btn value="Bestätigt">Bestätigt
+            <v-btn value="Bestätigt"
+                   :color="orderstatusToColor('Bestätigt')"
+            >Bestätigt
             </v-btn>
           </v-slide-group-item>
           <v-slide-group-item>
             <v-btn value="In Zubereitung"
-                   :color="order.status === 'In Zubereitung' ? 'blue' : 'default'"
+                   :color="orderstatusToColor('In Zubereitung')"
             >In Zubereitung
             </v-btn>
           </v-slide-group-item>
           <v-slide-group-item>
             <v-btn value="Bereit zur Abholung"
-                   :color="order.status === 'Bereit zur Abholung' ? 'success' : 'default'"
+                   :color="orderstatusToColor('Bereit zur Abholung')"
             >Bereit zur Abholung
             </v-btn>
           </v-slide-group-item>
           <v-slide-group-item>
-            <v-btn value="Abgeholt">Abgeholt</v-btn>
+            <v-btn value="Abgeholt"
+                   :color="orderstatusToColor('Abgeholt')"
+            >Abgeholt</v-btn>
           </v-slide-group-item>
           <v-slide-group-item>
             <v-btn value="Storniert"
-                   :color="order.status === 'Storniert' ? 'error' : 'default'"
+                   :color="orderstatusToColor('Storniert')"
             >Storniert</v-btn>
           </v-slide-group-item>
         </v-btn-toggle>
@@ -56,7 +74,17 @@ const updateOrder = async (status: string) => {
       <ui-order-element v-for="product in order?.products" :key="product.name" :product="product"/>
       <div class="flex justify-between p-4">
         <span class="text-lg">Gesamtsumme</span>
-        <span class="text-lg">{{ order?.products.reduce((sum, product) => sum + product.price, 0) }} EUR</span>
+        <span class="text-lg">{{ order.total_price }} €</span>
+      </div>
+<!--      Area for showing information about how ordered and some meta infos like custom fields-->
+      <div>
+<!--        Show all available information about who ordered-->
+        <div class="flex flex-col p-4">
+          <p class="text-md">Bestellt von {{ order?.name }}</p>
+          <p>Telefon: {{ order?.phone }}</p>
+          <p>Email: {{ order?.email }}</p>
+        </div>
+
       </div>
 <!--      Button for closing Order-->
         <v-btn @click="inboxStore.closeOrder()" class="bg-neutral-600">Bestellung schließen</v-btn>
