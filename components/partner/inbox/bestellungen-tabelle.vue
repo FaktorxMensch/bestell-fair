@@ -28,6 +28,7 @@ const openOrder = (item: any) => {
 
 <template>
   <partner-inbox-bestellung-dialog/>
+<!--  <pre> <li v-for="order in orders" :key="order.id"> {{ order.id }}, {{ order.status }} </li> </pre>-->
   <v-data-table :headers="headers" :items="orders" items-per-page="50" density="comfortable">
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">

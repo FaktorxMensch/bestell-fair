@@ -84,6 +84,26 @@ export const useInboxStore = defineStore('inbox', {
             }
             const supabase = useSupabaseClient()
             // TODO implement
+
+
+            supabase
+                .channel('realtime')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
+                    console.log('Change received!', payload)
+                    this.orders.push(payload.new)
+                })
+                .subscribe()
+
+            // also listen to update
+            supabase
+                .channel('realtime')
+                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, payload => {
+                    console.log('Change received!', payload)
+                    const index = this.orders.findIndex(o => o.id === payload.new.id)
+                    this.orders[index] = payload.new
+                })
+                .subscribe()
+
             // const {data, error} = await supabase.from('orders').on('INSERT', (payload) => {
             //     this.orders.push(payload.new)
             //     this.playClick()
