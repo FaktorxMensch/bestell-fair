@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center mb-1">
-    <v-chip color="teal" text-color="white">Neu</v-chip>
+    <v-chip color="teal" text-color="white" class="me-2">Neu</v-chip>
     <p class="text-gray-600">
       Verwalte hier die Konten deines Personals, mit denen Bestellungen angenommen werden
       können.
