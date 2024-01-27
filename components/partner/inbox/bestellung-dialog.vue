@@ -3,8 +3,8 @@ const inboxStore = useInboxStore()
 const {order} = storeToRefs(inboxStore)
 
 
-const updateOrder = (status: string) => {
-  inboxStore.updateOrderStatus(order, status)
+const updateOrder = async (status: string) => {
+  await inboxStore.updateOrderStatus(order, order.status)
   inboxStore.closeOrder()
 }
 
@@ -22,7 +22,7 @@ const updateOrder = (status: string) => {
             divided
             density="comfortable"
             variant="tonal"
-            @click="updateOrder"
+            @click="inboxStore.updateOrderStatus(order, order.status)"
             mandatory
         >
           <v-slide-group-item>
