@@ -48,12 +48,13 @@ export const useOrderStore = defineStore('order', {
         },
 
         // have a function to set the order_fields
-        setOrderFields(order_fields: OrderField[]) {
+        setOrderFields(order_fields) {
             this.order_fields = order_fields
         },
 
         // place order in supabase and return the order_id
         async placeOrder() {
+            const supabase = useSupabaseClient()
             const {data, error} = await supabase.from('orders').insert({
                 restaurant_id: this.restaurant_id,
                 order_fields: this.order_fields,
