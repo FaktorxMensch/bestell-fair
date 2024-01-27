@@ -28,13 +28,14 @@ const openOrder = (item: any) => {
 
 <template>
   <partner-inbox-bestellung-dialog/>
+<!--  <pre> <li v-for="order in orders" :key="order.id"> {{ order.id }}, {{ order.status }} </li> </pre>-->
   <v-data-table :headers="headers" :items="orders" items-per-page="50" density="comfortable">
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">
         <td>{{ new Date(item.created_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>
-<!--        <td>name</td>-->
-<!--        //show name of customer from order_fileds and find obj with key=name ans dhow value-->
-        <td>{{ item.order_fields.map((field)=> JSON.parse(field)).find((field)=> field.name === "Name").value }}</td>
+        <!--        <td>name</td>-->
+        <!--        //show name of customer from order_fileds and find obj with key=name ans dhow value-->
+        <td>{{ item.order_fields.map((field) => JSON.parse(field)).find((field) => field.name === "Name").value }}</td>
         <td>{{ item.id }}</td>
         <td class="text-end">{{ euro(item.summe) }} EUR</td>
         <td>{{ item.status }}</td>
