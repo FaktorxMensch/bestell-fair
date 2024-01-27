@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const inboxStore = useInboxStore()
-const orders = inboxStore.orders
+const {orders} = storeToRefs(inboxStore)
 const {bestellung} = storeToRefs(inboxStore)
 // console.log("Bestellung: ", bestellung)
 

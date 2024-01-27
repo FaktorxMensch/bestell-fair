@@ -11,6 +11,7 @@
         "mandatory": true,
         "multiple": false,
         "default": 0,
+        "selected": 0,
         //optional, wenn optionGroup nicht mandatory
         "options": [
           {
@@ -57,8 +58,9 @@
       {
         "name": "Füllung",
         "mandatory": true,
-        "multiple": false,
+        "multiple": true,
         "default": 0,
+        "selected": [0,2],
         //optional, wenn optionGroup nicht mandatory
         "options": [
           {
