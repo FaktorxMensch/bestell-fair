@@ -1,7 +1,7 @@
 /**
  * Store für die Inbox, es muss vor der Verwendung init() aufgerufen werden
  * @description Dieser Store enthält alle Bestellungen eines Restaurants und kann neue Bestellungen empfangen
- * @method init(restaurant) initialisiert den Store, muss vor der Verwendung aufgerufen werden
+ * @method init() initialisiert den Store, muss vor der Verwendung aufgerufen werden
  * @method playClick() spielt einen Klick-Sound ab
  * @method openOrder(order) öffnet eine Bestellung
  * @method closeOrder() schließt die aktuell geöffnete Bestellung
@@ -9,7 +9,6 @@
  * @method listenForNewOrders() setzt den Listener für neue Bestellungen
  * @property order die aktuell geöffnete Bestellung
  * @property orders alle Bestellungen
- * @property restaurant das Restaurant
  * @property updatedAt wann wurden die letzten Daten abgerufen
  * @property listenerSet wurde der Listener für neue Bestellungen gesetzt
  * @property orderStates alle möglichen Bestell-Status
@@ -19,8 +18,7 @@ export const useInboxStore = defineStore('inbox', {
     state: () => ({
         order: null, // die aktuell geöffnete Bestellung
         orders: [], // alle Bestellungen
-        restaurant: null, // das Restaurant
-        updatedAt: null, // wann wurden die letzten Daten abgerufen
+        updatedAt: new Date(),
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
     }),
@@ -39,24 +37,19 @@ export const useInboxStore = defineStore('inbox', {
             this.playClick()
         },
         // get orders for the restaurant
-        async init(restaurant = null) {
+        async init() {
             if (this.initDone) {
                 console.warning('init() already called')
                 return
             }
-            // TODO: restaurant ist egal, da rls eh nur die eigenen Bestellungen returned
-            if (restaurant) {
-                this.restaurant = restaurant
-            }
             const supabase = useSupabaseClient()
-            //wait 500ms
-
-            const {data, error} = await supabase.from('orders').select('*').eq('restaurant_id', this.restaurant)
+            const {data, error} = await supabase.from('orders').select('*')
             if (error) {
                 console.error(error)
                 return
             }
             this.orders = data
+            console.log('orders', this.orders)
             this.updatedAt = new Date()
 
             // listen for new orders
@@ -85,21 +78,20 @@ export const useInboxStore = defineStore('inbox', {
         },
         // set up the listener for new orders
         async listenForNewOrders() {
-            //temp fix
-            return
             if (this.listenerSet) {
                 console.warning('listenForNewOrders() already called')
                 return
             }
             const supabase = useSupabaseClient()
-            const {data, error} = await supabase.from('orders').on('INSERT', (payload) => {
-                this.orders.push(payload.new)
-                this.playClick()
-            }).subscribe()
-            if (error) {
-                console.error(error)
-                return
-            }
+            // TODO implement
+            // const {data, error} = await supabase.from('orders').on('INSERT', (payload) => {
+            //     this.orders.push(payload.new)
+            //     this.playClick()
+            // }).subscribe()
+            // if (error) {
+            //     console.error(error)
+            //     return
+            // }
             this.listenerSet = true
         },
     }
