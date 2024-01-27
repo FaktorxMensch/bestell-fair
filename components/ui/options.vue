@@ -19,6 +19,7 @@
   </v-row>
 </template>
 <script setup>
+const selected = defineModel()
 const props = defineProps({
   options: {
     type: Array,
@@ -34,7 +35,7 @@ const props = defineProps({
   },
   default: {
     type : Number
-  }
+  },
 })
-const selected = ref(props.multiple ? [props.default] : props.default)
+//const selected = ref(props.multiple ? [props.default] : props.default)
 </script>
