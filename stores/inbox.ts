@@ -51,7 +51,6 @@ export const useInboxStore = defineStore('inbox', {
             const supabase = useSupabaseClient()
             //wait 500ms
 
-            // await new Promise(r => setTimeout(r, 500));
             const {data, error} = await supabase.from('orders').select('*').eq('restaurant_id', this.restaurant)
             if (error) {
                 console.error(error)
