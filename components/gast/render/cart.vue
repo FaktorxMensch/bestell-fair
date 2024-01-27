@@ -23,9 +23,9 @@
 </template>
 
 <script setup>
-const orderStore = useOrderStore();
+const gastStore = useGastStore();
 const sheet = ref(false);
-const {count,price} = storeToRefs(orderStore);
+const {count,price} = storeToRefs(gastStore);
 </script>
 <style scoped>
 .cart-wrapper {

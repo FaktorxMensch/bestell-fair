@@ -48,6 +48,6 @@
 <script setup>
 const props = defineProps(['restaurant', 'product'])
 const showAdditionalInfo = ref(false)
-const orderStore = useOrderStore()
-const addToCart = () => orderStore.addProduct(props.product)
+const gastStore = useGastStore()
+const addToCart = () => gastStore.addProduct(props.product)
 </script>

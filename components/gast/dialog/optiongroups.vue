@@ -47,9 +47,9 @@
 const props = defineProps(['product'])
 const dialog = ref(false)
 const toggle = () => dialog.value = !dialog.value
-const orderStore = useOrderStore()
+const gastStore = useGastStore()
 const addToCart = () => {
-  orderStore.addProduct(props.product)
+  gastStore.addProduct(props.product)
   toggle()
 }
 </script>

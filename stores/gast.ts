@@ -1,4 +1,4 @@
-export const useOrderStore = defineStore('order', {
+export const useGastStore = defineStore('gast', {
     state: () => ({products: [], product_refs: [], order_fields: [], restaurant_id: null}),
     getters: {
         // wieviele (auch count)
