@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-between items-center mb-4">
-    <h1 class="text-3xl font-bold">Speisekarte</h1>
+    <h1 class="text-3xl font-bold">
+      Speisekarte
+    </h1>
     <v-btn text="Änderungen speichern"
            variant="flat"
            prepend-icon="mdi-content-save"
@@ -54,8 +56,6 @@
         ripple>
     </v-expansion-panel>
   </v-expansion-panels>
-
-
 </template>
 
 <script setup>
@@ -72,5 +72,10 @@ const fileChange = async (event, product = null) => {
   product.image = path
   console.log('path', path)
 }
-</script>
 
+onMounted(()=>{
+  if (!restaurant.value.products) {
+    restaurant.value.products = []
+  }
+})
+</script>

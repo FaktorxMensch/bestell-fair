@@ -4,6 +4,7 @@
     <partner-verwalten-nav-left/>
     <v-main>
       <div class="p-4" v-if="restaurant">
+
         <slot/>
       </div>
     </v-main>
