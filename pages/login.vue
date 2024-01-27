@@ -3,6 +3,31 @@ const supabase = useSupabaseClient()
 const email = ref('domi@faktorxmensch.com')
 const password = ref('')
 
+const redirectUser = async (user) => {
+  const {data: restaurant_has_personal, error} = await supabase.from('restaurant_has_personal')
+      .select(`*`)
+      .eq('user_id', user.id);
+  const {data: user_owns_restaurant, error: error2} = await supabase.from('user_owns_restaurant')
+      .select(`*`)
+      .eq('user_id', user.id);
+
+  // wenn es einen Eintrag in restaurant_has_personal gibt, dann ist es ein Personal, sonst ein Restaurant
+  if (restaurant_has_personal.length > 0) {
+    window.location.href = '/partner/inbox'
+  } else if (user_owns_restaurant.length > 0) {
+    window.location.href = '/partner/verwalten'
+  } else {
+    await Swal.fire({
+      title: 'Fehler',
+      text: 'Du bist kein Partner. Bitte registriere dich zuerst.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+    })
+    return navigateTo('/partner-werden')
+  }
+}
+
+
 const signInWithPassword = async () => {
   const {data, error} = await supabase.auth.signInWithPassword({
     email: email.value,
@@ -37,30 +62,6 @@ watch(user, (newUser) => {
 const error = ref('')
 
 definePageMeta({layout: 'landing'})
-
-const redirectUser = async (user) => {
-  const {data: restaurant_has_personal, error} = await supabase.from('restaurant_has_personal')
-      .select(`*`)
-      .eq('user_id', user.id);
-  const {data: user_owns_restaurant, error: error2} = await supabase.from('user_owns_restaurant')
-      .select(`*`)
-      .eq('user_id', user.id);
-
-  // wenn es einen Eintrag in restaurant_has_personal gibt, dann ist es ein Personal, sonst ein Restaurant
-  if (restaurant_has_personal.length > 0) {
-    window.location.href = '/partner/inbox'
-  } else if (user_owns_restaurant.length > 0) {
-    window.location.href = '/partner/verwalten'
-  } else {
-    await Swal.fire({
-      title: 'Fehler',
-      text: 'Du bist kein Partner. Bitte registriere dich zuerst.',
-      icon: 'error',
-      confirmButtonText: 'OK',
-    })
-    return navigateTo('/partner-werden')
-  }
-}
 </script>
 <template>
   <v-main class="flex">

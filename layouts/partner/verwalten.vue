@@ -26,7 +26,7 @@ watch(user, () => {
       icon: 'error',
       confirmButtonText: 'OK'
     }).then(() => {
-      // window.location.href = '/'
+      window.location.href = '/login'
     })
   }
 }, {immediate: true})
