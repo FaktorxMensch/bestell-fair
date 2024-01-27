@@ -39,7 +39,7 @@ const logout = async () => {
   const router = useRouter()
   await router.push('/login')
 }
-
+import {useVerwaltenStore} from '~/stores/verwalten'
 const verwaltenStore = useVerwaltenStore()
 const {restaurant, restaurants} = storeToRefs(verwaltenStore)
 onMounted(verwaltenStore.init)

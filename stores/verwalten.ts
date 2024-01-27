@@ -43,7 +43,8 @@ export const useVerwaltenStore = defineStore('verwalten', {
                 return
             }
             const supabase = useSupabaseClient()
-            const {data, error} = supabase
+            console.log('saving restaurant', restaurant)
+            const {data, error} = await supabase
                 .from('restaurants')
                 .update(restaurant)
                 .eq('id', restaurant.id)

@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+import {useVerwaltenStore} from '~/stores/verwalten'
 definePageMeta({layout: 'partner-verwalten'})
 const {handleFileChange} = useFilehandler()
 const verwaltenStore = useVerwaltenStore()
