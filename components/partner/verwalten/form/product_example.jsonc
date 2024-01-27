@@ -5,14 +5,12 @@
     "description": "Ein Schmidt zum selber bauen",
     "price": 7.80,
     "optionGroups": [
-      // optional
       {
         "name": "Art",
         "mandatory": true,
         "multiple": false,
         "default": 0,
         "selected": 0,
-        //optional, wenn optionGroup nicht mandatory
         "options": [
           {
             "name": "Dicker Schmidt",
@@ -61,7 +59,6 @@
         "multiple": true,
         "default": 0,
         "selected": [0,2],
-        //optional, wenn optionGroup nicht mandatory
         "options": [
           {
             "name": "Seitan vom Spieß",

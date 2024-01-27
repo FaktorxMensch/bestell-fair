@@ -60,35 +60,21 @@ const formData = ref({
 const emit = defineEmits(['done'])
 const addElement = async () => {
   const {data, error} = await supabase
-      .from('restaurants')
-      .insert([
-        {
-          ...formData.value,
-          slug: slugFromName(formData.value.name)
-        }
-      ])
-      .select('*')
-  if (error) {
-    console.log(error)
-    Swal.fire({
-      title: 'Fehler!',
-      text: 'Bitte versuche es später noch einmal. '+error.message,
-      icon: 'error',
-      confirmButtonText: 'Schließen'
-    })
-  } else {
-    await Swal.fire({
-      title: 'Danke für Deine Anfrage!',
-      text: 'Wir melden uns bei Dir.',
-      icon: 'success',
-      confirmButtonText: 'Schließen'
-    })
-    // emit done event
-    emit('done')
-  }
-}
+      .from('restaurants_pending')
+      .insert(formData.value)
 
-const slugFromName = (name) => {
-  return name.toLowerCase().replace(/ /g, '-')
+  Swal.fire(error ? {
+    title: 'Fehler!',
+    text: 'Bitte versuche es später noch einmal. ' + error.message,
+    icon: 'error',
+    confirmButtonText: 'Schließen'
+  } : {
+    title: 'Danke für Deine Anfrage!',
+    text: 'Wir melden uns bei Dir.',
+    icon: 'success',
+    confirmButtonText: 'Schließen'
+  })
+  // emit done event
+  emit('done')
 }
 </script>

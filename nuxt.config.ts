@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: {enabled: false},
-    modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/supabase", "nuxt-vuetify"],
+    modules: [
+        "@pinia/nuxt",
+        "@nuxtjs/tailwindcss",
+        "@nuxtjs/supabase",
+        "nuxt-vuetify",
+        "@pinia-plugin-persistedstate/nuxt"
+    ],
     supabase: {
         redirectOptions: {
             exclude: ["/","/test", "/login", "/register", "/kontakt", "/partner-werden","/confirm",

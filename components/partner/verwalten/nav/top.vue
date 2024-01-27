@@ -8,6 +8,20 @@
     <v-spacer/>
 
     <template v-slot:append>
+      <v-select
+          :items="[...restaurants, {id: 'CREATE', name: 'Neues Restaurant ...'}]"
+          item-title="name"
+          item-value="id"
+          label="Restaurant"
+          prepend-inner-icon="mdi-store"
+          dense
+          variant="solo"
+          density="compact"
+          @update:model-value="verwaltenStore.setRestaurant"
+          :model-value="restaurant"
+          class="me-5"
+      />
+      <v-divider vertical/>
       <v-list-item
           lines="two"
           prepend-avatar="/partner/login_avatar.jpeg"
@@ -15,8 +29,7 @@
           :title="user.user_metadata.name"
           :subtitle="user.email"
       ></v-list-item>
-      <v-divider vertical/>
-      <v-btn icon="mdi-logout" class="ms-3" @click="logout"/>
+      <v-btn icon="mdi-logout" @click="logout"/>
     </template>
   </v-app-bar>
 </template>
@@ -28,4 +41,9 @@ const logout = async () => {
   const router = useRouter()
   await router.push('/login')
 }
+import {useVerwaltenStore} from '~/stores/verwalten'
+
+const verwaltenStore = useVerwaltenStore()
+const {restaurant, restaurants} = storeToRefs(verwaltenStore)
+onMounted(verwaltenStore.init)
 </script>
