@@ -26,11 +26,16 @@
 
       </div>
     </v-expansion-panel>
+    <v-expansion-panel
+        @click="restaurant.products.push({name: 'Neues Produkt #'+(restaurant.products.length+1), price: 0, tags: [], image: null, description: '', ingredients: [], allergens: [], additives: [], optionGroups: []})"
+        title="Neues Produkt"
+        ripple
+
+    >
+    </v-expansion-panel>
   </v-expansion-panels>
 
-  <pre v-if="restaurant">
-    {{ restaurant.products }}
-  </pre>
+
 </template>
 
 <script setup>
