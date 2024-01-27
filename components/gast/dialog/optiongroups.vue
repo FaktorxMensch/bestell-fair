@@ -64,12 +64,8 @@
 </template>
 <script setup>
 const props = defineProps(['product'])
-const dialog = ref(false)
 const productCopy = ref(props.product)
-//watch productCOpy deep
-watch(productCopy, (newVal) => {
-  console.log(newVal)
-}, {deep: true})
+const dialog = ref(false)
 const toggle = () => dialog.value = !dialog.value
 const orderStore = useOrderStore()
 const addToCart = () => {
