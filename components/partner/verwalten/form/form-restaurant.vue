@@ -11,7 +11,7 @@
 
             <div class="grid grid-cols-3 md:grid-cols-2 gap-x-4">
 
-              <v-file-input label="Profil-Bild" accept="image/*"
+              <v-file-input label="Logo-Bild" accept="image/*"
                             @change="e=>upload('icon',e)"></v-file-input>
               <v-file-input label="Hintergrund-Bild" accept="image/*"
                             @change="e=>upload('feature',e)"></v-file-input>
