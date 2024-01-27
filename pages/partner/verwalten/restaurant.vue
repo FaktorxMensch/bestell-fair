@@ -1,15 +1,13 @@
 <template>
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-3xl font-bold">
-      Restaurant
-    </h1>
+  <div class="flex justify-between items-center mb-1">
+    <p class="text-gray-600">Verwalte hier die Anzeige Deines Restaurants in der App.</p>
     <v-btn text="Änderungen speichern"
            variant="flat"
            prepend-icon="mdi-content-save"
-           color="teal"
+           color="teal-darken-3"
            @click="verwaltenStore.saveRestaurant"/>
   </div>
-    <partner-verwalten-form-restaurant />
+  <partner-verwalten-form-restaurant/>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})

@@ -3,6 +3,7 @@ export const useVerwaltenStore = defineStore('verwalten', {
         restaurants: [],
         restaurantIndex: 0,
         initDone: false,
+        nav: null
     }),
     getters: {
         restaurant(state) {
@@ -11,6 +12,10 @@ export const useVerwaltenStore = defineStore('verwalten', {
         },
     },
     actions: {
+        setNav(nav) {
+            this.nav = nav
+            console.log('set nav', nav)
+        },
         async init() {
             if (this.initDone) {
                 console.warning('init() already called')

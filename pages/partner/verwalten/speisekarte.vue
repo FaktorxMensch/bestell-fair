@@ -1,15 +1,13 @@
 <template>
   <div class="flex justify-between items-center mb-4">
-    <h1 class="text-3xl font-bold">
-      Speisekarte
-    </h1>
+    <p class="text-gray-600">Hier kannst Du Deine Speisekarte bearbeiten und neue Produkte hinzufügen.</p>
     <v-btn text="Änderungen speichern"
            variant="flat"
            prepend-icon="mdi-content-save"
-           color="teal"
+           color="teal-darken-3"
            @click="verwaltenStore.saveRestaurant"/>
   </div>
-  <v-expansion-panels>
+  <v-expansion-panels class="v-card" variant="accordion">
     <v-expansion-panel v-for="product in restaurant.products" :title="product.name">
       <template #text>
         <div class="p-2">
@@ -73,7 +71,7 @@ const fileChange = async (event, product = null) => {
   console.log('path', path)
 }
 
-onMounted(()=>{
+onMounted(() => {
   if (!restaurant.value.products) {
     restaurant.value.products = []
   }

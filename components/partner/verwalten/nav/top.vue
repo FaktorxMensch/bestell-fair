@@ -29,7 +29,6 @@
           :title="user.user_metadata.name"
           :subtitle="user.email"
       ></v-list-item>
-      <!--      <v-divider vertical/>-->
       <v-btn icon="mdi-logout" @click="logout"/>
     </template>
   </v-app-bar>

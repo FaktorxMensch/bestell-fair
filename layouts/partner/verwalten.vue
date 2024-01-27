@@ -4,7 +4,7 @@
     <partner-verwalten-nav-left/>
     <v-main>
       <div class="p-4" v-if="restaurant">
-
+        <h1 class="text-3xl font-bold">{{ nav.title }}</h1>
         <slot/>
       </div>
     </v-main>
@@ -13,7 +13,8 @@
 </template>
 <script setup>
 const verwaltenStore = useVerwaltenStore()
-const {restaurant} = storeToRefs(verwaltenStore)
+const {restaurant, nav} = storeToRefs(verwaltenStore)
+const title = defineProps(['title'])
 </script>
 <style>
 #partner-verwalten main.v-main {

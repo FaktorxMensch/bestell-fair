@@ -1,10 +1,5 @@
 <template>
-  <v-navigation-drawer theme="dark">
-
-    <!-- Profile picture and name -->
-
-
-    <!-- Navigation Items -->
+  <v-navigation-drawer theme="dark" >
     <v-list class="h-full flex flex-col">
       <v-list-item v-for="item in items"
                    :to="`/partner/verwalten${item.to}`"
@@ -29,10 +24,15 @@ const items = [
   // {title: 'Übersicht', icon: 'mdi-view-dashboard', to: '/'},
   {title: 'Restaurant', icon: 'mdi-store', to: '/restaurant'},
   {title: 'Speisekarte', icon: 'mdi-food', to: '/speisekarte'},
-  // {title: 'Personal', icon: 'mdi-account-group', to: '/personal'},
+  {title: 'Personal', icon: 'mdi-account-group', to: '/personal'},
   // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
 const drawer = ref(true)
+const verwaltenStore = useVerwaltenStore()
+const route = useRoute()
+watch(() => route.path, () => {
+  verwaltenStore.setNav(items.filter(item => route.path.includes(item.to))[0])
+})
 </script>
 <style>
 .v-navigation-drawer .v-list-item-title {
