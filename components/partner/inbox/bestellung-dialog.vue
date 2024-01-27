@@ -53,7 +53,7 @@ const updateOrder = async (status: string) => {
       </v-slide-group>
     </header>
     <main>
-      <partner-inbox-bestellung-posten v-for="product in order?.products" :key="product.name" :product="product"/>
+      <ui-order-element v-for="product in order?.products" :key="product.name" :product="product"/>
       <div class="flex justify-between p-4">
         <span class="text-lg">Gesamtsumme</span>
         <span class="text-lg">{{ order?.products.reduce((sum, product) => sum + product.price, 0) }} EUR</span>
