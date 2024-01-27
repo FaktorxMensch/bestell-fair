@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/supabase", "nuxt-vuetify"],
     supabase: {
         redirectOptions: {
-            exclude: ["/", "/login", "/register", "/kontakt", "/partner-werden","/confirm",
+            exclude: ["/","/test", "/login", "/register", "/kontakt", "/partner-werden","/confirm",
                 "/restaurant", "/restaurant/**", "/bestellung", "/bestellung/**","/partner/inbox","/partner/inbox/**"
             ],
 
