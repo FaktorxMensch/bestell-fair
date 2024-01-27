@@ -1,4 +1,3 @@
-const supabase = useSupabaseClient()
 export const useVerwaltenStore = defineStore('verwalten', {
     state: () => ({
         restaurants: [],
@@ -18,6 +17,7 @@ export const useVerwaltenStore = defineStore('verwalten', {
                 return
             }
             // we take all restaurant_id fields from  user_owns_restaurant, and get the restaurants with those ids
+            const supabase = useSupabaseClient()
             const {data, error} = await supabase
                 .from('user_owns_restaurant')
                 .select('restaurant_id (*)')
