@@ -3,9 +3,6 @@
     <v-tab v-for="(optionGroup,index) in optionGroups" :value="index">
       {{ optionGroup.name }}
     </v-tab>
-    <v-tab v-if="optionGroups.length === 0" disabled>
-      Keine Optionsgruppen vorhanden
-    </v-tab>
     <v-tab prepend-icon="mdi-plus-circle-outline"
            @click="optionGroups.push({name: 'Neue Optionsgruppe #'+(optionGroups.length+1), options: []})">
       Neue Optionsgruppe
