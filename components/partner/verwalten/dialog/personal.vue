@@ -58,11 +58,13 @@ const createAccount = async () => {
   const {data: {user, error: user_error}} = await supabase.auth.signUp(
       {
         email: form.value.email,
-        password: form.value.password
-      },
-      {
-        data: {
-          name: form.value.name,
+        password: form.value.password,
+        options: {
+          data:
+              {
+                name: form.value.name,
+                role: 'personal',
+              }
         }
       }
   )

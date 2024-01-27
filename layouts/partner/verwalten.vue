@@ -15,6 +15,21 @@
 const verwaltenStore = useVerwaltenStore()
 const {restaurant, nav} = storeToRefs(verwaltenStore)
 const title = defineProps(['title'])
+const user = useSupabaseUser()
+// check if the users role is partner
+watch(user, () => {
+  console.log('uservalue',user.value)
+  if(user.value.user_metadata.role !== 'partner') {
+    Swal.fire({
+      title: 'Kein Zugriff',
+      text: 'Du hast keine Berechtigung für diese Seite',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      // window.location.href = '/'
+    })
+  }
+}, {immediate: true})
 </script>
 <style>
 #partner-verwalten main.v-main {
