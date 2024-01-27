@@ -49,7 +49,10 @@ export const useInboxStore = defineStore('inbox', {
                 this.restaurant = restaurant
             }
             const supabase = useSupabaseClient()
-            const {data, error} = await supabase.from('orders').select('*').eq('restaurant_id', this.restaurant.id)
+            //wait 500ms
+
+            // await new Promise(r => setTimeout(r, 500));
+            const {data, error} = await supabase.from('orders').select('*').eq('restaurant_id', this.restaurant)
             if (error) {
                 console.error(error)
                 return
@@ -83,6 +86,8 @@ export const useInboxStore = defineStore('inbox', {
         },
         // set up the listener for new orders
         async listenForNewOrders() {
+            //temp fix
+            return
             if (this.listenerSet) {
                 console.warning('listenForNewOrders() already called')
                 return
