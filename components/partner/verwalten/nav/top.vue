@@ -10,7 +10,7 @@
     <template v-slot:append>
       <v-list-item
           lines="two"
-          prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
+          prepend-avatar="/partner/login_avatar.jpeg"
           @click=""
           :title="user.user_metadata.name"
           :subtitle="user.email"
