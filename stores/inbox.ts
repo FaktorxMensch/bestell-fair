@@ -24,7 +24,7 @@ export const useInboxStore = defineStore('inbox', {
     }),
     actions: {
         playClick() {
-            const audio = new Audio('/click.mp3')
+            const audio = new Audio('/partner/inbox/click.mp3')
             audio.volume = 0.5
             audio.play()
         },
@@ -43,7 +43,6 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
             const supabase = useSupabaseClient()
-            // await new Promise(r => setTimeout(r, 500));
             const {data, error} = await supabase.from('orders').select('*')
             if (error) {
                 console.error(error)
