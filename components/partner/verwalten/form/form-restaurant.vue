@@ -31,7 +31,7 @@
 
             </div>
             <v-select label="Felder, die bei einer Bestellung ausgefüllt werden können"
-                      v-model="restaurant.order_fields"
+                      v-model="restaurant.custom_fields"
                       multiple
                       chips
                       :items="['Name', 'Telefon', 'E-Mail', 'Anmerkungen', 'Tischnummer', 'Lieferadresse' ]"></v-select>

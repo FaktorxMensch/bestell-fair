@@ -1,5 +1,5 @@
 export const useGastStore = defineStore('gast', {
-    state: () => ({products: [], product_refs: [], order_fields: [], restaurant_id: null}),
+    state: () => ({products: [], product_refs: [], custom_fields: [], restaurant_id: null}),
     getters: {
         // wieviele (auch count)
         count: (state) => state.products.reduce((acc, cur) => acc + cur.quantity ?? 1, 0),
@@ -47,9 +47,9 @@ export const useGastStore = defineStore('gast', {
             this.restaurant_id = restaurant_id
         },
 
-        // have a function to set the order_fields
-        setOrderFields(order_fields) {
-            this.order_fields = order_fields
+        // have a function to set the custom_fields
+        setOrderFields(custom_fields) {
+            this.custom_fields = custom_fields
         },
 
         // place order in supabase and return the order_id
@@ -57,7 +57,7 @@ export const useGastStore = defineStore('gast', {
             const supabase = useSupabaseClient()
             const {data, error} = await supabase.from('orders').insert({
                 restaurant_id: this.restaurant_id,
-                order_fields: this.order_fields,
+                custom_fields: this.custom_fields,
                 products: this.products,
                 status: 'new',
             })
