@@ -32,7 +32,7 @@ const verwaltenStore = useVerwaltenStore()
 const route = useRoute()
 watch(() => route.path, () => {
   verwaltenStore.setNav(items.filter(item => route.path.includes(item.to))[0])
-})
+}, {immediate: true})
 </script>
 <style>
 .v-navigation-drawer .v-list-item-title {
