@@ -22,3 +22,6 @@ logs
 .env
 .env.*
 !.env.example
+
+/pages/partner/verwalten/test.vue
+test.vue
