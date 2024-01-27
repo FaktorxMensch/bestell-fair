@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 const inboxStore = useInboxStore()
-// const bestellungen = computed(() => inboxStore.orders)
-const orders = inboxStore.orders
+const {orders} = storeToRefs(inboxStore)
 console.log("Bestellungen: ", orders)
-
-
 
 const headers = [
   {title: 'Bestellzeit', value: 'abholzeit', sortable: true},

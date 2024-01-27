@@ -1,10 +1,10 @@
 <script setup>
 //use param restaurant from url
 const route = useRoute()
-const restaurant = route.params.restaurant
+// const restaurant = route.params.restaurant
 const inboxStore = useInboxStore()
 
-inboxStore.init(restaurant) //Insert restaurant id here
+inboxStore.init() //Insert restaurant id here
 
 
 // TODo: Need some param to check if orders are pending??
