@@ -1,6 +1,13 @@
 <template>
-  <h1 class="text-3xl font-bold">Speisekarte</h1>
-  <v-expansion-panels >
+  <div class="flex justify-between items-center">
+    <h1 class="text-3xl font-bold">Speisekarte</h1>
+    <v-btn text="Änderungen speichern"
+           variant="flat"
+           prepend-icon="mdi-content-save"
+           color="teal"
+           @click="verwaltenStore.saveRestaurant"/>
+  </div>
+  <v-expansion-panels>
     <v-expansion-panel v-for="product in restaurant.products" :title="product.name">
       <template #text>
         <div class="p-2">

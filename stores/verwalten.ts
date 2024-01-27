@@ -31,6 +31,36 @@ export const useVerwaltenStore = defineStore('verwalten', {
         },
         selectRestaurant(index) {
             this.restaurantIndex = index
+        },
+        async saveRestaurant() {
+            const restaurant = this.restaurant
+            if (!restaurant) {
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Restaurant konnte nicht gespeichert werden',
+                    text: 'Restaurant nicht gefunden',
+                })
+                return
+            }
+            const supabase = useSupabaseClient()
+            const {data, error} = supabase
+                .from('restaurants')
+                .update(restaurant)
+                .eq('id', restaurant.id)
+            if (error) {
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Restaurant konnte nicht gespeichert werden',
+                    text: error.message,
+                })
+                return
+            }
+            await Swal.fire({
+                icon: 'success',
+                title: 'Restaurant gespeichert',
+                showConfirmButton: false,
+                timer: 1500,
+            })
         }
     },
 })
