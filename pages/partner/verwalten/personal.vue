@@ -11,9 +11,6 @@
   <v-card>
     <partner-verwalten-table-personal/>
   </v-card>
-  <v-card>
-    <partner-verwalten-form-personal/>
-  </v-card>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})

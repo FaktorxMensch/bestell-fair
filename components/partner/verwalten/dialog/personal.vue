@@ -89,7 +89,8 @@ const createAccount = async () => {
   const {data: restaurant_has_personal, error: insertError} = await supabase.from('restaurant_has_personal').insert({
     restaurant_id: restaurant.value.id,
     user_id: user.id,
-    email_copy: form.value.email
+    email_copy: form.value.email,
+    name_copy: form.value.name
   })
 
   dialog.value = false
