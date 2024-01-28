@@ -43,7 +43,8 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
             const supabase = useSupabaseClient()
-            const {data, error} = await supabase.from('orders').select('*')
+            // alle orders ausser Entwurf und Archiviert
+            const {data, error} = await supabase.from('orders').select('*').neq('status', 'Entwurf').neq('status', 'Archiviert')
             if (error) {
                 console.error(error)
                 return
