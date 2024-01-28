@@ -29,7 +29,6 @@
         </template>
         <v-card>
           <v-toolbar
-              dark
               color="primary"
           >
             <v-btn
@@ -40,56 +39,86 @@
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
             <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items>
-              <!--                  <v-btn-->
-              <!--                      variant="text"-->
-              <!--                      @click="dialog = false"-->
-              <!--                  >-->
-              <!--                    Save-->
-              <!--                  </v-btn>-->
-            </v-toolbar-items>
           </v-toolbar>
-          add inputs for name phone and mail
-          <v-card-text>
-            <v-text-field
-                v-model="name"
-                label="Name"
-                outlined
-            ></v-text-field>
-            <v-text-field
-                v-model="phone"
-                label="Telefonnummer"
-                outlined
-            ></v-text-field>
-            <v-text-field
-                v-model="mail"
-                label="E-Mail"
-                outlined
-            ></v-text-field>
-          </v-card-text>
-          <footer>
-            <v-btn size="large" color="teal" text rounded block v-bind="props" @click="placeOrder()">
-              <v-icon left>mdi-cart</v-icon>
-              <span class="font-semibold"> Bestellen ({{ price }} €)</span>
-            </v-btn>
 
-          </footer>
+          <v-form class="px-5 no-input-details flex flex-col gap-4">
+            <h2>Persönliche Daten</h2>
+            <label>Dein Name</label>
+            <v-text-field type="text" v-model="name" label="Wer holt die Bestellung ab?" required variant="outlined"/>
+            <label>Telefonnummer</label>
+            <v-text-field type="text" v-model="phone" label="Für Rückfragen" required variant="outlined"/>
+            <label>E-Mail</label>
+            <v-text-field type="text" v-model="mail" label="Bestellbestätigung per E-Mail"
+                          required variant="outlined"/>
+            <p class="text-sm">Du bekommst eine Bestellbestätigung per E-Mail mit einem Link, um deine Bestellung zu
+              stornieren und deinen Bestellstatus zu verfolgen.</p>
+            <hr/>
+            <label>Abholzeitpunkt</label>
+            <v-select v-model="pickupTime" :items="pickupTimes"
+                      :prepend-inner-icon=" pickupTime ? 'mdi-clock-time-four-outline' : 'mdi-alert'"
+                      clearable=""
+                      :error="!pickupTime"
+                      :label="pickupTime ? '' : 'Bitte wähle einen Abholzeitpunkt'"
+                      required variant="outlined"/>
+            <v-btn size="large" color="primary" rounded v-bind="props" @click="placeOrder()"
+                   prepend-icon="mdi-cart">
+              Jetzt bestellen ({{ pricef(price) }})
+            </v-btn>
+          </v-form>
+
+          <!--          add inputs for name phone and mail-->
+          <!--          <v-card-text>-->
+          <!--            <v-text-field-->
+          <!--                v-model="name"-->
+          <!--                label="Name"-->
+          <!--                outlined-->
+          <!--            ></v-text-field>-->
+          <!--            <v-text-field-->
+          <!--                v-model="phone"-->
+          <!--                label="Telefonnummer"-->
+          <!--                outlined-->
+          <!--            ></v-text-field>-->
+          <!--            <v-text-field-->
+          <!--                v-model="mail"-->
+          <!--                label="E-Mail"-->
+          <!--                outlined-->
+          <!--            ></v-text-field>-->
+          <!--          </v-card-text>-->
+          <!--          <footer>-->
+
+          <!--          </footer>-->
         </v-card>
       </v-dialog>
     </footer>
   </div>
-
 </template>
+<style scoped>
+.v-form {
+  h2 {
+    @apply text-2xl font-semibold mt-4
+  }
 
+  label {
+    @apply text-sm font-semibold -mb-2
+  }
+}
+</style>
 <script setup>
 import {useGastStore} from "~/stores/gast.ts";
 import {price as pricef} from "~/composables/price";
+
+const pickupTimes = Array.from({length: 10}, (_, i) => {
+  // immer in 15 minuten slots. aber frühestens in 14 minuten aber im 15 minuten raster
+  const date = new Date();
+  date.setMinutes(date.getMinutes() + ((i + 2) * 15) - (date.getMinutes() % 15));
+  return date.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
+});
 
 const gastStore = useGastStore();
 const sheet = ref(false);
 const {count, price, products} = storeToRefs(gastStore);
 const dialog = ref(false);
+const pickupTime = ref(null)
 
 const name = ref('');
 watch(name, (newVal) => {
