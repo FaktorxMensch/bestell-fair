@@ -12,7 +12,7 @@
             :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url + (!cache ? '?cache='+Date.now() : '')"
             alt="Restaurant Icon">
       </div>
-      <div class="mx-5 mb-4">
+      <div class="container sm:px-5 lg:px-0 mt-2 mb-4" >
         <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
         <p class="text-sm">{{ restaurant.location }}</p>
         <p class="text-sm my-2">{{ restaurant.description }}</p>
