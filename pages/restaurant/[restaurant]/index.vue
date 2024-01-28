@@ -5,6 +5,7 @@
 const supabase = useSupabaseClient();
 const route = useRoute();
 const restaurant = ref(false);
+const gastStore = useGastStore();
 
 onMounted(async () => {
   const { data, error } = await supabase
@@ -14,6 +15,7 @@ onMounted(async () => {
     .single();
   if (data) {
     restaurant.value = data;
+    gastStore.setRestaurantId(route.params.restaurant);
   }
   console.log(data, error)
 });

@@ -17,7 +17,7 @@ defineProps(['product'])
       </pre>
     </div>
     <v-spacer/>
-    <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.price }} €</div>
+    <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.total_price }} €</div>
   </div>
 </template>
 

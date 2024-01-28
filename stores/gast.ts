@@ -1,6 +1,6 @@
 export const useGastStore = defineStore('gast', {
     persist: true,
-    state: () => ({products: [], product_refs: [], custom_fields: [], restaurant_id: null}),
+    state: () => ({products: [], product_refs: [], custom_fields: [], name:'', phone:'', email:'', restaurant_id: null}),
     getters: {
         // wieviele (auch count)
         count: (state) => state.products.reduce((acc, cur) => acc + cur.quantity ?? 1, 0),
@@ -9,7 +9,23 @@ export const useGastStore = defineStore('gast', {
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
         addProduct(product, quantity: number = 1) {
-            this.products.push({...product, quantity: quantity, price: product.price * quantity})
+            const calculate_price = function(product, quantity) {
+                let price = product.price
+                for (let og of product.optionGroups) {
+                    if (typeof og.selected == 'number') {
+                        price += og.options[og.selected].price
+                        continue
+                    }
+                    for (let o of og.options) {
+                        if (o.selected) {
+                            price += o.price
+                        }
+                    }
+                }
+                return price * quantity
+            }
+
+            this.products.push({...product, quantity: quantity, total_price: calculate_price(product, quantity)})
             this.product_refs.push(product.id)
             Swal.fire({
                 title: 'Produkt hinzugefügt',
@@ -49,8 +65,12 @@ export const useGastStore = defineStore('gast', {
         },
 
         // have a function to set the custom_fields
-        setOrderFields(custom_fields) {
+        setCustomFields(custom_fields) {
             this.custom_fields = custom_fields
+        },
+
+        setField(field, value) {
+            this[field] = value
         },
 
         // place order in supabase and return the order_id
@@ -60,7 +80,11 @@ export const useGastStore = defineStore('gast', {
                 restaurant_id: this.restaurant_id,
                 custom_fields: this.custom_fields,
                 products: this.products,
-                status: 'new',
+                total_price: this.price,
+                status: 'Neu',
+                name: this.name,
+                phone: this.phone,
+                email: this.email,
             })
             if (error) {
                 console.error(error)
