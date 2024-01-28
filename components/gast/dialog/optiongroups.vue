@@ -9,6 +9,9 @@
       <v-btn
           v-bind="props"
           :icon="'mdi-cart-plus'"
+          variant="flat"
+          class="rounded-full"
+          color="grey-lighten-3"
       />
     </template>
     <v-card>
