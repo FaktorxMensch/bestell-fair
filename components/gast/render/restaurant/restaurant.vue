@@ -1,5 +1,5 @@
 <template>
-  <v-card class="max-w-3xl mx-auto">
+  <v-card class="max-w-3xl mx-auto" style="margin-top:-10px">
     <img
         :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.feature_image_url+(!cache ? '?cache='+Date.now() : '')"
         alt="Restaurant Feature Image"
