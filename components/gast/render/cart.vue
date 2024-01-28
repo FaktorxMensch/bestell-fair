@@ -44,14 +44,28 @@
           <v-form class="px-5 no-input-details flex flex-col gap-4">
             <h2>Persönliche Daten</h2>
             <label>Dein Name</label>
-            <v-text-field type="text" v-model="name" label="Wer holt die Bestellung ab?" required variant="outlined"/>
+            <v-text-field
+                prepend-inner-icon="mdi-account-outline"
+                type="text" v-model="name" label="Wer holt die Bestellung ab?" required variant="outlined"/>
             <label>Telefonnummer</label>
-            <v-text-field type="text" v-model="phone" label="Für Rückfragen" required variant="outlined"/>
+            <v-text-field
+                prepend-inner-icon="mdi-phone-outline"
+                type="text" v-model="phone" label="Für Rückfragen" required variant="outlined"/>
             <label>E-Mail</label>
-            <v-text-field type="text" v-model="mail" label="Bestellbestätigung per E-Mail"
-                          required variant="outlined"/>
-            <p class="text-sm">Du bekommst eine Bestellbestätigung per E-Mail mit einem Link, um deine Bestellung zu
-              stornieren und deinen Bestellstatus zu verfolgen.</p>
+            <v-text-field
+                prepend-inner-icon="mdi-email-outline"
+                type="text" v-model="mail" label="Bestellbestätigung per E-Mail"
+                required variant="outlined"/>
+            <p class="text-sm -mt-1 opacity-80 flex gap-2">
+              <v-icon icon="mdi-information-outline"/>
+              Du bekommst eine Bestellbestätigung per E-Mail mit einem Link, um deine Bestellung zu
+              stornieren und deinen Bestellstatus zu verfolgen.
+            </p>
+            <hr/>
+            <label>Anmerkungen</label>
+            <v-textarea
+                prepend-inner-icon="mdi-message-outline"
+                v-model="remark" label="Möchtest du uns noch etwas mitteilen?" variant="outlined" rows="2"/>
             <hr/>
             <label>Abholzeitpunkt</label>
             <v-select v-model="pickupTime" :items="pickupTimes"
@@ -60,7 +74,7 @@
                       :error="!pickupTime"
                       :label="pickupTime ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                       required variant="outlined"/>
-            <v-btn size="large" color="primary" rounded v-bind="props" @click="placeOrder()"
+            <v-btn size="large" class="mt-1" color="primary" rounded v-bind="props" @click="placeOrder()"
                    prepend-icon="mdi-cart">
               Jetzt bestellen ({{ pricef(price) }})
             </v-btn>
@@ -99,7 +113,7 @@
   }
 
   label {
-    @apply text-sm font-semibold -mb-2
+    @apply text-sm font-semibold -mb-2 mt-1
   }
 }
 </style>
@@ -116,24 +130,29 @@ const pickupTimes = Array.from({length: 10}, (_, i) => {
 
 const gastStore = useGastStore();
 const sheet = ref(false);
-const {count, price, products} = storeToRefs(gastStore);
+const {
+  count, price, products, remark,
+  name,
+  phone,
+  mail,
+} = storeToRefs(gastStore);
 const dialog = ref(false);
 const pickupTime = ref(null)
-
-const name = ref('');
-watch(name, (newVal) => {
-  gastStore.setField('name', newVal);
-});
-
-const phone = ref('');
-watch(phone, (newVal) => {
-  gastStore.setField('phone', newVal);
-});
-
-const mail = ref('');
-watch(mail, (newVal) => {
-  gastStore.setField('mail', newVal);
-});
+//
+// const name = ref('');
+// watch(name, (newVal) => {
+//   gastStore.setField('name', newVal);
+// });
+//
+// const phone = ref('');
+// watch(phone, (newVal) => {
+//   gastStore.setField('phone', newVal);
+// });
+//
+// const mail = ref('');
+// watch(mail, (newVal) => {
+//   gastStore.setField('mail', newVal);
+// });
 
 const placeOrder = () => {
   gastStore.placeOrder();

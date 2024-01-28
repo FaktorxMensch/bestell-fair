@@ -1,6 +1,9 @@
 export const useGastStore = defineStore('gast', {
     persist: true,
-    state: () => ({products: [], product_refs: [], custom_fields: [], name:'', phone:'', email:'', restaurant_id: null}),
+    state: () => ({
+        products: [], product_refs: [], custom_fields: [], name: '', phone: '', email: '', restaurant_id: null,
+        remark: ''
+    }),
     getters: {
         // wieviele (auch count)
         count: (state) => state.products.reduce((acc, cur) => acc + cur.quantity ?? 1, 0),
@@ -9,7 +12,7 @@ export const useGastStore = defineStore('gast', {
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
         addProduct(product, quantity: number = 1) {
-            const calculate_price = function(product, quantity) {
+            const calculate_price = function (product, quantity) {
                 let price = product.price
                 for (let og of product.optionGroups) {
                     if (typeof og.selected == 'number') {
