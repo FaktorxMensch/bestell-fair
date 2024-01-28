@@ -119,7 +119,7 @@ const placeOrder = () => {
   flex flex-col
   h-screen;
   transform: translateY(calc(100% - 64px));
-  z-index: 1000;
+  z-index: 2001;
 
   &:not(.collapsed) {
     transform: translateY(calc(-100vh + 100%));
