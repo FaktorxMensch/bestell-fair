@@ -26,7 +26,7 @@
 
     </div>
 
-    <div class="md:grid gap-2 grid-cols-3 lg:grid-cols-5">
+    <div class="md:grid gap-2 grid-cols-3 xl:grid-cols-3">
       <v-card v-for="option in optionGroup.options">
         <v-text-field label="Name der Option (z.B. Ketchup, Mayo, Scharf)" v-model="option.name"/>
         <v-text-field label="Preis der Option" v-model="option.price" type="number" suffix="€" step="0.01"/>
@@ -40,7 +40,7 @@
           {{ option.name }} löschen
         </v-btn>
       </v-card>
-      <div class="col-span-3 lg:col-span-5 gap-2 flex">
+      <div class="col-span-3 xl:col-span-3 gap-2 flex">
         <v-btn
             @click="optionGroup.options.push({name: 'Neue Option #'+(optionGroup.options.length+1), price: 0, ingredients: [], allergens: [], additives: []})"
             variant="outlined"
