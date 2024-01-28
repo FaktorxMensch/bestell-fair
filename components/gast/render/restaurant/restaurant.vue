@@ -8,7 +8,7 @@
       />
       <div class="container flex items-center gap-4 p-4 -mt-20">
         <img
-            class="h-20 w-20 rounded border"
+            class="h-20 w-20 rounded-lg border"
             :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url + (!cache ? '?cache='+Date.now() : '')"
             alt="Restaurant Icon">
       </div>
