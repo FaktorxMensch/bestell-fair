@@ -6,31 +6,57 @@
         <v-card-text>
           <!-- have as grid of three two or one, depending on screen size -->
           <v-form>
-            <v-text-field label="Name des Restaurants" v-model="restaurant.name"/>
-            <v-textarea label="Beschreibungs und Willkommens Text" rows="2" v-model="restaurant.description"/>
+            <v-text-field
+                variant="outlined"
+                label="Name des Restaurants" v-model="restaurant.name"/>
+            <v-textarea
+                variant="outlined"
+                label="Beschreibungs und Willkommens Text" rows="2" v-model="restaurant.description"/>
 
             <div class="grid grid-cols-3 md:grid-cols-2 gap-x-4">
 
               <v-file-input label="Logo-Bild" accept="image/*"
+                            :prepend-icon="null"
+                            prepend-inner-icon="mdi-image"
+                            variant="solo"
+                            class="cursor-pointer"
                             @change="e=>upload('icon',e)"></v-file-input>
               <v-file-input label="Hintergrund-Bild" accept="image/*"
+                            :prepend-icon="null"
+                            prepend-inner-icon="mdi-image"
+                            variant="solo"
+                            class="cursor-pointer"
                             @change="e=>upload('feature',e)"></v-file-input>
 
               <!--              <v-checkbox label="Restaurant sichtbar" v-model="restaurant.visible"></v-checkbox>-->
               <!--              <v-checkbox label="Wir haben gerade geöffnet" v-model="restaurant.open"></v-checkbox>-->
-              <v-text-field label="Adresse des Restaurants" v-model="restaurant.location"></v-text-field>
+              <v-text-field
+                  variant="outlined"
+                  label="Adresse des Restaurants" v-model="restaurant.location"></v-text-field>
 
-              <v-text-field label="Kontakt Name" v-model="restaurant.contact_name"></v-text-field>
-              <v-text-field label="Kontakt E-Mail" v-model="restaurant.contact_email" type="email"></v-text-field>
-              <v-text-field label="Kontakt Telefon" v-model="restaurant.contact_phone" type="tel"></v-text-field>
+              <v-text-field
+                  variant="outlined"
+                  label="Kontakt Name" v-model="restaurant.contact_name"></v-text-field>
+              <v-text-field
+                  variant="outlined"
+                  label="Kontakt E-Mail" v-model="restaurant.contact_email" type="email"></v-text-field>
+              <v-text-field
+                  variant="outlined"
+                  label="Kontakt Telefon" v-model="restaurant.contact_phone" type="tel"></v-text-field>
 
-              <v-select label="Zahlungsmethoden" v-model="restaurant.payment_methods" multiple
-                        :items="['Bar', 'Kreditkarte', 'Paypal', 'Apple Pay', 'Google Pay']"></v-select>
+              <v-select
+                  variant="outlined"
+                  label="Zahlungsmethoden" v-model="restaurant.payment_methods" multiple
+                  :items="['Bar', 'Kreditkarte', 'Paypal', 'Apple Pay', 'Google Pay']"></v-select>
 
-              <v-text-field label="Restaurant Webseite (optional)" v-model="restaurant.website"></v-text-field>
+              <v-text-field
+                  variant="outlined"
+                  type="url"
+                  label="Restaurant Webseite (optional)" v-model="restaurant.website"></v-text-field>
 
             </div>
             <v-select label="Felder, die bei einer Bestellung ausgefüllt werden können"
+                      variant="outlined"
                       v-model="restaurant.custom_fields"
                       multiple
                       chips
@@ -40,6 +66,9 @@
             <!--                            hint="z.B. fatima, oder dicker-schmidt"-->
             <!--                            :rules="[v => v.length <= 20 || 'Maximal 20 Zeichen', v => v.length >= 3 || 'Mindestens 3 Zeichen',  v => /^[a-z0-9-]+$/.test(v) || 'Nur Kleinbuchstaben, Zahlen und Bindestriche']"-->
             <!--              ></v-text-field>-->
+
+            <v-switch label="Restaurant in der Übersicht anzeigen" :color="restaurant.visible ? 'teal' : 'grey'" inset
+                      v-model="restaurant.visible"></v-switch>
 
             <v-btn @click="submitForm" rounded color="teal">Speichern</v-btn>
           </v-form>

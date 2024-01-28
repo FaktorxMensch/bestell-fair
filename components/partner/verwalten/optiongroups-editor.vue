@@ -10,23 +10,23 @@
   </v-tabs>
   <div v-if="optionGroup" class="p-4 bg-gray-100">
 
-    <div class="grid gap-2 grid-cols-2 lg:flex lg:gap-4">
-      <v-text-field class="flex-1" label="Name der Optionsgruppe (z.B. Soße, Größe, Toppings)"
+    <div class="lg:flex lg:gap-4">
+      <v-text-field label="Name der Optionsgruppe (z.B. Soße, Größe, Toppings)"
                     v-model="optionGroup.name"/>
       <v-select label="Standardauswahl" v-model="optionGroup.default"
                 :items="optionGroup.options.map((option, index) => ({title: option.name, value: index}))"
                 :multiple="optionGroup.multiple"
                 item-title="title" item-value="value"/>
-      <v-select label="Mehrfachauswahl" v-model="optionGroup.multiple"
-                :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text"
-                item-value="value"/>
-      <v-select label="Pflichtauswahl" v-model="optionGroup.mandatory"
-                :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text"
-                item-value="value"/>
+
+
+      <v-switch label="Mehrfachauswahl" v-model="optionGroup.multiple"/>
+      <v-switch label="Pflichtauswahl" v-model="optionGroup.mandatory"/>
+      <!--      <v-select label="Mehrfachauswahl" v-model="optionGroup.multiple" :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text" item-value="value"/>-->
+      <!--      <v-select label="Pflichtauswahl" v-model="optionGroup.mandatory" :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text" item-value="value"/>-->
 
     </div>
 
-    <div class="grid gap-2 grid-cols-3 lg:grid-cols-5">
+    <div class="md:grid gap-2 grid-cols-3 lg:grid-cols-5">
       <v-card v-for="option in optionGroup.options">
         <v-text-field label="Name der Option (z.B. Ketchup, Mayo, Scharf)" v-model="option.name"/>
         <v-text-field label="Preis der Option" v-model="option.price" type="number" suffix="€" step="0.01"/>
