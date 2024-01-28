@@ -6,7 +6,7 @@
       <v-icon>{{ showProducts ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
     </v-btn>
   </v-app-bar>
-  <v-card style="margin-top:-10px">
+  <v-card style="margin-top:-10px" class="max-w-2xl mx-auto">
     <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.feature_image_url"
          class="flex-shrink-0 h-40 w-full object-cover border-b"/>
     <v-avatar class="ms-4 -mt-16 border-4 border-white " size="120">
@@ -42,7 +42,7 @@
           item-props lines="two"/>
 
       <p> Bezahlung bei Abholung, Summe {{ price(order.total_price) }}. </p>
-      <p> Abholung bei {{restaurant.name}}<br/>
+      <p> Abholung bei {{ restaurant.name }}<br/>
         {{ restaurant.location }}. </p>
     </v-card-text>
     <v-card-actions class="flex justify-around">
@@ -56,7 +56,6 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-
   <!--  <pre> {{ order }} {{ restaurant }} </pre>-->
 </template>
 <script setup>
