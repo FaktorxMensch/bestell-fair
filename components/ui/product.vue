@@ -1,20 +1,19 @@
 <template>
-  <v-card>
+  <v-card variant="outlined">
     <v-card-text>
-
-      <div class="flex space-between gap-2">
+      <div class="flex space-between gap-2 md:gap-8">
         <div class="flex-1">
-          <h2 class="text-lg font-semibold">
+          <h2 class="text-xl font-bold">
             {{ product.name }}
           </h2>
-          <p class="text-gray-500 min-h-8">{{ product.description }}</p>
-          <p class="text-gray-500 min-h-8 mt-2 ">Wahl aus: {{ getWahlAusText(product.optionGroups) }}</p>
+          <p class="text-gray-500 min-h-8 my-2">{{ product.description }}</p>
+          <p class="text-gray-500 min-h-8">Wahl aus: {{ getWahlAusText(product.optionGroups) }}</p>
         </div>
         <div class="flex flex-col justify-between items-end">
           <div class="absolute right-3">
             <v-btn
                 v-if="typeof product.optionGroups == 'undefined' || product.optionGroups.length === 0"
-                :icon="'mdi-plus'"
+                icon="mdi-plus"
                 variant="flat"
                 class="rounded-full"
                 color="grey-lighten-3"
@@ -24,12 +23,12 @@
 
           <v-spacer/>
           <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image"
-               class="w-20 mt-4"/>
+               class="w-28 lg:w-32 mt-4"/>
           <v-spacer/>
         </div>
       </div>
 
-      <p class="font-bold mt-2"> {{ price(product.price) }}
+      <p class="font-bold text-lg mt-2"> {{ price(product.price) }}
         <v-btn size="small" class="float-right -mt-4 mb-2"
                variant="text"
                :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-information-outline'"

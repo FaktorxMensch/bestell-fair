@@ -18,11 +18,11 @@
         <p class="text-sm my-2">{{ restaurant.description }}</p>
       </div>
 
-<!--      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">-->
-<!--        <v-tab v-for="tab in tabs" :key="tab.name" ripple>-->
-<!--          {{ tab.name }}-->
-<!--        </v-tab>-->
-<!--      </v-tabs>-->
+      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">
+        <v-tab v-for="tab in tabs" :key="tab.name" ripple>
+          {{ tab.name }}
+        </v-tab>
+      </v-tabs>
 
       <div class="px-2 py-1 bg-gray-100"
            style="box-shadow: inset 0px 20px 10px -20px rgba(0,0,0,0.2);">

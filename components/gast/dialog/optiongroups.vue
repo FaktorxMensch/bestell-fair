@@ -8,7 +8,7 @@
     <template v-slot:activator="{ props }">
       <v-btn
           v-bind="props"
-          :icon="'mdi-cart-plus'"
+          icon="mdi-plus"
           variant="flat"
           class="rounded-full"
           color="grey-lighten-3"
