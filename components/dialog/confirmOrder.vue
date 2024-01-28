@@ -14,7 +14,7 @@
               sm="2"
           >
             <v-btn  color="success" class="mt-2 w-full"
-                    @click="changePickupTime(-5*60*1000)"
+                    @click="props.pickup_inc(-5*60*1000)"
                     variant="tonal">
               -5 min
             </v-btn>
@@ -114,7 +114,7 @@
   </v-dialog>
 </template>
 <script setup>
-const emit = defineEmits(['done'])
+const emit = defineEmits(['setNewPickupAt'])
 const props = defineProps(['name', 'pickup_at', 'status', 'products', 'total_price','prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
 
@@ -147,40 +147,14 @@ const changePickupTime = async (change) => {
 }
 
 const save = async () => {
-  //ToDO: Save order
-  console.error('Save order not implemented')
-  // let hour
-  // if (props.id) {
-  //   hour = await api.put('hour/' + props.id, {hour:{
-  //       ...body.value,
-  //       costs: body.value.costs * 100
-  //     }});
-  // } else {
-  //   hour = await api.post('project/' + currentProjectId.value + '/hour', {
-  //     ...body.value,
-  //     costs: body.value.costs * 100
-  //   });
-  // }
-  //
-  // body.value = {
-  //   minutes: null,
-  //   costs: null,
-  //   description: props.description ? props.description + '\n' : '',
-  //   quoteItem: null
-  // }
-  // emit('done')
-  // dialog.value = false
 
+  emit('setNewPickupAt', body.value.pickup_at)
+
+  dialog.value = false
 }
 
 const reject = async () => {
-  //ToDO: Reject order
-  console.error('Reject order not implemented')
-}
 
-// const autofocus = ref(null)
-// watch(dialog, (value) => {
-//   // only if description is empyt if (value) setTimeout(() => autofocus.value.focus(), 400)
-//   if (value && body.value.description === '') setTimeout(() => autofocus.value.focus(), 400)
-// })
+  emit('rejectOrder')
+}
 </script>

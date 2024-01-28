@@ -23,13 +23,12 @@ defineProps(['product', 'layout'])
     <div class="flex-1" v-else>
       <h2>{{ product.name }}</h2>
       <!--      Show for all optionGroups the selected option-->
-      <pre v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
+      <div v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
         <span class="">{{ optionGroup.name }}: </span>
-        <!--        foreach optionGroup.selected get optionGroup.options at that position and dispaly name of it-->
-        <span v-for="selected in optionGroup.selected" :key="selected">
-          <span class="">{{ optionGroup.options[selected].name }}</span>
+        <span v-for="option in optionGroup.selected" :key="option">
+          <span class="">{{ optionGroup.options[option].name }}</span>
         </span>
-      </pre>
+      </div>
     </div>
     <v-spacer/>
     <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.total_price }} €</div>

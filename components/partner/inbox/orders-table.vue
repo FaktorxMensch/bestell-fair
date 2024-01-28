@@ -5,7 +5,7 @@ const inboxStore = useInboxStore()
 const {orders} = storeToRefs(inboxStore)
 
 const editOrderDialog = ref(false)
-const selectedOrder : any = ref(null)
+let selectedOrder : any = ref(null)
 
 const headers = [
   {title: 'Bestellzeit', value: 'created_at', sortable: true},
@@ -38,14 +38,26 @@ const editOrder = async ({item})=> {
     editOrderDialog.value = false
     await nextTick()
   }
-  selectedOrder.value = {
-    name: item.name,
-    pickup_at: item.pickup_at,
-    status: item.status,
-    products: item.products,
-    total_price: item.total_price,
-  }
+  selectedOrder = item
+  // selectedOrder.value = {
+  //   name: item.name,
+  //   pickup_at: item.pickup_at,
+  //   status: item.status,
+  //   products: item.products,
+  //   total_price: item.total_price,
+  // }
   editOrderDialog.value = true
+}
+
+const handleNewPickupAt = async (newPickupAt) => {
+  // console.log('setNewPickupAt', newPickupAt)
+  editOrderDialog.value = false
+  await inboxStore.updateOrderStatus(selectedOrder, 'Bestätigt')
+  await inboxStore.updatePickupAt(selectedOrder, newPickupAt)
+}
+const handleRejectOrder = async () => {
+  await inboxStore.updateOrderStatus(selectedOrder, 'Storniert')
+  editOrderDialog.value = false
 }
 </script>
 
@@ -55,9 +67,10 @@ const editOrder = async ({item})=> {
             :pickup_at="selectedOrder?.pickup_at"
             :status="selectedOrder?.status"
             :products="selectedOrder?.products"
+            @setNewPickupAt="handleNewPickupAt"
+            @rejectOrder="handleRejectOrder"
             :total_price="selectedOrder?.total_price"
-            prepend-icon="mdi-plus"
-            @done="refresh" >
+            prepend-icon="mdi-plus">
 
   </dialog-confirm-order>
   <partner-inbox-order-overview/>
