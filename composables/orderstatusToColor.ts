@@ -31,3 +31,20 @@ export const orderstatusToIcon = (status: string) => {
             return 'mdi-alert'
     }
 }
+
+export const orderstatusToClass = (status: string) => {
+    switch (status) {
+        case 'Bestätigt':
+            return 'text-sky-600'
+        case 'In Zubereitung':
+            return 'text-yellow-600'
+        case 'Bereit zur Abholung':
+            return 'text-green-600'
+        case 'Abgeholt':
+            return 'text-green-600'
+        case 'Storniert':
+            return 'text-red-600'
+        default:
+            return 'text-gray-600'
+    }
+}
