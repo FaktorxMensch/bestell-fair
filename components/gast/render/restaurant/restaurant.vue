@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="w-96 hidden xl:block shadow-lg bg-white">
+    <div v-if="cache" class="w-96 hidden xl:block shadow-lg bg-white">
       <div class="h-full flex p-6 flex-col items-center justify-center">
         <v-icon size="40" icon="mdi-food"/>
         <h1 class="text-4xl font-semibold p-4">Leerer Teller</h1>
