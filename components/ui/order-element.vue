@@ -1,16 +1,31 @@
 <script lang="ts" setup>
-defineProps(['product'])
+defineProps(['product', 'layout'])
 </script>
 
 <template>
   <div class="order-element">
     <img class="aspect-square w-12" :src="'https://api.bestell-fair.de/storage/v1/object/public/'+product.image" alt="Product image"/>
-    <div class="flex-1">
-      <h2>{{ product.name }}</h2>
-<!--      Show for all optionGroups the selected option-->
-      <pre v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
+    <div class="flex-1" v-if="layout==='short'">
+      <h2>
+        {{ product.name }}
+        (
+      <span v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
         <span class="">{{ optionGroup.name }}: </span>
 <!--        foreach optionGroup.selected get optionGroup.options at that position and dispaly name of it-->
+        <span v-for="selected in optionGroup.selected" :key="selected">
+          <span class="">{{ optionGroup.options[selected].name }}</span>
+        </span>
+        ,
+      </span>
+        )
+      </h2>
+    </div>
+    <div class="flex-1" v-else>
+      <h2>{{ product.name }}</h2>
+      <!--      Show for all optionGroups the selected option-->
+      <pre v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
+        <span class="">{{ optionGroup.name }}: </span>
+        <!--        foreach optionGroup.selected get optionGroup.options at that position and dispaly name of it-->
         <span v-for="selected in optionGroup.selected" :key="selected">
           <span class="">{{ optionGroup.options[selected].name }}</span>
         </span>
