@@ -12,17 +12,17 @@
             :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url + (!cache ? '?cache='+Date.now() : '')"
             alt="Restaurant Icon">
       </div>
-      <div class="container px-5 xl:px-0 xl:mt-2 mb-4" >
+      <div class="container px-5 xl:px-0 xl:mt-2 mb-4">
         <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
         <p class="text-sm">{{ restaurant.location }}</p>
         <p class="text-sm my-2">{{ restaurant.description }}</p>
       </div>
 
-<!--      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">-->
-<!--        <v-tab v-for="tab in tabs" :key="tab.name" ripple>-->
-<!--          {{ tab.name }}-->
-<!--        </v-tab>-->
-<!--      </v-tabs>-->
+      <!--      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">-->
+      <!--        <v-tab v-for="tab in tabs" :key="tab.name" ripple>-->
+      <!--          {{ tab.name }}-->
+      <!--        </v-tab>-->
+      <!--      </v-tabs>-->
 
       <div class="px-2 py-1 bg-gray-100"
            style="box-shadow: inset 0px 20px 10px -20px rgba(0,0,0,0.2);">
@@ -32,17 +32,30 @@
       </div>
     </div>
     <div v-if="cache" class="w-96 hidden xl:block shadow-lg bg-white">
-      <div class="h-full flex p-6 flex-col items-center justify-center">
+
+      <!-- EMPTY CART -->
+      <div v-if="count > 0">
+        <h2 class="text-2xl font-bold p-4">Bestellung</h2>
+        <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
+        <div class="m-2">
+          <ui-order-dialog/>
+        </div>
+      </div>
+
+      <!-- SHOW CART -->
+      <div class="h-full flex p-6 flex-col items-center justify-center" v-else>
         <v-icon size="40" icon="mdi-food"/>
         <h1 class="text-4xl font-semibold p-4">Leerer Teller</h1>
         <p class="px-6 text-gray-500 text-center">Fülle deinen Warenkorb mit leckeren Gerichten, Getränken und
           Desserts.</p>
         <div class="h-48"></div>
       </div>
+
     </div>
   </div>
 </template>
 <script setup>
+
 const props = defineProps({
   restaurant: {
     type: Object,
@@ -60,5 +73,12 @@ const tabs = [
   {name: 'Kontakt', component: resolveComponent('gast-render-restaurant-tab-contact')},
 ]
 const activeTab = ref(0)
+
+const gastStore = useGastStore();
+const sheet = ref(false);
+const {
+  count, products, price
+} = storeToRefs(gastStore);
+
 </script>
 
