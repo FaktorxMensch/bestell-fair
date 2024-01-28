@@ -4,6 +4,9 @@ import {orderstatusToColor} from "~/composables/orderstatusToColor";
 const inboxStore = useInboxStore()
 const {orders} = storeToRefs(inboxStore)
 
+const editOrderDialog = ref(false)
+const selectedOrder : any = ref(null)
+
 const headers = [
   {title: 'Bestellzeit', value: 'created_at', sortable: true},
   {title: 'Abholzeit', value: 'pickup_at', sortable: true},
@@ -19,19 +22,51 @@ const euro = (value: number) => {
   return value.toFixed(2).replace('.', ',')
 }
 
-const openOrder = (item: any) => {
+const openOrder = async (item: any) => {
   // wenn status Neu, setze auf Erhalten
   if (item.status === 'Neu') {
-    item.status = 'Bestätigt'
+    // item.status = 'Bestätigt'
+    //ToDo: Open popup to confirm pickup time or change to new
+    await editOrder({item})
     return
   }
   inboxStore.openOrder(item)
 }
+
+const editOrder = async ({item})=> {
+  if (editOrderDialog) {
+    editOrderDialog.value = false
+    await nextTick()
+  }
+  selectedOrder.value = {
+    name: item.name,
+    pickup_at: item.pickup_at,
+    status: item.status,
+    products: item.products,
+    total_price: item.total_price,
+  }
+  editOrderDialog.value = true
+}
 </script>
 
 <template>
+  <dialog-confirm-order :dialog="editOrderDialog"
+            :name="selectedOrder?.name"
+            :pickup_at="selectedOrder?.pickup_at"
+            :status="selectedOrder?.status"
+            :products="selectedOrder?.products"
+            :total_price="selectedOrder?.total_price"
+            prepend-icon="mdi-plus"
+            @done="refresh" >
+
+  </dialog-confirm-order>
   <partner-inbox-order-overview/>
-  <v-data-table :headers="headers" :items="orders" items-per-page="50" density="comfortable" item-key="name">
+  <v-data-table :headers="headers"
+                :items="orders"
+                items-per-page="50"
+                density="comfortable"
+                item-key="name"
+                :sort-by="[{key: 'pickup_at', order: 'desc'}]">
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">
         <td>{{ new Date(item.created_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>

@@ -49,6 +49,8 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
             this.orders = data
+            console.log('orders', this.orders)
+
             this.updatedAt = new Date()
 
             // listen for new orders
