@@ -6,6 +6,7 @@
  * @method openOrder(order) öffnet eine Bestellung
  * @method closeOrder() schließt die aktuell geöffnete Bestellung
  * @method updateOrderStatus(order, status) aktualisiert den Status einer Bestellung
+ * @method updatePickupAt(order, pickupAt) aktualisiert den Abholzeitpunkt einer Bestellung
  * @method listenForNewOrders() setzt den Listener für neue Bestellungen
  * @property order die aktuell geöffnete Bestellung
  * @property orders alle Bestellungen
@@ -75,6 +76,25 @@ export const useInboxStore = defineStore('inbox', {
             // manipulate the order in the store to avoid a new request
             const index = this.orders.indexOf(order)
             this.orders[index].status = status
+            this.playClick()
+        },
+        // update the pickup time of an order
+        async updatePickupAt(order, pickupAt) {
+            const supabase = useSupabaseClient()
+            // check if pickupAt is a valid date
+            if (!Date.parse(pickupAt)) {
+                console.error('Invalid pickupAt: ' + pickupAt)
+                return
+            }
+            const {data, error} = await supabase.from('orders').update({pickup_at: pickupAt}).eq('id', order.id)
+            if (error) {
+                console.error(error)
+                return
+            }
+
+            // manipulate the order in the store to avoid a new request
+            const index = this.orders.indexOf(order)
+            this.orders[index].pickup_at = pickupAt
             this.playClick()
         },
         // set up the listener for new orders
