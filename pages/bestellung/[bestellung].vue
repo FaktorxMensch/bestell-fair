@@ -9,6 +9,7 @@
   <v-card style="margin-top:-10px" class="max-w-2xl mx-auto">
     <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.feature_image_url"
          class="flex-shrink-0 h-40 w-full object-cover border-b"/>
+
     <v-avatar class="ms-4 -mt-16 border-4 border-white " size="120">
       <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.icon_image_url"/>
     </v-avatar>
@@ -17,23 +18,23 @@
       <h2 class="text-2xl font-bold">{{ order.name }}</h2>
 
       <div class="flex justify-between">
-        <p>Aufgegeben {{ timeDiff(order.created_at) }}, Abholung {{ timeDiff(order.pickup_at) }}.</p>
-        <v-chip
-            class="w-56 justify-center"
-            :prepend-icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)">
-          {{ order.status }}
-        </v-chip>
+        <p>Aufgegeben {{ timeDiff(order.created_at) }}, Abholung {{ timeDiff(order.pickup_at) }}.
+<!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
+          Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.
+        </p>
+
       </div>
       <v-btn @click="refresh"
              prepend-icon="mdi-refresh"
-             class="my-4 w-full"
+             class="mt-4 mb-2 w-full"
+             size="large"
              :loading="loading"
              color="teal-darken-3"
       >Aktualisieren
       </v-btn>
-      <p
-          class="text-sm text-gray-500"
-      > Seite {{ refreshedDiff }} aktualisiert.</p>
+      <gast-dialog-report :order="order.id"/>
+
+      <p class="text-sm mt-4 text-gray-500"> Seite {{ refreshedDiff }} aktualisiert.</p>
 
       <v-list
           v-if="showProducts"
@@ -44,6 +45,7 @@
       <p> Bezahlung bei Abholung, Summe {{ price(order.total_price) }}. </p>
       <p> Abholung bei {{ restaurant.name }}<br/>
         {{ restaurant.location }}. </p>
+
     </v-card-text>
     <v-card-actions class="flex justify-around">
       <v-btn :href="'tel:' + restaurant.contact_phone"
@@ -88,4 +90,5 @@ const refresh = async () => {
   await new Promise(resolve => setTimeout(resolve, 200));
   loading.value = false
 }
+import {orderstatusToClass, orderstatusToColor, orderstatusToIcon} from "~/composables/orderstatusToColor";
 </script>
