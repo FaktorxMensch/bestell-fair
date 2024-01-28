@@ -12,17 +12,17 @@
             :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url + (!cache ? '?cache='+Date.now() : '')"
             alt="Restaurant Icon">
       </div>
-      <div class="container sm:px-5 lg:px-0 mt-2 mb-4" >
+      <div class="container px-5 xl:px-0 xl:mt-2 mb-4" >
         <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
         <p class="text-sm">{{ restaurant.location }}</p>
         <p class="text-sm my-2">{{ restaurant.description }}</p>
       </div>
 
-      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">
-        <v-tab v-for="tab in tabs" :key="tab.name" ripple>
-          {{ tab.name }}
-        </v-tab>
-      </v-tabs>
+<!--      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">-->
+<!--        <v-tab v-for="tab in tabs" :key="tab.name" ripple>-->
+<!--          {{ tab.name }}-->
+<!--        </v-tab>-->
+<!--      </v-tabs>-->
 
       <div class="px-2 py-1 bg-gray-100"
            style="box-shadow: inset 0px 20px 10px -20px rgba(0,0,0,0.2);">
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="w-96 hidden lg:block shadow-lg bg-white">
+    <div class="w-96 hidden xl:block shadow-lg bg-white">
       <div class="h-full flex p-6 flex-col items-center justify-center">
         <v-icon size="40" icon="mdi-food"/>
         <h1 class="text-4xl font-semibold p-4">Leerer Teller</h1>
