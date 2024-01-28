@@ -8,6 +8,7 @@
             {{ product.name }}
           </h2>
           <p class="text-gray-500 min-h-8">{{ product.description }}</p>
+          <p class="text-gray-500 min-h-8 mt-2 ">Wahl aus: {{ getWahlAusText(product.optionGroups) }}</p>
         </div>
         <div class="flex flex-col justify-between items-end">
           <div class="absolute right-3">
@@ -59,4 +60,15 @@ const props = defineProps(['restaurant', 'product'])
 const showAdditionalInfo = ref(false)
 const gastStore = useGastStore()
 const addToCart = () => gastStore.addProduct(props.product)
+
+
+// von allen optiongroups die ausgewählten optionen holen und die ersten 4 nehmen 'und mehr ...' oder halt die ersten 3
+const getWahlAusText = (optionGroups) => {
+  // aus allen option groups alle möglichen optionen den name hole
+  const options = optionGroups.flatMap(og => og.options.map(o => o.name))
+  // und jetzt die ersten 4 nehmen bzw und mehr wenn es mehr als 4 sind
+  const first4 = options.slice(0, 4)
+
+  return first4.join(', ') + (options.length > 4 ? ' und mehr' : '')
+}
 </script>
