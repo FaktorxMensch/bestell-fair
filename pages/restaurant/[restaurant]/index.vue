@@ -1,5 +1,8 @@
 <template>
-  <v-app-bar>
+  <v-app-bar
+      scroll-behavior="hide"
+      scroll-threshold="1"
+  >
     <v-btn @click="$router.back()" icon="mdi-arrow-left"/>
     <v-app-bar-title>{{ restaurant.name }}</v-app-bar-title>
     <v-btn icon="mdi-phone" :href="'tel:' + restaurant.phone"/>
