@@ -65,8 +65,7 @@ const submitForm = verwaltenStore.saveRestaurant
 const {uploadImage} = useFilehandler()
 
 const upload = async (type, event) => {
-  const url = await uploadImage(event)
-  console.log('url', url)
+  const url = await uploadImage(event, type == 'icon' ? {w: 200, h: 200} : {w: 1000, h: 200})
   restaurant.value[type + '_image_url'] = url
 }
 </script>

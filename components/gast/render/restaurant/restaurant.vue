@@ -6,15 +6,14 @@
         style="object-fit: cover; width: 800px; height: 150px;"
     />
     <div class="flex items-center gap-4 p-4 -mt-6">
-      <v-avatar size="130" class="border-4 border-white -mt-6">
-        <img
-            :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url + (!cache ? '?cache='+Date.now() : '')"
-            alt="Restaurant Icon">
-      </v-avatar>
+      <img
+          class="h-20 w-20 rounded shadow"
+          :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url + (!cache ? '?cache='+Date.now() : '')"
+          alt="Restaurant Icon">
 
       <div>
         <h2 class="text-2xl font-medium">{{ restaurant.name }}</h2>
-        <p class="text-sm">@TheSharkDaymond • Public Figure</p>
+        <p class="text-sm">{{ restaurant.location }}</p>
       </div>
     </div>
 

@@ -1,36 +1,32 @@
 <template>
   <v-card>
-    <v-card-title>
-      <v-card-actions>
-        {{ product.name }}
+    <v-card-text>
+      <div class="flex space-between">
+        <div>
+          <h2 class="text-lg font-semibold">
+            {{ product.name }}
+          </h2>
+          <p class="text-gray-500 min-h-8">{{ product.description }}</p>
+        </div>
         <v-spacer></v-spacer>
-
         <v-btn
             v-if="typeof product.optionGroups == 'undefined' || product.optionGroups.length === 0"
             :icon="'mdi-cart'"
+            variant="flat"
+            color="grey-lighten-3"
             @click="addToCart"/>
         <gast-dialog-optiongroups v-else :product="product"/>
-      </v-card-actions>
-    </v-card-title>
-
-    <v-card-subtitle>{{ product.description }}</v-card-subtitle>
-
-    <v-card-text class="flex flex-col gap-2 btns-text-left">
-      Preis: {{ product.price }} Euro
+      </div>
+      <p class="font-bold mt-2"> {{ price(product.price) }}
+        <v-btn size="small" class="float-right -mt-4 mb-2"
+               variant="text"
+               :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-information-outline'"
+               @click="showAdditionalInfo = !showAdditionalInfo"/>
+      </p>
     </v-card-text>
-    <v-card-actions>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-          :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-          @click="showAdditionalInfo = !showAdditionalInfo"/>
-    </v-card-actions>
 
     <v-expand-transition>
       <div v-show="showAdditionalInfo">
-        <v-divider></v-divider>
-
         <v-card-text>
           <h2>Allergene und Zusatzstoffe</h2>
           <p>Die folgenden Allergene und Zusatzstoffe sind in diesem Produkt enthalten:</p>
@@ -47,6 +43,7 @@
 </template>
 <script setup>
 import {useGastStore} from "~/stores/gast.ts";
+
 const props = defineProps(['restaurant', 'product'])
 const showAdditionalInfo = ref(false)
 const gastStore = useGastStore()
