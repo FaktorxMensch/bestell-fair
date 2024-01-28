@@ -79,28 +79,6 @@
               Jetzt bestellen ({{ pricef(price) }})
             </v-btn>
           </v-form>
-
-          <!--          add inputs for name phone and mail-->
-          <!--          <v-card-text>-->
-          <!--            <v-text-field-->
-          <!--                v-model="name"-->
-          <!--                label="Name"-->
-          <!--                outlined-->
-          <!--            ></v-text-field>-->
-          <!--            <v-text-field-->
-          <!--                v-model="phone"-->
-          <!--                label="Telefonnummer"-->
-          <!--                outlined-->
-          <!--            ></v-text-field>-->
-          <!--            <v-text-field-->
-          <!--                v-model="mail"-->
-          <!--                label="E-Mail"-->
-          <!--                outlined-->
-          <!--            ></v-text-field>-->
-          <!--          </v-card-text>-->
-          <!--          <footer>-->
-
-          <!--          </footer>-->
         </v-card>
       </v-dialog>
     </footer>

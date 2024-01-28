@@ -2,6 +2,7 @@ export const useGastStore = defineStore('gast', {
     persist: true,
     state: () => ({
         products: [], product_refs: [], custom_fields: [], name: '', phone: '', email: '', restaurant_id: null,
+        status: 'Neu',
         remark: ''
     }),
     getters: {
@@ -84,7 +85,7 @@ export const useGastStore = defineStore('gast', {
                 custom_fields: this.custom_fields,
                 products: this.products,
                 total_price: this.price,
-                status: 'Neu',
+                status: this.status,
                 name: this.name,
                 phone: this.phone,
                 email: this.email,
