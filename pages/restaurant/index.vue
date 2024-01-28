@@ -10,7 +10,8 @@
           autofocus
           v-if="showSearch"
       />
-      <v-app-bar-title v-else>Restaurants</v-app-bar-title>
+      <v-app-bar-title v-else>
+        Restaurants</v-app-bar-title>
     </template>
     <v-btn icon="mdi-magnify" @click="showSearch = !showSearch" v-if="!showSearch"/>
   </v-app-bar>
