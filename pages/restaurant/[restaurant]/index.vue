@@ -1,9 +1,10 @@
 <template>
   <v-app-bar
-      scroll-behavior="hide"
+      scroll-behavior="collapse"
       scroll-threshold="1"
   >
     <v-btn to="/restaurant" icon="mdi-arrow-left"/>
+    <v-spacer class="hidden md:flex"/>
     <v-app-bar-title>{{ restaurant.name }}</v-app-bar-title>
     <v-btn icon="mdi-phone" :href="'tel:' + restaurant.phone"/>
   </v-app-bar>
