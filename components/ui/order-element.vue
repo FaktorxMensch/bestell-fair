@@ -4,7 +4,7 @@ defineProps(['product', 'layout'])
 
 <template>
   <div class="order-element">
-    <img class="aspect-square w-12" :src="'https://api.bestell-fair.de/storage/v1/object/public/'+product.image" alt="Product image"/>
+    <img class="aspect-square w-12" :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image" alt="Product image"/>
     <div class="flex-1" v-if="layout==='short'">
       <h2>
         {{ product.name }}
