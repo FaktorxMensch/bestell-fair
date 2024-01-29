@@ -15,6 +15,7 @@
           <!-- CHECKBOXES -->
           <template v-if="group.multiple">
             <v-select multiple :items="group.options.map(({name},index) => ({name, index}))"
+
                       v-model="group.selected"
                       item-title="name"
                       item-value="index"
