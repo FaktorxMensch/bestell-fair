@@ -87,6 +87,8 @@ export const useGastStore = defineStore('gast', {
                 phone: this.phone,
                 email: this.email,
             })
+
+            console.log('inserterd', data, error)
             if (error) {
                 console.error(error)
                 await Swal.fire({
@@ -98,10 +100,14 @@ export const useGastStore = defineStore('gast', {
             }
             await Swal.fire({
                 title: 'Bestellung aufgegeben',
-                text: 'Deine Bestellung wurde erfolgreich aufgegeben.',
+                text: 'Deine Bestellung wurde erfolgreich aufgegeben, bitte prüfe Deine E-Mails.',
                 icon: 'success',
             })
-            return data[0].id
+            // dann könen wir die products und product_refs im store löschen
+            this.resetOrder()
+            // weiterleitne zur bestellübersicht
+            navigateTo('/bestellung/danke')
+            // return data[0].id
         },
     },
 })
