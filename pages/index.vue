@@ -4,7 +4,8 @@
 
     <!-- HERO -->
     <div class="text-800 flex flex-col md:flex-row">
-      <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto block md:hidden object-cover" style="height: 30vh"/>
+      <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto block md:hidden object-cover"
+           style="height: 30vh"/>
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
           <span class="block text-4xl sm:text-6xl font-bold mb-1">Faire Vorbestellung</span>
@@ -76,11 +77,14 @@
 
     </div>
 
+    <!-- FUTURE FUNCTIONALITY 1/3 -->
     <div class="bg-white flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex-1 md:col-6 overflow-hidden">
-        <img src="/landing/table_qr.jpeg" alt="Image" class="md:ml-auto hidden md:block" style="clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
-        <img src="/landing/table_qr.jpeg" alt="Image" class="md:ml-auto block md:hidden" style="min-height: calc(50vh - 64px);"/>
+        <img src="/landing/functionality/table_qr.jpeg" alt="Image" class="md:ml-auto hidden md:block"
+             style="clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
+        <img src="/landing/functionality/table_qr.jpeg" alt="Image" class="md:ml-auto block md:hidden"
+             style="min-height: calc(50vh - 64px);"/>
       </div>
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
@@ -95,6 +99,51 @@
         </section>
       </div>
     </div>
+
+    <!-- FUTURE FUNCTIONALITY 2/3 -->
+    <div class="bg-gray-200 flex  flex-col md:flex-row">
+      <!-- badge "In kürze verfügbar" -->
+      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
+        <section class="flex flex-col lg:px-12 gap-2">
+          <div class="bg-amber-500 text-white text-center w-56 rounded-full py-2 px-4 mb-4">In Planung</div>
+          <span class="block text-4xl sm:text-6xl font-bold mb-1">Gruppenbestellungen</span>
+          <div class="text-2xl sm:text-4xl font-bold mb-7">Bestelle für deine Kollegen oder Freunde mit</div>
+          <p class="mt-0 mb-5 text-xl text-700 line-height-3">
+            Du erstellst eine Bestellung und deine Kollegen oder Freunde können sich dann mit einem Code zu deiner
+            Bestellung hinzufügen. So kannst du ganz einfach für deine Kollegen oder Freunde mitbestellen und dann bei
+            deinem Lieblingsrestaurant abholen. Ihr könnt die Kosten dann ganz einfach untereinander aufteilen.
+          </p>
+        </section>
+      </div>
+      <div class="col-12 flex-1 md:col-6 overflow-hidden p-20">
+        <img src="/landing/functionality/collection_orders.jpeg" alt="Image"
+             class="rounded-full md:ml-auto hidden md:block"
+             style="min-height: calc(50vh - 64px);"/>
+      </div>
+    </div>
+    <!-- FUTURE FUNCTIONALITY 3/3 -->
+    <div class="bg-white flex  flex-col md:flex-row">
+      <!-- badge "In kürze verfügbar" -->
+      <div class="col-12 flex-1 md:col-6 overflow-hidden">
+        <img src="/landing/functionality/eve_discount.jpeg" alt="Image" class="md:ml-auto hidden md:block"
+             style="clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
+        <img src="/landing/functionality/eve_discount.jpeg" alt="Image" class="md:ml-auto block md:hidden"
+             style="min-height: calc(50vh - 64px);"/>
+      </div>
+      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
+        <section class="flex flex-col lg:px-12 gap-2">
+          <div class="bg-teal-800 text-white text-center w-56 rounded-full py-2 px-4 mb-4">In Kürze verfügbar</div>
+          <span class="block text-4xl sm:text-6xl font-bold mb-1">Reste-Verkauf</span>
+          <div class="text-2xl sm:text-4xl font-bold mb-7">Verkaufe deine Reste am Ende des Tages</div>
+          <p class="mt-0 mb-5 text-xl text-700 line-height-3">
+            Wir entwickeln gerade eine Funktion, mit der du deine Reste am Ende des Tages verkaufen kannst. So kannst
+            du ganz einfach deine Reste verkaufen und musst sie nicht wegwerfen. Deine Kunden können dann ganz einfach
+            deine Reste vorbestellen und dann bei dir abholen.
+          </p>
+        </section>
+      </div>
+    </div>
+
 
     <!-- FEATURES -->
     <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-neutral-100">
@@ -390,5 +439,5 @@ footer a::after {
 
 </style>
 <script setup lang="ts">
-definePageMeta({layout:'landing'})
+definePageMeta({layout: 'landing'})
 </script>
