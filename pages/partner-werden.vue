@@ -22,7 +22,6 @@
 <!--            <v-btn rounded size="large" class="mt-8" variant="flat" color="black" href="/"> &larr; Zurück zur Startseite </v-btn>-->
           </template>
           <template v-else>
-            <p class="text-lg mb-8">Fülle das Formular aus und wir melden uns bei Dir.</p>
             <landing-form-restaurant @done="done = true"/>
           </template>
         </div>
