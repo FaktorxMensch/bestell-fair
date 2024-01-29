@@ -4,11 +4,14 @@
 
       <v-text-field class="pt-4" rounded variant="outlined" v-model="formData.location"
                     @keyup.enter="findRestaurant"
-                    label="Adresse (Strasse, PLZ, Ort)"></v-text-field>
+                    label="Adresse oder Name und Stadt des Restaurant"></v-text-field>
 
 
       <div v-if="places && step == 1" class="flex flex-col gap-2 mb-6">
-        <p class="text-lg">Wähle dein Restaurant aus:</p>
+        <div v-if="places.length===0" class="text-lg">Kein Restaurant gefunden, bitte versuche es erneut oder
+          <a @click="step=2" class="text-teal-900 underline cursor-pointer">gib die Daten manuell ein</a>.
+        </div>
+        <p class="text-lg" v-else>Wähle dein Restaurant aus:</p>
         <div v-for="place in places"
              class="flex items-center gap-4 border rounded-full px-5 py-2 justify-start cursor-pointer hover:bg-gray-100 transition-all"
              :class="{'opacity-50': !place.food}"
@@ -24,6 +27,7 @@
 
       <v-btn rounded type="submit" color="teal" size="large"
              v-if="step===1" variant="flat"
+             v-show="places === null || places.length === 0"
              @click="findRestaurant"
              :disabled="!formData.location"
              :loading="loading"
@@ -63,7 +67,7 @@
                variant="flat"
                class="w-full"
                @click="submit"
-               :disabled="!formData.name || !formData.location || !formData.description || !formData.contact_email || !formData.contact_phone"
+               :disabled="!formData.name || !formData.location || !formData.contact_email || !formData.contact_phone"
         >Anfrage senden
         </v-btn>
       </template>
@@ -137,6 +141,7 @@ const findRestaurant = async () => {
     subtitle: place.display_name,
     onclick: () => {
       formData.value.name = place.name
+      formData.value.location = place.display_name
       formData.value.type = place.type
       formData.value.lat = place.lat
       formData.value.lon = place.lon
