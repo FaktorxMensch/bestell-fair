@@ -5,6 +5,9 @@ defineProps(['product', 'layout'])
 <template>
   <div class="order-element">
     <img class="aspect-square w-12" :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image" alt="Product image"/>
+
+<!--    SHORT LAYOUT-->
+
     <div class="flex-1" v-if="layout==='short'">
       <h2>
         {{ product.name }}
@@ -15,21 +18,28 @@ defineProps(['product', 'layout'])
         <span v-for="selected in optionGroup.selected" :key="selected">
           <span class="">{{ optionGroup.options[selected].name }}</span>
         </span>
-        ,
+        {{product.optionGroups.length > 1 && product.optionGroups.indexOf(optionGroup) < product.optionGroups.length - 1 ? ',' : ''}}
       </span>
         )
       </h2>
     </div>
+
+<!--    NORMAL LAYOUT-->
+
     <div class="flex-1" v-else>
       <h2>{{ product.name }}</h2>
       <!--      Show for all optionGroups the selected option-->
       <div v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
         <span class="">{{ optionGroup.name }}: </span>
-        <span v-for="option in optionGroup.selected" :key="option">
-          <span class="">{{ optionGroup.options[option].name }}</span>
+        <span v-for="selected in optionGroup.selected" :key="selected">
+          <span class="">{{ optionGroup.options[selected].name }}</span>
         </span>
+        {{product.optionGroups.length > 1 && product.optionGroups.indexOf(optionGroup) < product.optionGroups.length - 1 ? ',' : ''}}
       </div>
     </div>
+
+<!--    END SPECIAL LAYOUT-->
+
     <v-spacer/>
     <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.total_price }} €</div>
   </div>
