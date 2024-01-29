@@ -114,7 +114,7 @@
   </v-dialog>
 </template>
 <script setup>
-const emit = defineEmits(['setNewPickupAt'])
+const emit = defineEmits(['setNewPickupAt', 'rejectOrder'])
 const props = defineProps(['name', 'pickup_at', 'status', 'products', 'total_price','prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
 

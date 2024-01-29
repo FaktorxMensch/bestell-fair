@@ -59,6 +59,13 @@ const handleRejectOrder = async () => {
   await inboxStore.updateOrderStatus(selectedOrder, 'Storniert')
   editOrderDialog.value = false
 }
+
+const search = ref("no")
+const filterAll = (value, searchQuery, item) => {
+  if(searchQuery == 'all') return true
+  else if (item.columns.status == "Storniert" ||  item.columns.status == "Abgeholt") return false
+  else return true
+}
 </script>
 
 <template>
@@ -79,7 +86,17 @@ const handleRejectOrder = async () => {
                 items-per-page="50"
                 density="comfortable"
                 item-key="name"
+                :search="search"
+                :custom-filter="filterAll"
                 :sort-by="[{key: 'pickup_at', order: 'desc'}]">
+    <template v-slot:top>
+      <v-switch v-model="search"
+                label="Alle anzeigen"
+                true-value="all"
+                false-value="no">
+
+      </v-switch>
+    </template>
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">
         <td>{{ new Date(item.created_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>
