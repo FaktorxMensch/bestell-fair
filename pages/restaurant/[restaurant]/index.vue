@@ -2,11 +2,15 @@
   <v-toolbar
       color="white"
       elevation="5"
-    >
+  >
     <v-btn to="/restaurant" icon="mdi-arrow-left"/>
     <v-spacer class="hidden md:flex"/>
     <v-app-bar-title>{{ restaurant.name }}</v-app-bar-title>
-    <v-btn icon="mdi-phone" :href="'tel:' + restaurant.phone"/>
+    <v-btn icon="mdi-cart" @click="toggleCart">
+      <v-badge :content="count" color="primary" >
+        <v-icon icon="mdi-shopping"/>
+      </v-badge>
+    </v-btn>
   </v-toolbar>
   <gast-render-restaurant v-if="restaurant" :restaurant="restaurant"/>
 </template>
@@ -15,6 +19,7 @@ const supabase = useSupabaseClient();
 const route = useRoute();
 const restaurant = ref(false);
 const gastStore = useGastStore();
+const {count, restaurant_id: storeRestaurantId, cartOpen} = storeToRefs(gastStore);
 
 onMounted(async () => {
   const {data, error} = await supabase
@@ -25,9 +30,7 @@ onMounted(async () => {
   if (data) {
     restaurant.value = data;
   }
-  console.log(data, error)
 });
-const {count, restaurant_id:storeRestaurantId} = storeToRefs(gastStore);
 watch(restaurant, (newVal) => {
   if (newVal) {
     if (count.value > 0 && storeRestaurantId.value != newVal.id) {
@@ -43,16 +46,15 @@ watch(restaurant, (newVal) => {
         if (result.isConfirmed) {
           gastStore.resetOrder();
           gastStore.setRestaurantId(route.params.restaurant);
-        }
-        else {
+        } else {
           // go back to the other restaurant
           return navigateTo('/restaurant/' + storeRestaurantId.value)
         }
       });
-    }
-    else {
+    } else {
       gastStore.setRestaurantId(route.params.restaurant);
     }
   }
 })
+const toggleCart = () => gastStore.cartOpen = !gastStore.cartOpen
 </script>

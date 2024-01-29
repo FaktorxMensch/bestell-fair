@@ -1,23 +1,24 @@
 <template>
-  <div class="xl:hidden">
-    <div :class="{'cart-wrapper ': true, 'collapsed': !sheet}" v-if="count > 0">
-      <header @click="sheet = !sheet" class="flex w-full text-lg uppercase">
-        <span class="font-semibold"> Bestellung </span>
-        <v-spacer/>
-        <v-chip color="teal" text-color="white">
-          {{ pricef(price) }}
-        </v-chip>
-        <v-divider class="ms-5 me-3" vertical/>
-        <v-icon icon="mdi-chevron-up" size="large" :class="{'rotate-180': sheet}"/>
-      </header>
-      <main>
-        <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
-      </main>
-      <footer>
-        <ui-order-dialog/>
-      </footer>
-    </div>
-  </div>
+  <h1>DEPRECATED / REMOVED</h1>
+<!--  <div class="xl:hidden">-->
+<!--    <div :class="{'cart-wrapper ': true, 'collapsed': !sheet}" v-if="count > 0">-->
+<!--      <header @click="sheet = !sheet" class="flex w-full text-lg uppercase">-->
+<!--        <span class="font-semibold"> Bestellung </span>-->
+<!--        <v-spacer/>-->
+<!--        <v-chip color="teal" text-color="white">-->
+<!--          {{ pricef(price) }}-->
+<!--        </v-chip>-->
+<!--        <v-divider class="ms-5 me-3" vertical/>-->
+<!--        <v-icon icon="mdi-chevron-up" size="large" :class="{'rotate-180': sheet}"/>-->
+<!--      </header>-->
+<!--      <main>-->
+<!--        <ui-order-element v-for="product in products" :key="product.name" :product="product"/>-->
+<!--      </main>-->
+<!--      <footer>-->
+<!--        <ui-order-dialog/>-->
+<!--      </footer>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script setup>

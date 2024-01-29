@@ -25,16 +25,21 @@
         </div>
       </div>
     </div>
-    <div v-if="cache" class="w-96 hidden xl:block shadow-lg bg-white fixed right-0 top-0 bottom-0 overflow-y-auto">
-
+    <v-navigation-drawer
+        v-model="cartOpen"
+        location="right"
+        :temporary="false"
+        width="400"
+        elevation="10"
+        v-if="  cache"
+    >
       <!-- SHOW CART -->
       <div v-if="count > 0" class="flex flex-col h-full">
-        <v-toolbar color="white">
+        <v-toolbar color="primary">
+<!--          <v-btn @click="cartOpen = false" icon="mdi-arrow-left"/>-->
           <v-toolbar-title>Bestellung</v-toolbar-title>
-<!--          <v-spacer/>-->
-<!--          <v-chip color="teal" text-color="white"> {{ pricef(price) }} </v-chip>-->
-<!--          <v-divider class="ms-5 me-3" vertical/>-->
-<!--          <v-icon icon="mdi-chevron-up" size="large" :class="{'rotate-180': sheet}"/>-->
+          <v-spacer/>
+          <v-btn @click="cartOpen = false" icon="mdi-close"/>
         </v-toolbar>
         <div class="overflow-y-auto flex-1">
           <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
@@ -54,11 +59,10 @@
         <div class="h-48"></div>
       </div>
 
-    </div>
+    </v-navigation-drawer>
   </div>
 </template>
 <script setup>
-
 const props = defineProps({
   restaurant: {
     type: Object,
@@ -80,7 +84,8 @@ const activeTab = ref(0)
 const gastStore = useGastStore();
 const sheet = ref(false);
 const {
-  count, products, price
+  count, products, price,
+  cartOpen
 } = storeToRefs(gastStore);
 
 </script>

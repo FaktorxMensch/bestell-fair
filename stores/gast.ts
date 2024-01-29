@@ -2,7 +2,8 @@ export const useGastStore = defineStore('gast', {
     persist: true,
     state: () => ({
         products: [], product_refs: [], custom_fields: [], name: '', phone: '', email: '', restaurant_id: null,
-        remark: ''
+        remark: '',
+        cartOpen: false,
     }),
     getters: {
         // wieviele (auch count)

@@ -3,6 +3,6 @@
     <v-main>
       <slot/>
     </v-main>
-    <gast-render-cart/>
+<!--    <gast-render-cart/>-->
   </v-app>
 </template>

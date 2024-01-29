@@ -5,7 +5,7 @@
       transition="dialog-bottom-transition"
   >
     <template v-slot:activator="{ props }">
-      <v-btn size="large" color="teal" text rounded block v-bind="props">
+      <v-btn size="large" color="primary" text rounded block v-bind="props">
         <v-icon left>mdi-cart</v-icon>
         <span class="font-semibold"> {{ count }} Artikel </span>
       </v-btn>
