@@ -147,12 +147,12 @@
 
     <!-- FEATURES -->
     <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-neutral-100">
-      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
-        <span class="text-gray-900">Eine Plattform, </span>
-        <span class="text-teal-800">viele Vorteile</span>
+      <div class="mb-6 font-bold text-4xl lg:text-6xl lg:pt-12 ">
+        <span class="text-gray-900">Einmal zahlen, </span>
+        <span class="text-teal-800">unzählige Funktionen</span>
       </div>
-      <div class="text-gray-700 lg:text-2xl text-lg mb-8">Wir entwickeln unsere Plattform stetig weiter, um für alle
-        Beteiligten einen Mehrwert zu schaffen.
+      <div class="text-gray-700 lg:text-2xl text-lg mb-8 max-w-4xl mx-auto">Wir entwickeln unsere Plattform stetig weiter, alle
+        Funktionen sind im Preis enthalten und jegliche Zusatzkosten.
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-16 lg:max-w-6xl mx-auto">
