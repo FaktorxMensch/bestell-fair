@@ -94,7 +94,7 @@ function handleKeyPress(event) {
 
 <style scoped>
 .full-dialog {
-  @apply fixed inset-0 z-50 bg-neutral-800 mt-16 overflow-x-auto;
+  @apply fixed inset-0 z-50 bg-neutral-800 overflow-x-auto;
 
   header .v-btn {
     @apply flex-1 normal-case font-normal;

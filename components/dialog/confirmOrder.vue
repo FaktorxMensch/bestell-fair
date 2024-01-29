@@ -17,7 +17,7 @@
                     @click="changePickupTime(-5*60*1000)"
                     variant="tonal"
                     prepend-icon="mdi-chevron-double-left">
-              -5 min
+              -10 min
             </v-btn>
           </v-col><v-col
             cols="4"
@@ -27,7 +27,7 @@
                   @click="changePickupTime(-10*60*1000)"
                   variant="tonal"
                   prepend-icon="mdi-chevron-left">
-            -10 min
+            -5 min
           </v-btn>
         </v-col>
           <v-col
