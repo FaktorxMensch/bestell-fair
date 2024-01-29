@@ -11,7 +11,7 @@ const headers = [
   {title: 'Bestellzeit', value: 'created_at', sortable: true},
   {title: 'Abholzeit', value: 'pickup_at', sortable: true},
   {title: 'Status', value: 'status', sortable: true},
-  {title: 'Produkte', value: '', sortable: false},
+  {title: 'Produkte', value: '', sortable: true},
   {title: 'Gastname', value: 'name'},
   {title: 'Gesamtpreis', value: 'total_price', align: 'end'},
   {title: 'Aktionen', value: 'actions', sortable: false, align: 'center', width: '155px'},
@@ -51,13 +51,19 @@ const editOrder = async ({item})=> {
 
 const handleNewPickupAt = async (newPickupAt) => {
   // console.log('setNewPickupAt', newPickupAt)
-  editOrderDialog.value = false
-  await inboxStore.updateOrderStatus(selectedOrder, 'Bestätigt')
+  // editOrderDialog.value = false
   await inboxStore.updatePickupAt(selectedOrder, newPickupAt)
 }
-const handleRejectOrder = async () => {
-  await inboxStore.updateOrderStatus(selectedOrder, 'Storniert')
+const handleChangeOrderStatus = async (status) => {
+  await inboxStore.updateOrderStatus(selectedOrder, status)
   editOrderDialog.value = false
+}
+
+const search = ref("no")
+const filterAll = (value, searchQuery, item) => {
+  if(searchQuery == 'all') return true
+  else if (item.columns.status == "Storniert" ||  item.columns.status == "Abgeholt") return false
+  else return true
 }
 </script>
 
@@ -68,7 +74,7 @@ const handleRejectOrder = async () => {
             :status="selectedOrder?.status"
             :products="selectedOrder?.products"
             @setNewPickupAt="handleNewPickupAt"
-            @rejectOrder="handleRejectOrder"
+            @changeOrderStatus="handleChangeOrderStatus"
             :total_price="selectedOrder?.total_price"
             prepend-icon="mdi-plus">
 
@@ -79,7 +85,17 @@ const handleRejectOrder = async () => {
                 items-per-page="50"
                 density="comfortable"
                 item-key="name"
-                :sort-by="[{key: 'pickup_at', order: 'desc'}]">
+                :search="search"
+                :custom-filter="filterAll"
+                :sort-by="[{key: 'pickup_at', order: 'asc'}]">
+    <template v-slot:footer.prepend>
+      <v-switch v-model="search"
+                label="Alle anzeigen"
+                true-value="all"
+                false-value="no">
+
+      </v-switch>
+    </template>
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">
         <td>{{ new Date(item.created_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>
