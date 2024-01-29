@@ -2,6 +2,7 @@
   {
     "name": "Schmidt",
     "image": "",
+    "category": "Döner",
     "description": "Ein Schmidt zum selber bauen",
     "price": 7.80,
     "optionGroups": [

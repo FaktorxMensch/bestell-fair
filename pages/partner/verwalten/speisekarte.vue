@@ -19,18 +19,22 @@
                 <v-select label="Stichworte" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']"
                           chips=""
                           multiple/>
-                  <v-file-input
-                      :prepend-icon="null"
-                      prepend-inner-icon="mdi-image"
-                      variant="solo"
-                      label="Bild" @change="event=>fileChange(event,product)"/>
+                <v-file-input
+                    :prepend-icon="null"
+                    prepend-inner-icon="mdi-image"
+                    variant="solo"
+                    label="Bild" @change="event=>fileChange(event,product)"/>
+              </div>
+
+              <div class="lg:grid lg:grid-cols-3 mt-2 lg:gap-2">
+                <v-combobox label="Zutaten" v-model="product.ingredients" chips multiple/>
+                <v-combobox label="Allergene" v-model="product.allergens" chips multiple/>
+                <v-combobox label="Zusatzstoffe" v-model="product.additives" chips multiple/>
               </div>
 
               <div class="lg:grid lg:grid-cols-2 mt-2 lg:gap-2">
                 <v-text-field label="Beschreibung" v-model="product.description"/>
-                <v-combobox label="Zutaten" v-model="product.ingredients" chips multiple/>
-                <v-combobox label="Allergene" v-model="product.allergens" chips multiple/>
-                <v-combobox label="Zusatzstoffe" v-model="product.additives" chips multiple/>
+                <v-text-field label="Kategorie" v-model="product.category"/>
               </div>
             </div>
             <img
@@ -57,7 +61,7 @@
     </v-expansion-panel>
     <v-expansion-panel
         expand-icon="mdi-plus-circle-outline"
-        @click="restaurant.products.push({name: 'Neues Produkt #'+(restaurant.products.length+1), price: 0, tags: [], image: null, description: '', ingredients: [], allergens: [], additives: [], optionGroups: []})"
+        @click="restaurant.products.push({name: 'Neues Produkt #'+(restaurant.products.length+1),category:'', price: 0, tags: [], image: null, description: '', ingredients: [], allergens: [], additives: [], optionGroups: []})"
         title="Neues Produkt"
         ripple>
     </v-expansion-panel>
