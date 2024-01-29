@@ -14,6 +14,12 @@ const optionGroups = computed(() => {
     }
   })
 })
+
+const flattenedSelected = computed(() => {
+  return optionGroups.value.map((optionGroup) => {
+    return optionGroup.multiple ? optionGroup.selected.join(', ') : optionGroup.selected
+  }).join(', ')
+})
 </script>
 
 <template>
@@ -30,6 +36,9 @@ const optionGroups = computed(() => {
             {{ optionGroup.multiple ? optionGroup.selected.join(', ') : optionGroup.selected }}
           </div>
         </div>
+      </div>
+      <div v-else class="text-xs opacity-80">
+        {{ flattenedSelected}}
       </div>
 
     </div>
