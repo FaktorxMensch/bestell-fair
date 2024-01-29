@@ -1,10 +1,7 @@
 <template>
-
   <v-dialog
       v-model="dialog"
       fullscreen
-      class="inset-0"
-      :scrim="false"
       transition="dialog-bottom-transition"
   >
     <template v-slot:activator="{ props }">
@@ -14,20 +11,12 @@
       </v-btn>
     </template>
     <v-card>
-      <v-toolbar
-          color="primary"
-      >
-        <v-btn
-            icon
-            dark
-            @click="dialog = false"
-        >
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
+      <v-toolbar color="primary" >
+        <v-btn dark @click="dialog = false" icon="mdi-arrow-left"/>
         <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="px-5 no-input-details flex flex-col gap-4">
+      <v-form class="container px-5 no-input-details flex flex-col gap-4">
         <h2>Persönliche Daten</h2>
         <label>Dein Name</label>
         <v-text-field
