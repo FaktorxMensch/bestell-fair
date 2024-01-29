@@ -1,53 +1,46 @@
 <script lang="ts" setup>
-defineProps(['product', 'layout'])
+const props = defineProps(['product', 'layout'])
+// layout: short, normal
+
+const optionGroups = computed(() => {
+  return props.product.optionGroups.map((optionGroup) => {
+    const multiple = typeof optionGroup.selected === 'object'
+    return {
+      name: optionGroup.name,
+      multiple,
+      selected: multiple ?
+          optionGroup.selected.map((selected) => optionGroup.options[selected].name) :
+          optionGroup.options[optionGroup.selected].name, // Single
+    }
+  })
+})
 </script>
 
 <template>
   <div class="order-element">
-    <img class="aspect-square w-12" :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image" alt="Product image"/>
+    <img class="aspect-square w-12"
+         :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image" alt="Product image"/>
 
-<!--    SHORT LAYOUT-->
-
-    <div class="flex-1" v-if="layout==='short'">
-      <h2>
-        {{ product.name }}
-        (
-      <span v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
-        <span class="">{{ optionGroup.name }}: </span>
-<!--        foreach optionGroup.selected get optionGroup.options at that position and dispaly name of it-->
-        <span v-for="selected in optionGroup.selected" :key="selected">
-          <span class="">{{ optionGroup.options[selected].name }}</span>
-        </span>
-        {{product.optionGroups.length > 1 && product.optionGroups.indexOf(optionGroup) < product.optionGroups.length - 1 ? ',' : ''}}
-      </span>
-        )
-      </h2>
-    </div>
-
-<!--    NORMAL LAYOUT-->
-
-    <div class="flex-1" v-else>
+    <div class="flex-1">
       <h2>{{ product.name }}</h2>
-      <!--      Show for all optionGroups the selected option-->
-      <div v-for="optionGroup in product.optionGroups" :key="optionGroup.name">
-        <span class="">{{ optionGroup.name }}: </span>
-        <span v-for="selected in optionGroup.selected" :key="selected">
-          <span class="">{{ optionGroup.options[selected].name }}</span>
-        </span>
-        {{product.optionGroups.length > 1 && product.optionGroups.indexOf(optionGroup) < product.optionGroups.length - 1 ? ',' : ''}}
+      <div class="optiongroups space-y-1" v-if="layout === 'normal'">
+        <div class="mt-1" v-for="optionGroup in optionGroups" :key="optionGroup.name">
+          <div class="text-sm">{{ optionGroup.name }}:</div>
+          <div class="text-xs opacity-80">
+            {{ optionGroup.multiple ? optionGroup.selected.join(', ') : optionGroup.selected }}
+          </div>
+        </div>
       </div>
+
     </div>
-
-<!--    END SPECIAL LAYOUT-->
-
     <v-spacer/>
-    <div class="text-end rounded-md py-2 px-4 bg-neutral-700">{{ product.total_price }} €</div>
+    <v-chip>{{ price(product.total_price) }}</v-chip>
   </div>
 </template>
 
 <style scoped>
 .order-element {
-  @apply flex gap-2 items-center border-b border-neutral-700 p-4;
+  @apply flex gap-4 items-center border-t border-neutral-500/10 py-3 px-2;
 
   img {
     @apply rounded-md;

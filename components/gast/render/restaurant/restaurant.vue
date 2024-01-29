@@ -18,12 +18,6 @@
         <p class="text-sm my-2">{{ restaurant.description }}</p>
       </div>
 
-      <!--      <v-tabs v-model="activeTab" background-color="teal darken-4" dark :grow="true" class="container">-->
-      <!--        <v-tab v-for="tab in tabs" :key="tab.name" ripple>-->
-      <!--          {{ tab.name }}-->
-      <!--        </v-tab>-->
-      <!--      </v-tabs>-->
-
       <div class="px-2 py-1 bg-gray-100"
            style="box-shadow: inset 0px 20px 10px -20px rgba(0,0,0,0.2);">
         <div class="container">
@@ -33,16 +27,17 @@
     </div>
     <div v-if="cache" class="w-96 hidden xl:block shadow-lg bg-white">
 
-      <!-- EMPTY CART -->
+      <!-- SHOW CART -->
       <div v-if="count > 0">
         <h2 class="text-2xl font-bold p-4">Bestellung</h2>
         <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
-        <div class="m-2">
+        <div class="px-4 pt-4 border-t border-neutral-500/10 opacity-60"/>
+        <div class="mx-4">
           <ui-order-dialog/>
         </div>
       </div>
 
-      <!-- SHOW CART -->
+      <!-- EMPTY CART -->
       <div class="h-full flex p-6 flex-col items-center justify-center" v-else>
         <v-icon size="40" icon="mdi-food"/>
         <h1 class="text-4xl font-semibold p-4">Leerer Teller</h1>

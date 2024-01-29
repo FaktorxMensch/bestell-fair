@@ -13,23 +13,24 @@
               cols="4"
               sm="2"
           >
-            <v-btn  color="success" class="mt-2 w-full"
-                    @click="changePickupTime(-5*60*1000)"
-                    variant="tonal"
-                    prepend-icon="mdi-chevron-double-left">
+            <v-btn color="success" class="mt-2 w-full"
+                   @click="changePickupTime(-5*60*1000)"
+                   variant="tonal"
+                   prepend-icon="mdi-chevron-double-left">
               -10 min
             </v-btn>
-          </v-col><v-col
-            cols="4"
-            sm="2"
-        >
-          <v-btn  color="success" class="mt-2 w-full"
-                  @click="changePickupTime(-10*60*1000)"
-                  variant="tonal"
-                  prepend-icon="mdi-chevron-left">
-            -5 min
-          </v-btn>
-        </v-col>
+          </v-col>
+          <v-col
+              cols="4"
+              sm="2"
+          >
+            <v-btn color="success" class="mt-2 w-full"
+                   @click="changePickupTime(-10*60*1000)"
+                   variant="tonal"
+                   prepend-icon="mdi-chevron-left">
+              -5 min
+            </v-btn>
+          </v-col>
           <v-col
               cols="8"
               sm="4"
@@ -49,42 +50,44 @@
               cols="4"
               sm="2"
           >
-            <v-btn  color="warning" class="mt-2 w-full"
-                    @click="changePickupTime(5*60*1000)"
+            <v-btn color="warning" class="mt-2 w-full"
+                   @click="changePickupTime(5*60*1000)"
                    variant="tonal"
-                  prepend-icon="mdi-chevron-right">
+                   prepend-icon="mdi-chevron-right">
               +5 min
             </v-btn>
-          </v-col><v-col
+          </v-col>
+          <v-col
               cols="4"
               sm="2"
           >
-            <v-btn  color="warning" class="mt-2 w-full"
-                    @click="changePickupTime(10*60*1000)"
+            <v-btn color="warning" class="mt-2 w-full"
+                   @click="changePickupTime(10*60*1000)"
                    variant="tonal"
-                    prepend-icon="mdi-chevron-double-right">
+                   prepend-icon="mdi-chevron-double-right">
               +10 min
             </v-btn>
           </v-col>
           <v-col cols="12">
-<!--            <v-textarea-->
-<!--                tabindex="2"-->
-<!--                label="Tätigkeit"-->
-<!--                v-model="body.description"-->
-<!--                required-->
-<!--            ></v-textarea>-->
-            <ui-order-element v-for="product in body?.products" :key="product.name" :product="product" layout="short"/>
+            <!--            <v-textarea-->
+            <!--                tabindex="2"-->
+            <!--                label="Tätigkeit"-->
+            <!--                v-model="body.description"-->
+            <!--                required-->
+            <!--            ></v-textarea>-->
+            <ui-order-element
+                v-for="product in body?.products" :key="product.name" :product="product" layout="normal"/>
           </v-col>
           <v-col cols="12">
-<!--                v-if="quote?.items?.length>0"-->
-<!--            <v-select-->
-<!--                      :items="quote.items"-->
-<!--                      item-title="description"-->
-<!--                      item-value="description"-->
-<!--                      label="Angebotsposition"-->
-<!--                      clearable-->
-<!--                      v-model="body.quoteItem"-->
-<!--            />-->
+            <!--                v-if="quote?.items?.length>0"-->
+            <!--            <v-select-->
+            <!--                      :items="quote.items"-->
+            <!--                      item-title="description"-->
+            <!--                      item-value="description"-->
+            <!--                      label="Angebotsposition"-->
+            <!--                      clearable-->
+            <!--                      v-model="body.quoteItem"-->
+            <!--            />-->
           </v-col>
         </v-row>
       </v-card-text>
@@ -119,7 +122,7 @@
 </template>
 <script setup>
 const emit = defineEmits(['setNewPickupAt', 'changeOrderStatus'])
-const props = defineProps(['name', 'pickup_at', 'status', 'products', 'total_price','prepend-icon', 'dialog'])
+const props = defineProps(['name', 'pickup_at', 'status', 'products', 'total_price', 'prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
 
 // apply prop changes
@@ -136,7 +139,7 @@ watch(props, (value) => {
     total_price: props.total_price ? props.total_price : null
   }
   if (!body.value.pickup_at) {
-    body.value.pickup_at = new Date(Date.now() + 30*60*1000)
+    body.value.pickup_at = new Date(Date.now() + 30 * 60 * 1000)
   }
 
 
