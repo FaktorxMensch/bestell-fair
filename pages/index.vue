@@ -211,6 +211,10 @@
                 </li>
                 <li class="flex items-center mb-3">
                   <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                  <span>Reste-Verkauf am Ende des Tages*</span>
+                </li>
+                <li class="flex items-center mb-3">
+                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
                   <span>Listung auf unserer Webseite*</span>
                 </li>
               </ul>
@@ -258,6 +262,10 @@
                 </li>
                 <li class="flex items-center mb-3">
                   <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                  <span>Reste-Verkauf am Ende des Tages*</span>
+                </li>
+                <li class="flex items-center mb-3">
+                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
                   <span>Listung auf unserer Webseite*</span>
                 </li>
               </ul>
@@ -275,7 +283,7 @@
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
               <div class="text-gray-900 font-medium text-xl mb-2">Soli-Plan</div>
-              <div class="text-gray-600">Alle Funktionen</div>
+              <div class="text-gray-600">Alle Funktionen, gestützt durch andere Partner</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">110€</span>
@@ -302,6 +310,10 @@
                 <li class="flex items-center mb-3">
                   <i class="pi pi-check-circle text-green-500 mr-2"></i>
                   <span>Digitale Speisekarte zur Bestellung am Tisch*</span>
+                </li>
+                <li class="flex items-center mb-3">
+                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                  <span>Reste-Verkauf am Ende des Tages*</span>
                 </li>
                 <li class="flex items-center mb-3">
                   <i class="pi pi-check-circle text-green-500 mr-2"></i>
