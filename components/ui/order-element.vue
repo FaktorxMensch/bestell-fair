@@ -43,7 +43,7 @@ const flattenedSelected = computed(() => {
 
     </div>
     <v-spacer/>
-    <v-chip>{{ price(product.total_price) }}</v-chip>
+    <v-chip>{{ pricef(product.total_price) }}</v-chip>
   </div>
 </template>
 

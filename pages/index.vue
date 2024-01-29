@@ -80,11 +80,12 @@
     <!-- FUTURE FUNCTIONALITY 1/3 -->
     <div class="bg-white flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
-      <div class="col-12 flex-1 md:col-6 overflow-hidden">
+      <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
         <img src="/landing/functionality/table_qr.jpeg" alt="Image" class="md:ml-auto hidden md:block"
              style="clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
         <img src="/landing/functionality/table_qr.jpeg" alt="Image" class="md:ml-auto block md:hidden"
              style="min-height: calc(50vh - 64px);"/>
+        <v-spacer/>
       </div>
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
@@ -105,8 +106,8 @@
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
-          <div class="bg-amber-500 text-white text-center w-56 rounded-full py-2 px-4 mb-4">In Planung</div>
-          <span class="block text-4xl sm:text-6xl font-bold mb-1">Gruppenbestellungen</span>
+          <div class="bg-teal-600 text-white text-center w-56 rounded-full py-2 px-4 mb-4">Demnächst verfügbar</div>
+          <span class="block text-4xl sm:text-6xl font-bold mb-1">Gruppen</span>
           <div class="text-2xl sm:text-4xl font-bold mb-7">Bestelle für deine Kollegen oder Freunde mit</div>
           <p class="mt-0 mb-5 text-xl text-700 line-height-3">
             Du erstellst eine Bestellung und deine Kollegen oder Freunde können sich dann mit einem Code zu deiner
@@ -115,24 +116,33 @@
           </p>
         </section>
       </div>
-      <div class="col-12 flex-1 md:col-6 overflow-hidden p-20">
-        <img src="/landing/functionality/collection_orders.jpeg" alt="Image"
-             class="rounded-full md:ml-auto hidden md:block"
+      <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
+        <v-spacer/>
+        <img src="/landing/functionality/collection_orders.jpeg" alt="Image" class=" md:ml-auto hidden md:block"
+             style="clip-path: polygon(0% 0, 100% 0%, 100% 100%, 10% 100%);min-height: calc(50vh - 64px);"/>
+        <img src="/landing/functionality/collection_orders.jpeg" alt="Image" class="md:ml-auto block md:hidden"
              style="min-height: calc(50vh - 64px);"/>
       </div>
+      <!--      -->
+      <!--      <div class="col-12 flex-1 md:col-6 overflow-hidden p-20">-->
+      <!--        <img src="/landing/functionality/collection_orders.jpeg" alt="Image"-->
+      <!--             class="rounded-full md:ml-auto hidden md:block"-->
+      <!--             style="min-height: calc(50vh - 64px);"/>-->
+      <!--      </div>-->
     </div>
     <!-- FUTURE FUNCTIONALITY 3/3 -->
     <div class="bg-white flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
-      <div class="col-12 flex-1 md:col-6 overflow-hidden">
+      <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
         <img src="/landing/functionality/eve_discount.jpeg" alt="Image" class="md:ml-auto hidden md:block"
              style="clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);min-height: calc(50vh - 64px);"/>
         <img src="/landing/functionality/eve_discount.jpeg" alt="Image" class="md:ml-auto block md:hidden"
              style="min-height: calc(50vh - 64px);"/>
+        <v-spacer/>
       </div>
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
-          <div class="bg-teal-800 text-white text-center w-56 rounded-full py-2 px-4 mb-4">In Kürze verfügbar</div>
+          <div class="bg-amber-500 text-white text-center w-56 rounded-full py-2 px-4 mb-4">In Planung</div>
           <span class="block text-4xl sm:text-6xl font-bold mb-1">Reste-Verkauf</span>
           <div class="text-2xl sm:text-4xl font-bold mb-7">Verkaufe deine Reste am Ende des Tages</div>
           <p class="mt-0 mb-5 text-xl text-700 line-height-3">
@@ -151,7 +161,8 @@
         <span class="text-gray-900">Einmal zahlen, </span>
         <span class="text-teal-800">unzählige Funktionen</span>
       </div>
-      <div class="text-gray-700 lg:text-2xl text-lg mb-8 max-w-4xl mx-auto">Wir entwickeln unsere Plattform stetig weiter, alle
+      <div class="text-gray-700 lg:text-2xl text-lg mb-8 max-w-4xl mx-auto">Wir entwickeln unsere Plattform stetig
+        weiter, alle
         Funktionen sind im Preis enthalten und jegliche Zusatzkosten.
       </div>
 

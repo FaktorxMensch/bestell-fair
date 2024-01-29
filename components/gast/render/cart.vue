@@ -22,7 +22,7 @@
 
 <script setup>
 import {useGastStore} from "~/stores/gast.ts";
-import {price as pricef} from "~/composables/price";
+import {pricef} from "~/composables/price";
 
 const gastStore = useGastStore();
 const sheet = ref(false);

@@ -70,7 +70,7 @@
 
 </template>
 <script setup lang="ts">
-import {price as pricef} from "~/composables/price";
+import {pricef} from "~/composables/price";
 const props = defineProps({
   pickupTime: String,
 })

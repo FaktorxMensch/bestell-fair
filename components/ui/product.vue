@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <p class="font-bold text-lg mt-2"> {{ price(product.price) }}
+      <p class="font-bold text-lg mt-2"> {{ pricef(product.price) }}
         <v-btn size="small" class="float-right -mt-4 mb-2"
                variant="text"
                :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-information-outline'"

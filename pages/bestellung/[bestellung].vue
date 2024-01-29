@@ -38,11 +38,11 @@
 
       <v-list
           v-if="showProducts"
-          :items="order.products.map((product) => ({ title: product.name, subtitle: price(product.price), prependAvatar: 'https://api.bestell-fair.de/storage/v1/object/public/' + product.image, }))"
+          :items="order.products.map((product) => ({ title: product.name, subtitle: pricef(product.price), prependAvatar: 'https://api.bestell-fair.de/storage/v1/object/public/' + product.image, }))"
           class="divide-y border my-4 rounded"
           item-props lines="two"/>
 
-      <p> Bezahlung bei Abholung, Summe {{ price(order.total_price) }}. </p>
+      <p> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}. </p>
       <p> Abholung bei {{ restaurant.name }}<br/>
         {{ restaurant.location }}. </p>
 

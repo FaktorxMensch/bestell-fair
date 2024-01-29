@@ -1,65 +1,61 @@
 <template>
-
-  <v-dialog
-      v-model="dialog"
-      persistent
-      width="1024"
-  >
+  <v-dialog v-model="dialog" persistent width="500">
     <template v-slot:activator="{ props }">
-      <v-btn
-          v-bind="props"
-          icon="mdi-plus"
-          variant="flat"
-          class="rounded-full"
-          color="grey-lighten-3"
-      />
+      <v-btn v-bind="props" icon="mdi-plus" variant="flat" class="rounded-full" color="grey-lighten-3"/>
     </template>
     <v-card>
       <v-card-title>
-        <span class="text-h5">{{ productCopy.name }} ({{ productCopy.price }} €)</span>
+        {{ productCopy.name }}
+        <!--        <v-btn icon="mdi-information-outline" @click="showInformation"/>-->
       </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row v-for="og in productCopy.optionGroups">
-            {{ og.name }}
-            <!--            <ui-options :options="og.options" :mandatory="og.mandatory" :multiple="og.multiple" :default="og.default" v-model="og.selected"/>-->
-            <!--            <template>-->
-            <v-row justify="space-around">
-              <v-col cols="auto">
+      <v-list class="no-input-details">
+        <v-list-item v-for="group in productCopy.optionGroups">
+          <div class="font-semibold text-sm">{{ group.name }}</div>
 
-                <v-chip-group
-                    :multiple="og.multiple"
-                    :mandatory="og.mandatory"
-                    selected-class="text-primary"
-                    v-model="og.selected"
-                >
-                  <v-chip
-                      v-for="option in og.options"
-                      :key="option"
-                  >
-                    {{ option.name }} ({{ option.price }} €)
-                  </v-chip>
-                </v-chip-group>
-              </v-col>
-            </v-row>
-            <!--            </template>-->
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
+          <!-- CHECKBOXES -->
+          <template v-if="group.multiple">
+            <v-select multiple :items="group.options.map(({name},index) => ({name, index}))"
+                      v-model="group.selected"
+                      item-title="name"
+                      item-value="index"
+                      variant="outlined"
+            />
+          </template>
+
+          <!-- SELECT -->
+          <template v-else>
+            <v-select
+                :items="group.options.map(({name},index) => ({name, index}))"
+                v-model="group.selected"
+                item-title="name"
+                item-value="index"
+                variant="outlined"
+            />
+          </template>
+
+          <!-- EXTRA INFO -->
+          <span class="text-sm py-1 opacity-80 flex flex-wrap gap-1" v-if="group.selected !== null && group.selected !== undefined"
+               v-for="selected in (typeof group.selected === 'object' ? group.selected.map(selected=>group.options[selected]) : [group.options[group.selected]])">
+            <v-chip prepend-icon="mdi-plus" density="compact" v-if="selected.price">{{ pricef(selected.price) }}</v-chip>
+            <v-chip density="compact" color="purple" v-for="allergen in selected.allergens">{{ allergen }}</v-chip>
+            <v-chip density="compact" color="pink" v-for="allergen in selected.allergens">{{ allergen }}</v-chip>
+            <v-chip density="compact" color="blue" v-for="additive in selected.additives">{{ additive }}</v-chip>
+          </span>
+
+        </v-list-item>
+      </v-list>
+      <v-card-actions class="px-4 border-t">
+        <v-btn icon="mdi-minus" @click="quantity--" :disabled="quantity <= 1" round/>
+        <div class="font-semibold text-lg">{{ quantity }}</div>
+        <v-btn icon="mdi-plus" @click="quantity++" :disabled="quantity >= 10" round/>
         <v-spacer></v-spacer>
         <v-btn
-            color="secondary"
-            @click="dialog = false"
-        >
-          Abbrechen
-        </v-btn>
-        <v-btn
             color="primary"
+            variant="flat"
             prepend-icon="mdi-cart-plus"
             @click="addToCart"
         >
-          In den Warenkorb
+          {{ pricef(productCopy.total_price) }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -73,9 +69,10 @@ const toggle = () => dialog.value = !dialog.value
 import {useGastStore} from "~/stores/gast.ts";
 
 const gastStore = useGastStore()
+const quantity = ref(1)
 
 const addToCart = () => {
-  gastStore.addProduct(productCopy.value)
+  gastStore.addProduct(productCopy.value, quantity.value)
   toggle()
 }
 watch(dialog, (newValue) => {
