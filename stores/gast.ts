@@ -15,13 +15,11 @@ export const useGastStore = defineStore('gast', {
             const calculate_price = function (product, quantity) {
                 let price = product.price
                 for (let og of product.optionGroups) {
-                    if (typeof og.selected == 'number') {
+                    if (typeof og.selected === 'number') {
                         price += og.options[og.selected].price
-                        continue
-                    }
-                    for (let o of og.options) {
-                        if (o.selected) {
-                            price += o.price
+                    } else {
+                        for(let o of og.selected) {
+                            price += og.options[o].price
                         }
                     }
                 }
