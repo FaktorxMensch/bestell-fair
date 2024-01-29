@@ -11,7 +11,7 @@ const headers = [
   {title: 'Bestellzeit', value: 'created_at', sortable: true},
   {title: 'Abholzeit', value: 'pickup_at', sortable: true},
   {title: 'Status', value: 'status', sortable: true},
-  {title: 'Produkte', value: '', sortable: false},
+  {title: 'Produkte', value: '', sortable: true},
   {title: 'Gastname', value: 'name'},
   {title: 'Gesamtpreis', value: 'total_price', align: 'end'},
   {title: 'Aktionen', value: 'actions', sortable: false, align: 'center', width: '155px'},
@@ -51,12 +51,11 @@ const editOrder = async ({item})=> {
 
 const handleNewPickupAt = async (newPickupAt) => {
   // console.log('setNewPickupAt', newPickupAt)
-  editOrderDialog.value = false
-  await inboxStore.updateOrderStatus(selectedOrder, 'Bestätigt')
+  // editOrderDialog.value = false
   await inboxStore.updatePickupAt(selectedOrder, newPickupAt)
 }
-const handleRejectOrder = async () => {
-  await inboxStore.updateOrderStatus(selectedOrder, 'Storniert')
+const handleChangeOrderStatus = async (status) => {
+  await inboxStore.updateOrderStatus(selectedOrder, status)
   editOrderDialog.value = false
 }
 
@@ -75,7 +74,7 @@ const filterAll = (value, searchQuery, item) => {
             :status="selectedOrder?.status"
             :products="selectedOrder?.products"
             @setNewPickupAt="handleNewPickupAt"
-            @rejectOrder="handleRejectOrder"
+            @changeOrderStatus="handleChangeOrderStatus"
             :total_price="selectedOrder?.total_price"
             prepend-icon="mdi-plus">
 
@@ -88,7 +87,7 @@ const filterAll = (value, searchQuery, item) => {
                 item-key="name"
                 :search="search"
                 :custom-filter="filterAll"
-                :sort-by="[{key: 'pickup_at', order: 'desc'}]">
+                :sort-by="[{key: 'pickup_at', order: 'asc'}]">
     <template v-slot:footer.prepend>
       <v-switch v-model="search"
                 label="Alle anzeigen"

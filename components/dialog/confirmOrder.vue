@@ -14,8 +14,9 @@
               sm="2"
           >
             <v-btn  color="success" class="mt-2 w-full"
-                    @click="props.pickup_inc(-5*60*1000)"
-                    variant="tonal">
+                    @click="changePickupTime(-5*60*1000)"
+                    variant="tonal"
+                    prepend-icon="mdi-chevron-double-left">
               -5 min
             </v-btn>
           </v-col><v-col
@@ -24,7 +25,8 @@
         >
           <v-btn  color="success" class="mt-2 w-full"
                   @click="changePickupTime(-10*60*1000)"
-                  variant="tonal">
+                  variant="tonal"
+                  prepend-icon="mdi-chevron-left">
             -10 min
           </v-btn>
         </v-col>
@@ -49,7 +51,8 @@
           >
             <v-btn  color="warning" class="mt-2 w-full"
                     @click="changePickupTime(5*60*1000)"
-                   variant="tonal">
+                   variant="tonal"
+                  prepend-icon="mdi-chevron-right">
               +5 min
             </v-btn>
           </v-col><v-col
@@ -58,7 +61,8 @@
           >
             <v-btn  color="warning" class="mt-2 w-full"
                     @click="changePickupTime(10*60*1000)"
-                   variant="tonal">
+                   variant="tonal"
+                    prepend-icon="mdi-chevron-double-right">
               +10 min
             </v-btn>
           </v-col>
@@ -114,7 +118,7 @@
   </v-dialog>
 </template>
 <script setup>
-const emit = defineEmits(['setNewPickupAt', 'rejectOrder'])
+const emit = defineEmits(['setNewPickupAt', 'changeOrderStatus'])
 const props = defineProps(['name', 'pickup_at', 'status', 'products', 'total_price','prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
 
@@ -131,6 +135,10 @@ watch(props, (value) => {
     products: props.products ? props.products : null,
     total_price: props.total_price ? props.total_price : null
   }
+  if (!body.value.pickup_at) {
+    body.value.pickup_at = new Date(Date.now() + 30*60*1000)
+  }
+
 
 })
 
@@ -149,12 +157,15 @@ const changePickupTime = async (change) => {
 const save = async () => {
 
   emit('setNewPickupAt', body.value.pickup_at)
+  emit('changeOrderStatus', 'Bestätigt')
 
   dialog.value = false
 }
 
 const reject = async () => {
 
-  emit('rejectOrder')
+  emit('changeOrderStatus', 'Storniert')
+  dialog.value = false
+
 }
 </script>
