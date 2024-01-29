@@ -1,13 +1,13 @@
 <template>
-  <v-app-bar
-      scroll-behavior="collapse"
-      scroll-threshold="1"
-  >
+  <v-toolbar
+      color="white"
+      elevation="5"
+    >
     <v-btn to="/restaurant" icon="mdi-arrow-left"/>
     <v-spacer class="hidden md:flex"/>
     <v-app-bar-title>{{ restaurant.name }}</v-app-bar-title>
     <v-btn icon="mdi-phone" :href="'tel:' + restaurant.phone"/>
-  </v-app-bar>
+  </v-toolbar>
   <gast-render-restaurant v-if="restaurant" :restaurant="restaurant"/>
 </template>
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-gray-100">
+  <div class="flex bg-gray-100">
     <div class="flex-1 bg-white">
       <img
           :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.feature_image_url+(!cache ? '?cache='+Date.now() : '')"
@@ -25,14 +25,22 @@
         </div>
       </div>
     </div>
-    <div v-if="cache" class="w-96 hidden xl:block shadow-lg bg-white">
+    <div v-if="cache" class="w-96 hidden xl:block shadow-lg bg-white fixed right-0 top-0 bottom-0 overflow-y-auto">
 
       <!-- SHOW CART -->
-      <div v-if="count > 0">
-        <h2 class="text-2xl font-bold p-4">Bestellung</h2>
-        <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
-        <div class="px-4 pt-4 border-t border-neutral-500/10 opacity-60"/>
-        <div class="mx-4">
+      <div v-if="count > 0" class="flex flex-col h-full">
+        <v-toolbar color="white">
+          <v-toolbar-title>Bestellung</v-toolbar-title>
+<!--          <v-spacer/>-->
+<!--          <v-chip color="teal" text-color="white"> {{ pricef(price) }} </v-chip>-->
+<!--          <v-divider class="ms-5 me-3" vertical/>-->
+<!--          <v-icon icon="mdi-chevron-up" size="large" :class="{'rotate-180': sheet}"/>-->
+        </v-toolbar>
+        <div class="overflow-y-auto flex-1">
+          <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
+          <div class="px-4 pt-4 border-t border-neutral-500/10 opacity-60"/>
+        </div>
+        <div class="mx-4 mb-4">
           <ui-order-dialog/>
         </div>
       </div>
