@@ -89,7 +89,7 @@ const filterAll = (value, searchQuery, item) => {
                 :search="search"
                 :custom-filter="filterAll"
                 :sort-by="[{key: 'pickup_at', order: 'desc'}]">
-    <template v-slot:top>
+    <template v-slot:footer.prepend>
       <v-switch v-model="search"
                 label="Alle anzeigen"
                 true-value="all"
