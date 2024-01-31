@@ -2,6 +2,7 @@ export const useGastStore = defineStore('gast', {
     persist: true,
     state: () => ({
         products: [], product_refs: [], custom_fields: [], name: '', phone: '', email: '', restaurant_id: null,
+        pickup_at: null,
         remark: '',
         cartOpen: false,
     }),
@@ -78,6 +79,11 @@ export const useGastStore = defineStore('gast', {
         // place order in supabase and return the order_id
         async placeOrder() {
             const supabase = useSupabaseClient()
+            var timestampValue = new Date();
+            var [hours, minutes] = this.pickup_at.split(":");
+            timestampValue.setHours(hours);
+            timestampValue.setMinutes(minutes);
+            timestampValue.setSeconds(0); // Setze Sekunden auf
             const {data, error} = await supabase.from('orders').insert({
                 restaurant_id: this.restaurant_id,
                 custom_fields: this.custom_fields,
@@ -87,6 +93,7 @@ export const useGastStore = defineStore('gast', {
                 name: this.name,
                 phone: this.phone,
                 email: this.email,
+                pickup_at: timestampValue,
             })
 
             console.log('inserterd', data, error)
