@@ -49,9 +49,9 @@
                   :error="!pickup_at"
                   :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                   required variant="outlined"/>
-        <v-btn size="large" class="mt-1" color="primary" rounded v-bind="props" @click="placeOrder()"
-               prepend-icon="mdi-cart">
-          Jetzt bestellen ({{ pricef(price) }})
+        <v-btn size="x-large" class="mt-1 mb-5" color="primary" rounded v-bind="props" @click="placeOrder"
+               prepend-icon="mdi-check">
+          Fertig ({{ pricef(price) }})
         </v-btn>
       </v-form>
     </v-card>

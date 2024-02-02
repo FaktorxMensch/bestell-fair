@@ -51,3 +51,13 @@ h1
 
 .v-navigation-drawer.v-navigation-drawer--right
   @apply border-0
+
+// lets have a v-btn stiled button there as well with all ux look and feel the same
+#swal2-html-container button, #swal2-html-container .btn
+  @apply rounded-full p-3 shadow-none text-white w-full mt-2 block cursor-pointer outline-none
+  background: rgb(24, 103, 192)
+  &:hover, &:focus
+    filter: brightness(1.15)
+  &:active
+    @apply opacity-75
+

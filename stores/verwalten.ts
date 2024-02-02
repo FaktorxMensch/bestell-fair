@@ -3,7 +3,8 @@ export const useVerwaltenStore = defineStore('verwalten', {
         restaurants: [],
         restaurantIndex: 0,
         initDone: false,
-        nav: null
+        nav: null,
+        drawer: true,
     }),
     getters: {
         restaurant(state) {

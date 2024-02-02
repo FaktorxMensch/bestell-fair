@@ -8,8 +8,8 @@
           </nuxt-link>
         </v-toolbar-title>
         <!-- have a btn here -->
-        <v-spacer/>
         <div class="flex gap-2 mx-2 hidden md:flex">
+          <v-spacer/>
           <v-btn rounded size="large" variant="flat"
                  prepend-icon="mdi-account-circle-outline"
                  href="/partner/verwalten" v-if="user && user.user_metadata.role === 'partner'">Mein Account
@@ -19,8 +19,6 @@
           >Bestellungen
           </v-btn>
           <v-btn rounded size="large" variant="flat" href="/login" v-else>Login</v-btn>
-
-
           <v-btn rounded size="large" variant="flat" href="/logout" color="teal-darken-3" v-if="user">Abmelden</v-btn>
           <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/partner-werden">Jetzt Partner
             werden

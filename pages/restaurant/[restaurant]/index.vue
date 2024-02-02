@@ -3,11 +3,11 @@
       color="white"
       elevation="5"
   >
-    <v-btn to="/restaurant" icon="mdi-arrow-left"/>
+    <v-btn v-if="showBackButton" to="/restaurant" icon="mdi-arrow-left"/>
     <v-spacer class="hidden md:flex"/>
     <v-app-bar-title>{{ restaurant.name }}</v-app-bar-title>
     <v-btn icon="mdi-cart" @click="toggleCart">
-      <v-badge :content="count" color="primary" >
+      <v-badge :content="count" color="primary">
         <v-icon icon="mdi-shopping"/>
       </v-badge>
     </v-btn>
@@ -57,4 +57,6 @@ watch(restaurant, (newVal) => {
   }
 })
 const toggleCart = () => gastStore.cartOpen = !gastStore.cartOpen
+
+const showBackButton = route.query.ref === 'restaurant-list'
 </script>
