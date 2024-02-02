@@ -1,3 +1,5 @@
+import {getProductTotalPrice} from "../composables/price";
+
 export const useGastStore = defineStore('gast', {
     persist: true,
     state: () => ({
@@ -14,21 +16,8 @@ export const useGastStore = defineStore('gast', {
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
         addProduct(product, quantity: number = 1) {
-            const calculate_price = function (product, quantity) {
-                let price = product.price
-                for (let og of product.optionGroups) {
-                    if (typeof og.selected === 'number') {
-                        price += og.options[og.selected].price
-                    } else {
-                        for(let o of og.selected) {
-                            price += og.options[o].price
-                        }
-                    }
-                }
-                return price * quantity
-            }
 
-            this.products.push({...product, quantity: quantity, total_price: calculate_price(product, quantity)})
+            this.products.push({...product, quantity: quantity, total_price: getProductTotalPrice(product, quantity)})
             this.product_refs.push(product.id)
             Swal.fire({
                 title: 'Produkt hinzugefügt',

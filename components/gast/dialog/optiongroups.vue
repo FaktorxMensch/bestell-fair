@@ -56,13 +56,14 @@
             prepend-icon="mdi-cart-plus"
             @click="addToCart"
         >
-          {{ pricef(productCopy.total_price) }}
+          {{ pricef(getProductTotalPrice(productCopy, quantity)) }}
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 <script setup>
+
 const props = defineProps(['product'])
 const productCopy = ref(props.product)
 const dialog = ref(false)
