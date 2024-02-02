@@ -45,8 +45,13 @@
           <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
           <div class="px-4 pt-4 border-t border-neutral-500/10 opacity-60"/>
         </div>
-        <div class="mx-4 mb-4">
+        <div class="mx-4 mb-2">
           <ui-order-dialog/>
+        </div>
+        <div class="mx-4 mb-4 text-center">
+          <a @click="resetCart()">
+            Warenkorb leeren
+          </a>
         </div>
       </div>
 
@@ -87,6 +92,21 @@ const {
   count, products, price,
   cartOpen
 } = storeToRefs(gastStore);
+
+const resetCart = () => {
+Swal.fire({
+  title: 'Warenkorb leeren?',
+  text: 'Möchtest du wirklich alle Artikel aus dem Warenkorb entfernen?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Ja, leeren',
+  cancelButtonText: 'Nein, abbrechen'
+}).then((result) => {
+  if (result.isConfirmed) {
+    products.value = [];
+  }
+})
+}
 
 </script>
 
