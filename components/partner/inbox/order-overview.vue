@@ -31,7 +31,7 @@ function handleKeyPress(event) {
 
       <v-slide-group>
         <v-btn-toggle
-            class="w-full"
+            class="w-full max-md:flex-col"
             v-model="order.status"
             divided
             density="comfortable"
@@ -76,8 +76,9 @@ function handleKeyPress(event) {
         <span class="text-lg">Gesamtsumme</span>
         <span class="text-lg">{{ order.total_price }} €</span>
       </div>
+
 <!--      Area for showing information about how ordered and some meta infos like custom fields-->
-      <div>
+      <div style="border-top: 3px solid rgb(115 115 115 / 0.1)">
 <!--        Show all available information about who ordered-->
         <div class="flex flex-col p-4">
           <p class="text-md">Bestellt von {{ order?.name }}</p>
@@ -94,7 +95,7 @@ function handleKeyPress(event) {
 
 <style scoped>
 .full-dialog {
-  @apply fixed inset-0 z-50 bg-neutral-800 overflow-x-auto;
+  @apply fixed inset-0 z-50 mt-16 bg-neutral-800 overflow-x-auto;
 
   header .v-btn {
     @apply flex-1 normal-case font-normal;
@@ -110,6 +111,9 @@ function handleKeyPress(event) {
 
   footer {
     @apply fixed bottom-0 p-4 flex w-full;
+  }
+  .v-btn-group {
+    @apply max-md:flex max-md:h-60;
   }
 }
 </style>

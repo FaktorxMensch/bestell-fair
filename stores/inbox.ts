@@ -77,6 +77,7 @@ export const useInboxStore = defineStore('inbox', {
             // manipulate the order in the store to avoid a new request
             const index = this.orders.indexOf(order)
             this.orders[index].status = status
+            this.updatedAt = new Date()
             this.playClick()
         },
         // update the pickup time of an order
@@ -96,6 +97,8 @@ export const useInboxStore = defineStore('inbox', {
             // manipulate the order in the store to avoid a new request
             const index = this.orders.indexOf(order)
             this.orders[index].pickup_at = pickupAt
+            this.updatedAt = new Date()
+
             this.playClick()
         },
         // set up the listener for new orders
@@ -113,6 +116,7 @@ export const useInboxStore = defineStore('inbox', {
                 .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
                     console.log('Change received!', payload)
                     this.orders.push(payload.new)
+                    this.updatedAt = new Date()
                 })
                 .subscribe()
 
@@ -123,6 +127,7 @@ export const useInboxStore = defineStore('inbox', {
                     console.log('Change received!', payload)
                     const index = this.orders.findIndex(o => o.id === payload.new.id)
                     this.orders[index] = payload.new
+                    this.updatedAt = new Date()
                 })
                 .subscribe()
 
