@@ -20,7 +20,7 @@ export const useGastStore = defineStore('gast', {
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
         addProduct(product, quantity: number = 1) {
-
+            product = JSON.parse(JSON.stringify(product))
             this.products.push({...product, quantity: quantity, total_price: getProductTotalPrice(product, quantity)})
             this.product_refs.push(product.id)
             Swal.fire({

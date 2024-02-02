@@ -68,6 +68,20 @@ export const useInboxStore = defineStore('inbox', {
                 console.error('Invalid status: ' + status)
                 return
             }
+            if (status === 'Storniert') {
+                const result = await Swal.fire({
+                    title: 'Bestellung stornieren?',
+                    text: 'Möchtest du die Bestellung wirklich stornieren?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ja, stornieren',
+                    cancelButtonText: 'Nein, abbrechen'
+                })
+                if (!result.isConfirmed) {
+                    console.log('canceled by user')
+                    return
+                }
+            }
             const {data, error} = await supabase.from('orders').update({status: status}).eq('id', order.id)
             if (error) {
                 console.error(error)

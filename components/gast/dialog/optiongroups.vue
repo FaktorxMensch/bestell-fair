@@ -65,7 +65,7 @@
 <script setup>
 
 const props = defineProps(['product'])
-const productCopy = ref(props.product)
+const productCopy = ref(JSON.parse(JSON.stringify(props.product)))
 const dialog = ref(false)
 const toggle = () => dialog.value = !dialog.value
 import {useGastStore} from "~/stores/gast.ts";
