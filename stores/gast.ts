@@ -1,7 +1,10 @@
+import {getProductTotalPrice} from "../composables/price";
+
 export const useGastStore = defineStore('gast', {
     persist: true,
     state: () => ({
         products: [], product_refs: [], custom_fields: [], name: '', phone: '', email: '', restaurant_id: null,
+        pickup_at: null,
         remark: '',
         cartOpen: false,
     }),
@@ -13,21 +16,8 @@ export const useGastStore = defineStore('gast', {
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
         addProduct(product, quantity: number = 1) {
-            const calculate_price = function (product, quantity) {
-                let price = product.price
-                for (let og of product.optionGroups) {
-                    if (typeof og.selected === 'number') {
-                        price += og.options[og.selected].price
-                    } else {
-                        for(let o of og.selected) {
-                            price += og.options[o].price
-                        }
-                    }
-                }
-                return price * quantity
-            }
 
-            this.products.push({...product, quantity: quantity, total_price: calculate_price(product, quantity)})
+            this.products.push({...product, quantity: quantity, total_price: getProductTotalPrice(product, quantity)})
             this.product_refs.push(product.id)
             Swal.fire({
                 title: 'Produkt hinzugefügt',
@@ -78,6 +68,11 @@ export const useGastStore = defineStore('gast', {
         // place order in supabase and return the order_id
         async placeOrder() {
             const supabase = useSupabaseClient()
+            var timestampValue = new Date();
+            var [hours, minutes] = this.pickup_at.split(":");
+            timestampValue.setHours(hours);
+            timestampValue.setMinutes(minutes);
+            timestampValue.setSeconds(0); // Setze Sekunden auf
             const {data, error} = await supabase.from('orders').insert({
                 restaurant_id: this.restaurant_id,
                 custom_fields: this.custom_fields,
@@ -87,6 +82,7 @@ export const useGastStore = defineStore('gast', {
                 name: this.name,
                 phone: this.phone,
                 email: this.email,
+                pickup_at: timestampValue,
             })
 
             console.log('inserterd', data, error)

@@ -29,7 +29,7 @@
         <label>E-Mail</label>
         <v-text-field
             prepend-inner-icon="mdi-email-outline"
-            type="text" v-model="mail" label="Bestellbestätigung per E-Mail"
+            type="text" v-model="email" label="Bestellbestätigung per E-Mail"
             required variant="outlined"/>
         <p class="text-sm -mt-1 opacity-80 flex gap-2">
           <v-icon icon="mdi-information-outline"/>
@@ -43,11 +43,11 @@
             v-model="remark" label="Möchtest du uns noch etwas mitteilen?" variant="outlined" rows="2"/>
         <hr/>
         <label>Abholzeitpunkt</label>
-        <v-select v-model="pickupTime" :items="pickupTimes"
-                  :prepend-inner-icon=" pickupTime ? 'mdi-clock-time-four-outline' : 'mdi-alert'"
+        <v-select v-model="pickup_at" :items="pickupTimes"
+                  :prepend-inner-icon=" pickup_at ? 'mdi-clock-time-four-outline' : 'mdi-alert'"
                   clearable=""
-                  :error="!pickupTime"
-                  :label="pickupTime ? '' : 'Bitte wähle einen Abholzeitpunkt'"
+                  :error="!pickup_at"
+                  :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                   required variant="outlined"/>
         <v-btn size="large" class="mt-1" color="primary" rounded v-bind="props" @click="placeOrder()"
                prepend-icon="mdi-cart">
@@ -64,13 +64,13 @@ const props = defineProps({
   pickupTime: String,
 })
 
-const pickupTime = ref(null)
 const gastStore = useGastStore();
 const {
   count, price, products, remark,
   name,
   phone,
-  mail,
+  email,
+  pickup_at
 } = storeToRefs(gastStore);
 const dialog = ref(false);
 

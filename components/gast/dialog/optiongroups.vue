@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent width="500">
+  <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" icon="mdi-plus" variant="flat" class="rounded-full" color="grey-lighten-3"/>
     </template>
@@ -56,13 +56,14 @@
             prepend-icon="mdi-cart-plus"
             @click="addToCart"
         >
-          {{ pricef(productCopy.total_price) }}
+          {{ pricef(getProductTotalPrice(productCopy, quantity)) }}
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 <script setup>
+
 const props = defineProps(['product'])
 const productCopy = ref(props.product)
 const dialog = ref(false)
