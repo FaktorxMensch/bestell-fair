@@ -2,14 +2,33 @@
 
   <v-main>
 
+
+
+    <!-- EIN BEREICH, WO DIE LEUTE DIREKT ESSEN BESTELLEN KÖNNEN -->
+    <!-- BEREICH FÜR GÄSTE HINWEISE -->
+
+    <div class="px-4 py-8 md:px-6 lg:px-8 text-center border-b border-gray-200 bg-teal-900 text-white">
+      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
+        <!-- SUBTITLE Du hast Hunger -->
+        <span class="text-gray-100">Du hast Hunger? </span>
+      </div>
+      <div class="text-teal-300 max-w-4xl my-4 mx-auto lg:text-xl text-lg mb-8">
+        Statt anzurufen, kannst du jetzt ganz einfach online vorbestellen und dann bei deinem Lieblingsrestaurant abholen.
+        Du unterstützt damit die Gastronomie in der Dresdner Neustadt und sparst dir das Warten.
+      </div>
+      <v-btn class="mb-5" rounded size="large" variant="flat" color="teal-darken-3" href="/restaurant"
+             append-icon="mdi-arrow-right">Jetzt vorbestellen
+      </v-btn>
+    </div>
+
     <!-- HERO -->
     <div class="text-800 flex flex-col md:flex-row">
       <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto block md:hidden object-cover"
            style="height: 30vh"/>
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
-          <span class="block text-4xl sm:text-6xl font-bold mb-1">Faire Vorbestellung</span>
-          <div class="text-2xl sm:text-4xl font-bold mb-7">Vorbestellen ohne Provision zu zahlen</div>
+          <span class="block text-4xl sm:text-6xl font-bold mb-1">Über <span class="text-teal-800">Bestell Fair</span></span>
+          <div class="text-2xl sm:text-4xl font-bold mb-7">Was wir machen</div>
           <p class="mt-0 mb-5 text-xl text-700 line-height-3">
             Unser Team hat es sich zur Aufgabe gemacht, die Gastronomie in der Dresdner Neustadt zu unterstützen.
             Wir bieten eine Plattform, auf der du deine Lieblingsgerichte vorbestellen kannst, um sie dann bei deinem
