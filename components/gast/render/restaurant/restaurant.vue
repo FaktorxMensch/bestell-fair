@@ -92,7 +92,6 @@ const tabs = [
 const activeTab = ref(0)
 
 const gastStore = useGastStore();
-const sheet = ref(false);
 const {
   count, products, price,
   cartOpen

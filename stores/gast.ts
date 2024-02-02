@@ -53,6 +53,7 @@ export const useGastStore = defineStore('gast', {
         resetOrder() {
             this.products = []
             this.product_refs = []
+            this.cartOpen = false
         },
 
         // have a function to set the restaurant_id
@@ -89,7 +90,9 @@ export const useGastStore = defineStore('gast', {
                 pickup_at: timestampValue,
             })
 
-            console.log('inserterd', data, error)
+            // dann könen wir die products und product_refs im store löschen
+            this.resetOrder()
+
             if (error) {
                 console.error(error)
                 await Swal.fire({
@@ -104,8 +107,6 @@ export const useGastStore = defineStore('gast', {
                 text: 'Deine Bestellung wurde erfolgreich aufgegeben, bitte prüfe Deine E-Mails.',
                 icon: 'success',
             })
-            // dann könen wir die products und product_refs im store löschen
-            this.resetOrder()
             // weiterleitne zur bestellübersicht
             navigateTo('/bestellung/danke')
             // return data[0].id
