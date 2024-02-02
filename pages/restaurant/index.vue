@@ -21,7 +21,7 @@
         v-if="restaurants.length > 0"
         v-for="restaurant in restaurantsFiltered"
         :prepend-avatar="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+restaurant.icon_image_url"
-        :to="'/restaurant/'+restaurant.id"
+        :to="'/restaurant/'+restaurant.id+'/?ref=restaurant-list'"
         lines="two"
         :title="restaurant.name"
         :subtitle="restaurant.location"/>

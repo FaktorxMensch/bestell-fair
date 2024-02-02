@@ -7,6 +7,10 @@ export const useGastStore = defineStore('gast', {
         pickup_at: null,
         remark: '',
         cartOpen: false,
+        // embedOptions: {
+            // should the back button be shown (to the other restaurants)
+            // showBackButton: false,
+        // }
     }),
     getters: {
         // wieviele (auch count)

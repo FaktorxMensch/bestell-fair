@@ -32,6 +32,7 @@
         width="400"
         elevation="10"
         v-if="  cache"
+
     >
       <!-- SHOW CART -->
       <div v-if="count > 0" class="flex flex-col h-full">
@@ -56,6 +57,7 @@
         <h1 class="text-4xl font-semibold p-4">Leerer Teller</h1>
         <p class="px-6 text-gray-500 text-center">Fülle deinen Warenkorb mit leckeren Gerichten, Getränken und
           Desserts.</p>
+        <v-btn @click="cartOpen = false" class="mt-4" color="primary" rounded>Ausblenden</v-btn>
         <div class="h-48"></div>
       </div>
 
