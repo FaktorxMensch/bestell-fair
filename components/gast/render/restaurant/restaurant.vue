@@ -13,8 +13,11 @@
             alt="Restaurant Icon">
       </div>
       <div class="container px-5 xl:px-0 xl:mt-2 mb-4">
-        <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
-        <p class="text-sm">{{ restaurant.location }}</p>
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
+          <v-btn icon="mdi-information-outline" @click="showRestaurantInfo"/>
+        </div>
+        <!--        <p class="text-sm">{{ restaurant.location }}</p>-->
         <p class="text-sm my-2">{{ restaurant.description }}</p>
       </div>
 
@@ -37,7 +40,7 @@
       <!-- SHOW CART -->
       <div v-if="count > 0" class="flex flex-col h-full">
         <v-toolbar color="primary">
-<!--          <v-btn @click="cartOpen = false" icon="mdi-arrow-left"/>-->
+          <!--          <v-btn @click="cartOpen = false" icon="mdi-arrow-left"/>-->
           <v-toolbar-title>Bestellung</v-toolbar-title>
           <v-spacer/>
           <v-btn @click="cartOpen = false" icon="mdi-close"/>
@@ -90,5 +93,24 @@ const {
   cartOpen
 } = storeToRefs(gastStore);
 
+const showRestaurantInfo = () => {
+  const restaurant = props.restaurant
+  // have a swal with .location, .email and .phone as well as showing buttons for calling, mailing them and google maps
+  Swal.fire({
+    html: `
+      <img src="https://api.bestell-fair.de/storage/v1/object/public/restaurants/${restaurant.icon_image_url}" alt="Restaurant Feature Image" class="my-2 h-24 object-cover lg:h-32 mx-auto rounded-lg shadow-lg border mb-6 mt-4">
+      <h2 class="text-2xl font-bold mb-1">${restaurant.name}</h2>
+      <p>${restaurant.location}</p>
+      <a class="btn mt-6" href="https://www.google.com/maps/search/?api=1&query=${restaurant.location}" target="_blank"><i class="mdi mdi-map-marker"></i> Google Maps</a>
+      ${restaurant.contact_phone ? `<a class="btn" href="tel:${restaurant.contact_phone}"><i class="mdi mdi-phone"></i> ${restaurant.contact_phone}</a>` : ''}
+    `,
+    // ${restaurant.contact_email ? `<a class="btn" href="mailto:${restaurant.contact_email}"><i class="mdi mdi-email"></i> ${restaurant.contact_email}</a>` : ''}
+    //no buttons
+    showConfirmButton: false,
+    // sho wclose
+    showCloseButton: true,
+  })
+
+}
 </script>
 

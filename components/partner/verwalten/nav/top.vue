@@ -1,5 +1,6 @@
 <template>
   <v-app-bar app color="teal-darken-4" dark>
+    <v-app-bar-nav-icon @click="drawer = !drawer"/>
     <v-toolbar-title>
       <div class="flex items-end gap-2">
         <h1 class="text-3xl">Bestell Fair!</h1>
@@ -44,6 +45,6 @@ const logout = async () => {
 import {useVerwaltenStore} from '~/stores/verwalten'
 
 const verwaltenStore = useVerwaltenStore()
-const {restaurant, restaurants} = storeToRefs(verwaltenStore)
+const {restaurant, restaurants, drawer} = storeToRefs(verwaltenStore)
 onMounted(verwaltenStore.init)
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <v-navigation-drawer theme="dark" >
+  <v-navigation-drawer theme="dark"
+                       v-model="drawer">
+<!--    rail-->
+<!--    :rail-width="220"-->
     <v-list class="h-full flex flex-col">
       <v-list-item v-for="item in items"
                    :to="`/partner/verwalten${item.to}`"
@@ -27,8 +30,8 @@ const items = [
   {title: 'Personal', icon: 'mdi-account-group', to: '/personal'},
   // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
-const drawer = ref(true)
 const verwaltenStore = useVerwaltenStore()
+const {drawer} = storeToRefs(verwaltenStore)
 const route = useRoute()
 watch(() => route.path, () => {
   verwaltenStore.setNav(items.filter(item => route.path.includes(item.to))[0])
