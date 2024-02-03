@@ -6,7 +6,7 @@
       <v-icon>{{ showProducts ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
     </v-btn>
   </v-app-bar>
-  <v-card style="margin-top:-10px" class="max-w-2xl mx-auto">
+  <v-card v-if="order" style="margin-top:-10px" class="max-w-2xl mx-auto">
     <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.feature_image_url"
          class="flex-shrink-0 h-40 w-full object-cover border-b"/>
 
@@ -58,11 +58,12 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-  <!--  <pre> {{ order }} {{ restaurant }} </pre>-->
+  <v-alert v-else>Bestellung nicht gefunden.</v-alert>
 </template>
 <script setup>
 const supabase = useSupabaseClient()
-const {data: orders, error} = await supabase.rpc('get_order', {order_id: 'a11566da-2470-4870-81e4-dfc58a772c3d'});
+const route = useRoute()
+const {data: orders, error} = await supabase.rpc('get_order', {order_id: route.params.bestellung});
 const order = ref(orders[0])
 const {data: restaurant, error: restaurantError} = await supabase
     .from('restaurants')

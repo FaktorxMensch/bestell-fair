@@ -8,8 +8,8 @@ export const useGastStore = defineStore('gast', {
         remark: '',
         cartOpen: false,
         // embedOptions: {
-            // should the back button be shown (to the other restaurants)
-            // showBackButton: false,
+        // should the back button be shown (to the other restaurants)
+        // showBackButton: false,
         // }
     }),
     getters: {
@@ -78,7 +78,10 @@ export const useGastStore = defineStore('gast', {
             timestampValue.setHours(hours);
             timestampValue.setMinutes(minutes);
             timestampValue.setSeconds(0); // Setze Sekunden auf
+            const insert_id = crypto.randomUUID();
+            console.log('insert_if', insert_id)
             const {data, error} = await supabase.from('orders').insert({
+                id: insert_id,
                 restaurant_id: this.restaurant_id,
                 custom_fields: this.custom_fields,
                 products: this.products,
