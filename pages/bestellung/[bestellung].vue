@@ -15,11 +15,11 @@
     </v-avatar>
     <v-card-text>
 
-      <h2 class="text-2xl font-bold">{{ order.name }}</h2>
-
+      <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
       <div class="flex justify-between">
-        <p>Aufgegeben {{ timeDiff(order.created_at) }}, Abholung {{ timeDiff(order.pickup_at) }}.
-<!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
+        <p>Bestellt für {{ order.name || 'Gast' }} aufgegeben {{ timeDiff(order.created_at) }}, Abholung
+          {{ timeDiff(order.pickup_at) }}.
+          <!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
           Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.
         </p>
 
@@ -42,9 +42,9 @@
           class="divide-y border my-4 rounded"
           item-props lines="two"/>
 
-      <p> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}. </p>
-      <p> Abholung bei {{ restaurant.name }}<br/>
-        {{ restaurant.location }}. </p>
+      <p> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}. Abholung bei {{ restaurant.name }}
+        <div> {{ restaurant.location }}.</div>
+      </p>
 
     </v-card-text>
     <v-card-actions class="flex justify-around">
@@ -84,7 +84,7 @@ const loading = ref(false)
 
 const refresh = async () => {
   loading.value = true
-  const {data: orders, error} = await supabase.rpc('get_order', {order_id: 'a11566da-2470-4870-81e4-dfc58a772c3d'});
+  const {data: orders, error} = await supabase.rpc('get_order', {order_id: route.params.bestellung});
   order.value = orders[0]
   refreshedAt.value = Date.now()
   // wait 400ms

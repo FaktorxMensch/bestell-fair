@@ -107,11 +107,11 @@ export const useGastStore = defineStore('gast', {
             }
             await Swal.fire({
                 title: 'Bestellung aufgegeben',
-                text: 'Deine Bestellung wurde erfolgreich aufgegeben, bitte prüfe Deine E-Mails.',
+                text: 'Deine Bestellung wurde erfolgreich aufgegeben.',
                 icon: 'success',
             })
             // weiterleitne zur bestellübersicht
-            navigateTo('/bestellung/danke')
+            navigateTo('/bestellung/' + insert_id)
             // return data[0].id
         },
     },
