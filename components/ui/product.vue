@@ -7,7 +7,8 @@
             {{ product.name }}
           </h2>
           <p class="text-gray-500 min-h-8 my-2">{{ product.description }}</p>
-          <p class="text-gray-500 min-h-8">Wahl aus: {{ getWahlAusText(product.optionGroups) }}</p>
+          <p class="text-gray-500 min-h-8" v-if="product.optionGroups.length>0">Wahl aus:
+            {{ getWahlAusText(product.optionGroups) }}</p>
         </div>
         <div class="flex flex-col justify-between items-end">
           <div class="absolute right-3">
