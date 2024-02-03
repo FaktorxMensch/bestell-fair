@@ -68,7 +68,7 @@ const filterAll = (value, searchQuery, item) => {
 </script>
 
 <template>
-  <dialog-confirm-order :dialog="editOrderDialog"
+  <partner-inbox-dialog-confirm-order :dialog="editOrderDialog"
             :name="selectedOrder?.name"
             :pickup_at="selectedOrder?.pickup_at"
             :status="selectedOrder?.status"
@@ -78,7 +78,7 @@ const filterAll = (value, searchQuery, item) => {
             :total_price="selectedOrder?.total_price"
             prepend-icon="mdi-plus">
 
-  </dialog-confirm-order>
+  </partner-inbox-dialog-confirm-order>
   <partner-inbox-order-overview/>
   <v-data-table :headers="headers"
                 :items="orders"
@@ -155,7 +155,7 @@ tr.Storniert {
 }
 
 tr.Abgeholt, tr.Storniert {
-  opacity: 0.1;
+  opacity: 0.4;
 }
 
 tr {
