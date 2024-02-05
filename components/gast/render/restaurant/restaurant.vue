@@ -30,12 +30,12 @@
     </div>
     <v-navigation-drawer
         v-model="cartOpen"
-        location="right"
+        :location="cartLocation"
         :temporary="false"
+        style="height: 100vh"
         width="400"
         elevation="10"
-        v-if="  cache"
-
+        v-if="cache"
     >
       <!-- SHOW CART -->
       <div v-if="count > 0" class="flex flex-col h-full">
@@ -49,13 +49,15 @@
           <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
           <div class="px-4 pt-4 border-t border-neutral-500/10 opacity-60"/>
         </div>
-        <div class="mx-4 mb-2">
-          <ui-order-dialog/>
-        </div>
-        <div class="mx-4 mb-4 text-center">
-          <a @click="resetCart()">
-            Warenkorb leeren
-          </a>
+        <div class="pt-3">
+          <div class="mx-4 mb-2">
+            <ui-order-dialog/>
+          </div>
+          <div class="mx-4 mb-4 text-center">
+            <a @click="resetCart()">
+              Warenkorb leeren
+            </a>
+          </div>
         </div>
       </div>
 
@@ -71,6 +73,17 @@
 
     </v-navigation-drawer>
   </div>
+
+  <!-- BOTTOM CART -->
+  <v-toolbar class="bottom-0" id="cart-mobile" style="position:fixed" color="primary" location="bottom">
+    <v-toolbar-title class="text-lg font-bold">Bestellung</v-toolbar-title>
+    <v-spacer/>
+    <v-btn icon @click="cartOpen = !cartOpen">
+      <v-badge color="red" content="0" overlap>
+        <v-icon>mdi-cart</v-icon>
+      </v-badge>
+    </v-btn>
+  </v-toolbar>
 </template>
 <script setup>
 const props = defineProps({
@@ -132,5 +145,16 @@ const resetCart = () => {
   })
 }
 
+const cartLocation = computed(() => {
+  // breakpoint right or bottom (mobile)
+  return window.innerWidth < 540 ? 'bottom' : 'right'
+})
 </script>
+<style scoped>
+@media (min-width: 540px) {
+  #cart-mobile {
+    display: none;
+  }
+}
+</style>
 
