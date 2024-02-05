@@ -44,14 +44,9 @@
     <v-expand-transition>
       <div v-show="showAdditionalInfo">
         <v-card-text>
-          <h2>Allergene und Zusatzstoffe</h2>
-          <p>Die folgenden Allergene und Zusatzstoffe sind in diesem Produkt enthalten:</p>
-          <ul>
-            <li v-for="allergen in product.allergens">{{ allergen }}</li>
-          </ul>
-          <ul>
-            <li v-for="additive in product.additives">{{ additive }}</li>
-          </ul>
+          <div>Zutaten: {{ product.ingredients.join(', ') }}</div>
+          <div>Allergene: {{ product.allergens.join(', ') }}</div>
+          <div>Zusatzstoffe: {{ product.additives.join(', ') }}</div>
         </v-card-text>
       </div>
     </v-expand-transition>
