@@ -44,12 +44,13 @@ const flattenedSelected = computed(() => {
     <v-spacer/>
     <div class="flex flex-col gap-2">
       <!--      <div class="bg-gray-400/30 p-1 rounded-full text-center">{{ pricef(product.total_price) }}</div>-->
-      <div class="flex items-center">
+      <div class="flex items-center" v-if="editable">
         <v-btn icon="mdi-minus" v-if="product.quantity > 1" density="compact" @click="product.quantity--"/>
         <v-btn icon="mdi-delete" v-else density="compact" @click="gastStore.removeProduct(product)"/>
         <div class="bg-gray-400/30 px-3 p-1 rounded-full text-center"> {{ product.quantity }}</div>
         <v-btn icon="mdi-plus" density="compact" @click="product.quantity++"/>
       </div>
+      <div v-else class="text-xl mx-2">{{product.quantity}}&times;</div>
     </div>
   </div>
 </template>

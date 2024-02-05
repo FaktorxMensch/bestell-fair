@@ -46,7 +46,7 @@
           <v-btn @click="cartOpen = false" icon="mdi-close"/>
         </v-toolbar>
         <div class="overflow-y-auto flex-1">
-          <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
+          <ui-order-element :editable="true" v-for="product in products" :key="product.name" :product="product"/>
           <div class="px-4 border-t border-neutral-500/10 opacity-60"/>
           <div class="px-4 py-2 flex justify-between">
             <p class="text-lg font-bold">Gesamt</p>
@@ -58,7 +58,7 @@
             <ui-order-dialog/>
           </div>
           <div class="mx-4 mb-4 text-center">
-            <a @click="resetCart()">
+            <a @click="resetCart" class="cursor-pointer">
               Warenkorb leeren
             </a>
           </div>
@@ -138,10 +138,10 @@ const resetCart = () => {
   Swal.fire({
     title: 'Warenkorb leeren?',
     text: 'Möchtest du wirklich alle Artikel aus dem Warenkorb entfernen?',
-    icon: 'warning',
+    icon: 'question',
     showCancelButton: true,
-    confirmButtonText: 'Ja, leeren',
-    cancelButtonText: 'Nein, abbrechen'
+    confirmButtonText: 'Ja, alles zurücklegen',
+    cancelButtonText: 'Nein, behalten',
   }).then((result) => {
     if (result.isConfirmed) {
       products.value = [];
