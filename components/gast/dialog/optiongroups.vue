@@ -38,9 +38,11 @@
           <span class="text-sm py-1 opacity-80 flex flex-wrap gap-1" v-if="group.selected !== null && group.selected !== undefined"
                v-for="selected in (typeof group.selected === 'object' ? group.selected.map(selected=>group.options[selected]) : [group.options[group.selected]])">
             <v-chip prepend-icon="mdi-plus" density="compact" v-if="selected.price">{{ pricef(selected.price) }}</v-chip>
-            <v-chip density="compact" color="purple" v-for="allergen in selected.allergens">{{ allergen }}</v-chip>
-            <v-chip density="compact" color="pink" v-for="allergen in selected.allergens">{{ allergen }}</v-chip>
-            <v-chip density="compact" color="blue" v-for="additive in selected.additives">{{ additive }}</v-chip>
+<!--            <v-chip density="compact" color="purple" v-for="allergen in selected.allergens">{{ allergen }}</v-chip>-->
+<!--            <v-chip density="compact" color="pink" v-for="allergen in selected.allergens">{{ allergen }}</v-chip>-->
+<!--            <v-chip density="compact" color="blue" v-for="additive in selected.additives">{{ additive }}</v-chip>-->
+
+            <ui-product-additional-info :product="selected"/>
           </span>
 
         </v-list-item>

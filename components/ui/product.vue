@@ -10,8 +10,6 @@
           <p class="text-gray-500" v-if="product.optionGroups.length>0">Wahl aus:
             {{ getWahlAusText(product.optionGroups) }}</p>
 
-          <p class="text-gray-500" v-if="product.tags.length>0">Produkt ist
-            {{ product.tags.join(', ') }}</p>
 
         </div>
         <div class="flex flex-col justify-between items-end">
@@ -44,9 +42,7 @@
     <v-expand-transition>
       <div v-show="showAdditionalInfo">
         <v-card-text>
-          <div>Zutaten: {{ product.ingredients.join(', ') }}</div>
-          <div>Allergene: {{ product.allergens.join(', ') }}</div>
-          <div>Zusatzstoffe: {{ product.additives.join(', ') }}</div>
+          <ui-product-additional-info :product="product"/>
         </v-card-text>
       </div>
     </v-expand-transition>
