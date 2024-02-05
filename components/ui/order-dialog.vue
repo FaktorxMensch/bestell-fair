@@ -11,7 +11,7 @@
       </v-btn>
     </template>
     <v-card>
-      <v-toolbar color="primary" >
+      <v-toolbar color="primary">
         <v-btn dark @click="dialog = false" icon="mdi-arrow-left"/>
         <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
       </v-toolbar>
@@ -21,16 +21,16 @@
         <label>Dein Name</label>
         <v-text-field
             prepend-inner-icon="mdi-account-outline"
-            type="text" v-model="name" label="Wer holt die Bestellung ab?" required variant="outlined"/>
+            type="text" v-model="name" label="Wer holt die Bestellung ab?" variant="outlined"/>
         <label>Telefonnummer</label>
         <v-text-field
             prepend-inner-icon="mdi-phone-outline"
-            type="text" v-model="phone" label="Für Rückfragen" required variant="outlined"/>
+            type="text" v-model="phone" label="Für Rückfragen" variant="outlined"/>
         <label>E-Mail</label>
         <v-text-field
             prepend-inner-icon="mdi-email-outline"
             type="text" v-model="email" label="Bestellbestätigung per E-Mail"
-            required variant="outlined"/>
+            variant="outlined"/>
         <p class="text-sm -mt-1 opacity-80 flex gap-2">
           <v-icon icon="mdi-information-outline"/>
           Du bekommst eine Bestellbestätigung per E-Mail mit einem Link, um deine Bestellung zu
@@ -48,7 +48,7 @@
                   clearable=""
                   :error="!pickup_at"
                   :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
-                  required variant="outlined"/>
+                  variant="outlined"/>
         <v-btn size="x-large" class="mt-1 mb-5" color="primary" rounded v-bind="props" @click="placeOrder"
                prepend-icon="mdi-check">
           Fertig ({{ pricef(price) }})
@@ -60,6 +60,7 @@
 </template>
 <script setup lang="ts">
 import {pricef} from "~/composables/price";
+
 const props = defineProps({
   pickupTime: String,
 })
@@ -74,9 +75,16 @@ const {
 } = storeToRefs(gastStore);
 const dialog = ref(false);
 
-const placeOrder = () => {
-  gastStore.placeOrder();
-  dialog.value = false;
+
+const placeOrder = async () => {
+
+  // wir brauchen name und pickup_at auf jeden fall sowie eine rückrufnummer, ansonsten Swal fehler
+  if (name.value == '' || phone.value == '' || pickup_at.value == null) {
+    alert('Bitte fülle alle Felder aus')
+  } else {
+    gastStore.placeOrder();
+    dialog.value = false;
+  }
 }
 const pickupTimes = Array.from({length: 10}, (_, i) => {
   // immer in 15 minuten slots. aber frühestens in 14 minuten aber im 15 minuten raster
