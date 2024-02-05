@@ -146,14 +146,6 @@ export const useInboxStore = defineStore('inbox', {
                 })
                 .subscribe()
 
-            // const {data, error} = await supabase.from('orders').on('INSERT', (payload) => {
-            //     this.orders.push(payload.new)
-            //     this.playClick()
-            // }).subscribe()
-            // if (error) {
-            //     console.error(error)
-            //     return
-            // }
             this.listenerSet = true
         },
     }
