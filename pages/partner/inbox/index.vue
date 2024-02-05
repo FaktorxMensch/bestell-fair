@@ -19,6 +19,7 @@ function toggleTheme() {
 // TODo: Need some param to check if orders are pending??
 // ToDo: WHat to show in the table if no orders exist?
 
+// LOGOUT / JWT EXPIRATION
 const user = useSupabaseUser()
 watch(user, (value) => {
   if (!value) {
@@ -44,6 +45,7 @@ setInterval(async () => {
   }
   console.log('Session refreshed!', data)
 }, 50 * 60 * 1000)
+
 </script>
 <template>
   <v-theme-provider :theme="theme">

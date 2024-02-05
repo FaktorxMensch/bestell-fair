@@ -46,7 +46,10 @@ export const useInboxStore = defineStore('inbox', {
             }
             const supabase = useSupabaseClient()
             // alle orders ausser Entwurf und Archiviert
-            const {data, error} = await supabase.from('orders').select('*').neq('status', 'Entwurf').neq('status', 'Archiviert')
+            const {
+                data,
+                error
+            } = await supabase.from('orders').select('*').neq('status', 'Entwurf').neq('status', 'Archiviert')
             if (error) {
                 console.error(error)
                 return
@@ -128,7 +131,7 @@ export const useInboxStore = defineStore('inbox', {
 
             supabase
                 .channel('realtime')
-                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
+                .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'orders'}, payload => {
                     console.log('Change received!', payload)
                     this.orders.push(payload.new)
                     this.updatedAt = new Date()
@@ -138,13 +141,14 @@ export const useInboxStore = defineStore('inbox', {
             // also listen to update
             supabase
                 .channel('realtime')
-                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, payload => {
+                .on('postgres_changes', {event: 'UPDATE', schema: 'public', table: 'orders'}, payload => {
                     console.log('Change received!', payload)
                     const index = this.orders.findIndex(o => o.id === payload.new.id)
                     this.orders[index] = payload.new
                     this.updatedAt = new Date()
                 })
                 .subscribe()
+
 
             this.listenerSet = true
         },
