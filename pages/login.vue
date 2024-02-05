@@ -12,11 +12,11 @@ const redirectUser = async (user) => {
       .eq('user_id', user.id);
 
   // wenn es einen Eintrag in restaurant_has_personal gibt, dann ist es ein Personal, sonst ein Restaurant
-  if (restaurant_has_personal.length > 0) {
-    window.location.href = '/partner/inbox'
-  } else if (user_owns_restaurant.length > 0) {
+  if (user_owns_restaurant.length > 0) {
     window.location.href = '/partner/verwalten'
-  } else if(user) {
+  } else if (restaurant_has_personal.length > 0) {
+    window.location.href = '/partner/inbox'
+  } else if (user) {
     await Swal.fire({
       title: 'Fehler',
       text: 'Du bist kein Partner. Bitte registriere dich zuerst.',
