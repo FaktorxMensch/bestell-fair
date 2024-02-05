@@ -16,7 +16,7 @@ const redirectUser = async (user) => {
     window.location.href = '/partner/inbox'
   } else if (user_owns_restaurant.length > 0) {
     window.location.href = '/partner/verwalten'
-  } else {
+  } else if(user) {
     await Swal.fire({
       title: 'Fehler',
       text: 'Du bist kein Partner. Bitte registriere dich zuerst.',
