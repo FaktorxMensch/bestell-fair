@@ -32,7 +32,6 @@
              color="teal-darken-3"
       >Aktualisieren
       </v-btn>
-      <gast-dialog-report :order="order.id"/>
 
       <p class="text-sm mt-4 text-gray-500"> Seite {{ refreshedDiff }} aktualisiert.</p>
 
@@ -59,6 +58,10 @@
     </v-card-actions>
   </v-card>
   <v-alert v-else>Bestellung nicht gefunden.</v-alert>
+
+  <div class="text-center mb-3">
+    <gast-dialog-report :order="order.id"/>
+  </div>
 </template>
 <script setup>
 const supabase = useSupabaseClient()

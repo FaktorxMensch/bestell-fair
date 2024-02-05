@@ -1,10 +1,12 @@
 <template>
-  <v-btn color="warning"
-         variant="text"
-         class="w-full"
-         prepend-icon="mdi-alert-circle"
-         @click="report">
-    App-Fehler und Feedback
+  <v-btn
+      color="error"
+      style="text-transform: none"
+      variant="text"
+      prepend-icon="mdi-alert-circle"
+      size="small"
+      @click="report">
+    Problem mit der Plattform melden
   </v-btn>
 </template>
 <script setup>
