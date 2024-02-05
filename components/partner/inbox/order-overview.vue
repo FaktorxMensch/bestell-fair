@@ -94,8 +94,18 @@ function handleKeyPress(event) {
 </template>
 
 <style scoped>
+.v-theme--light {
+  .full-dialog {
+    @apply bg-white;
+  }
+}
+.v-theme--dark {
+  .full-dialog {
+    @apply bg-neutral-900;
+  }
+}
 .full-dialog {
-  @apply fixed inset-0 z-50 mt-16 bg-neutral-800 overflow-x-auto;
+  @apply fixed inset-0 z-50 mt-16 overflow-x-auto;
 
   header .v-btn {
     @apply flex-1 normal-case font-normal;
@@ -106,7 +116,7 @@ function handleKeyPress(event) {
   }
 
   main {
-    @apply pb-12;
+    @apply pb-12 px-4;
   }
 
   footer {

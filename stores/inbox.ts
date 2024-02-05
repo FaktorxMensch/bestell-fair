@@ -22,6 +22,7 @@ export const useInboxStore = defineStore('inbox', {
         updatedAt: new Date(),
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
+        // isDarkMode: true,
     }),
     actions: {
         playClick() {
