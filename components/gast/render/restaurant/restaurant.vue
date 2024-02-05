@@ -105,6 +105,7 @@ const showRestaurantInfo = () => {
       <img src="https://api.bestell-fair.de/storage/v1/object/public/restaurants/${restaurant.icon_image_url}" alt="Restaurant Feature Image" class="my-2 h-24 object-cover lg:h-32 mx-auto rounded-lg shadow-lg border mb-6 mt-4">
       <h2 class="text-2xl font-bold mb-1">${restaurant.name}</h2>
       <p>${restaurant.location}</p>
+      <p class="text-gray-500 mt-2">${restaurant.payment_methods.join(', ')}</p>
       <a class="btn mt-6" href="https://www.google.com/maps/search/?api=1&query=${restaurant.location}" target="_blank"><i class="mdi mdi-map-marker"></i> Google Maps</a>
       ${restaurant.contact_phone ? `<a class="btn" href="tel:${restaurant.contact_phone}"><i class="mdi mdi-phone"></i> ${restaurant.contact_phone}</a>` : ''}
     `,
