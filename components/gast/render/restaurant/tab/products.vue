@@ -29,6 +29,4 @@ const allProducts = computed(() => {
     return { '': unsortedProducts.value }
   }
 })
-
-
 </script>

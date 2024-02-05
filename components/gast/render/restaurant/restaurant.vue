@@ -47,7 +47,11 @@
         </v-toolbar>
         <div class="overflow-y-auto flex-1">
           <ui-order-element v-for="product in products" :key="product.name" :product="product"/>
-          <div class="px-4 pt-4 border-t border-neutral-500/10 opacity-60"/>
+          <div class="px-4 border-t border-neutral-500/10 opacity-60"/>
+          <div class="px-4 py-2 flex justify-between">
+            <p class="text-lg font-bold">Gesamt</p>
+            <p class="text-lg font-bold">{{ pricef(price) }}</p>
+          </div>
         </div>
         <div class="pt-3">
           <div class="mx-4 mb-2">

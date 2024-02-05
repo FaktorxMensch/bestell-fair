@@ -45,9 +45,22 @@ export const useGastStore = defineStore('gast', {
 
         // have a function to remove a product from the order
         removeProduct(product) {
-            const index = this.product_refs.indexOf(product.id)
-            this.products.splice(index, 1)
-            this.product_refs.splice(index, 1)
+
+            Swal.fire({
+                title: 'Produkt entfernen',
+                text: 'Möchtest du das Produkt wirklich entfernen?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ja',
+                cancelButtonText: 'Nein',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const index = this.products.indexOf(product)
+                    this.products.splice(index, 1)
+                    this.product_refs.splice(index, 1)
+                }
+            })
+
         },
 
         // have a function to reset the order
