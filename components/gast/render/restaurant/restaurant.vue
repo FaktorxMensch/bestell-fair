@@ -24,7 +24,19 @@
       <div class="px-2 py-1 bg-gray-100"
            style="box-shadow: inset 0px 20px 10px -20px rgba(0,0,0,0.2);">
         <div class="container">
-          <component :is="tabs[activeTab].component" :restaurant="restaurant"/>
+          <v-alert v-if="!open" color="warning" icon="mdi-alert" class="mt-4">Dieses Restaurant ist momentan
+            geschlossen!
+            <div class="font-bold mt-4">Öffnungszeiten:</div>
+            <table>
+              <tr v-for="day in restaurant.opening_hours">
+                <td>{{ ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'][day.day_open] }},&nbsp;</td>
+                <td>{{ day.time_open }} - {{ day.time_close }}</td>
+              </tr>
+            </table>
+          </v-alert>
+          <div :class="{'opacity-50 pointer-events-none': !open}">
+            <component :is="tabs[activeTab].component" :restaurant="restaurant"/>
+          </div>
         </div>
       </div>
     </div>
@@ -90,6 +102,7 @@
   </v-toolbar>
 </template>
 <script setup>
+
 const props = defineProps({
   restaurant: {
     type: Object,
