@@ -67,6 +67,7 @@
 const supabase = useSupabaseClient()
 const route = useRoute()
 const {data: orders, error} = await supabase.rpc('get_order', {order_id: route.params.bestellung});
+console.log(orders)
 const order = ref(orders[0])
 const {data: restaurant, error: restaurantError} = await supabase
     .from('restaurants')

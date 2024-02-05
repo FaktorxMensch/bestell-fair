@@ -66,6 +66,7 @@ const toggleTheme = () => {
                         :label="theme==='light' ? 'Tagmodus' : 'Nachtmodus'"
                         class="themeSwitch"/>
             </v-list-item>
+            <v-list-item to="/logout" prepend-icon="mdi-logout">Logout</v-list-item>
           </v-list>
         </v-card>
       </v-menu>
