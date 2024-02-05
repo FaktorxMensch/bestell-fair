@@ -1,6 +1,6 @@
 <script setup>
 const inboxStore = useInboxStore()
-const {orders, order} = storeToRefs(inboxStore)
+const {orders, order,open} = storeToRefs(inboxStore)
 
 const showMorePopup = ref(false)
 
@@ -18,6 +18,7 @@ setInterval(() => {
   const channels = supabase.getChannels()
   connected.value = channels?.[0]?.state === 'joined'
 }, 5000)
+
 </script>
 <template>
   <v-app-bar density="comfortable">
@@ -51,16 +52,18 @@ setInterval(() => {
         <v-chip :color="connected ? 'success' : 'error'" :prepend-icon="connected ? 'mdi-access-point' : 'mdi-access-point-off'">
           {{ connected ? 'Verbunden' : 'Keine Verbindung' }}
         </v-chip>
-<!--        Übersicht-->
       </v-toolbar-title>
       <v-spacer/>
 
-      <p class="pr-4">Letzte Änderung:
-        {{
-          new Date(inboxStore.updatedAt).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'})
-        }}
-        Uhr
-      </p>
+        <v-btn :prepend-icon="open ? 'mdi-check' : 'mdi-pause'"
+               variant="tonal"
+               :color="open ? 'grey' : 'warning'"
+               :key="open"
+               @click="open = !open"
+               class="ml-4">
+          {{ open ? 'Online-Bestellungen aktiviert' : 'Online-Bestellungen pausiert' }}
+        </v-btn>
+<!--      <p class="pr-4">Letzte Änderung: {{ new Date(inboxStore.updatedAt).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }} Uhr </p>-->
       <v-menu v-model="showMorePopup" :close-on-content-click="false" location="bottom">
         <template v-slot:activator="{ props }">
           <v-btn icon v-bind="props">

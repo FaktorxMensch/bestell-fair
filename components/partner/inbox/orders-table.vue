@@ -65,8 +65,6 @@ const filterAll = (value, searchQuery, item) => {
   else if (item.columns.status == "Storniert" ||  item.columns.status == "Abgeholt") return false
   else return true
 }
-
-
 </script>
 
 <template>

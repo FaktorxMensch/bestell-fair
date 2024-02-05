@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
-const email = ref('domi@faktorxmensch.com')
+const email = ref('')
 const password = ref('')
 
 const redirectUser = async (user) => {

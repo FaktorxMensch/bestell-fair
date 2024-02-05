@@ -20,8 +20,10 @@ export const useInboxStore = defineStore('inbox', {
         order: null, // die aktuell geöffnete Bestellung
         orders: [], // alle Bestellungen
         updatedAt: new Date(),
+        restaurant:null,
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
+        open: true,
         // isDarkMode: true,
     }),
     actions: {
@@ -56,6 +58,8 @@ export const useInboxStore = defineStore('inbox', {
             }
             this.orders = data
             console.log('orders', this.orders)
+
+            // schau in restaurant_open nach der id
 
             this.updatedAt = new Date()
 
