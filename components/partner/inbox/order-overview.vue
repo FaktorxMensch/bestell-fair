@@ -74,7 +74,7 @@ function handleKeyPress(event) {
       <ui-order-element v-for="product in order?.products" :key="product.name" :product="product"/>
       <div class="flex justify-between p-4">
         <span class="text-lg">Gesamtsumme</span>
-        <span class="text-lg">{{ order.total_price }} €</span>
+        <span class="text-lg">{{ pricef(order.total_price) }}</span>
       </div>
 
 <!--      Area for showing information about how ordered and some meta infos like custom fields-->

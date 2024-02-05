@@ -109,7 +109,7 @@ const filterAll = (value, searchQuery, item) => {
         </td>
         <td>{{ item.products.length }}</td>
         <td>{{ item.name }}</td>
-        <td class="text-end">{{ euro(item.total_price) }}€</td>
+        <td class="text-end">{{ pricef(item.total_price) }}</td>
         <td class="flex gap-1.5 align-center justify-end py-1">
           <a :href="'tel: '+item.phone">
             <v-chip class="cursor-pointer" color="success" @click.stop>

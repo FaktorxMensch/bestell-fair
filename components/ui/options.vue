@@ -12,7 +12,7 @@
               v-for="option in props.options"
               :key="option"
           >
-            {{ option.name }} ({{ option.price }} €)
+            {{ option.name }} ({{ pricef(option.price) }})
           </v-chip>
         </v-chip-group>
     </v-col>
