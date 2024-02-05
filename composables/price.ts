@@ -5,7 +5,7 @@ export const pricef = (price: number) => {
     price = price.toString().replace(',', '.')
     // parse the price to a number
     price = parseFloat('0' + price)
-    return '|'+price.toFixed(2).replace('.', ',') + ' €'+ '|'
+    return price.toFixed(2).replace('.', ',') + ' €'
 }
 
 export const getProductTotalPrice = (product: any, quantity: number = 1) => {
