@@ -35,6 +35,12 @@ export const timeDiff = (time) => {
 
 // input restaurant objekt mit den opening hours, output: true/false ob es jetzt offen ist
 export const isOpen = (restaurant) => {
+
+    if (!restaurant.opening_hours) {
+        console.error('Restaurant has no opening hours', restaurant);
+        return true;
+    }
+
     const opening_hours = restaurant.opening_hours;
     const now = new Date();
     // JavaScript's getDay(): 0 = Sunday, so we adjust it to match 0 = Monday

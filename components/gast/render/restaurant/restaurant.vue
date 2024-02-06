@@ -102,7 +102,6 @@
   </v-toolbar>
 </template>
 <script setup>
-
 const props = defineProps({
   restaurant: {
     type: Object,
@@ -113,6 +112,7 @@ const props = defineProps({
     default: true
   }
 })
+const open = isOpen(props.restaurant)
 const tabs = [
   // {name: 'Übersicht', component: resolveComponent('gast-render-restaurant-tab-overview')},
   {name: 'Speisekarte', component: resolveComponent('gast-render-restaurant-tab-products')},
