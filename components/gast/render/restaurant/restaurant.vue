@@ -91,11 +91,12 @@
   </div>
 
   <!-- BOTTOM CART -->
-  <v-toolbar class="bottom-0" id="cart-mobile" style="position:fixed" color="primary" location="bottom">
+  <v-toolbar class="bottom-0" id="cart-mobile" style="position:fixed" color="primary" location="bottom" @click="cartOpen =!cartOpen">
     <v-toolbar-title class="text-lg font-bold">Bestellung</v-toolbar-title>
     <v-spacer/>
-    <v-btn icon @click="cartOpen = !cartOpen">
-      <v-badge color="red" content="0" overlap>
+    <v-btn icon>
+<!--      Reduce products to each product * product.count-->
+      <v-badge color="red" :content="products.reduce((acc, product) => acc + product.quantity, 0)" overlap>
         <v-icon>mdi-cart</v-icon>
       </v-badge>
     </v-btn>
@@ -158,6 +159,9 @@ const resetCart = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       products.value = [];
+      if (cartOpen.value) {
+        cartOpen.value = false
+      }
     }
   })
 }
