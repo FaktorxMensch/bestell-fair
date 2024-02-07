@@ -8,11 +8,14 @@
  * @method updateOrderStatus(order, status) aktualisiert den Status einer Bestellung
  * @method updatePickupAt(order, pickupAt) aktualisiert den Abholzeitpunkt einer Bestellung
  * @method listenForNewOrders() setzt den Listener für neue Bestellungen
+ * @method setOpen(open) ändert den Status der Inbox
  * @property order die aktuell geöffnete Bestellung
  * @property orders alle Bestellungen
  * @property updatedAt wann wurden die letzten Daten abgerufen
  * @property listenerSet wurde der Listener für neue Bestellungen gesetzt
  * @property orderStates alle möglichen Bestell-Status
+ * @property initDone wurde init() bereits aufgerufen
+ * @property changeTempClose bis wann ist das Restaurant tenporär geschlossen
  */
 
 export const useInboxStore = defineStore('inbox', {
@@ -23,7 +26,7 @@ export const useInboxStore = defineStore('inbox', {
         restaurant:null,
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
-        open: true,
+        closedUntil: null,
         // isDarkMode: true,
     }),
     actions: {
@@ -59,7 +62,15 @@ export const useInboxStore = defineStore('inbox', {
             this.orders = data
             console.log('orders', this.orders)
 
-            // schau in restaurant_open nach der id
+            // get restaurant_open
+            // ToDo Domi: Select restaurant_id from restaurant_has_personal oder user_owns_restaurant
+            const {data: restaurant_open, error: error2} = await supabase.from('restaurant_open').select('*').eq('restaurant', '8c9ca1b6-0f91-407f-a073-c2b90407d571')
+            if (error2) {
+                console.error(error2)
+                return
+            }
+            this.closedUntil = restaurant_open[0].closed_until
+            console.log('closedUntil', this.closedUntil)
 
             this.updatedAt = new Date()
 
@@ -122,6 +133,29 @@ export const useInboxStore = defineStore('inbox', {
             this.updatedAt = new Date()
 
             this.playClick()
+        },
+        async changeTempClose(reset = false) {
+            if (reset) {
+                this.closedUntil = null
+            } else if (this.closedUntil) {
+                    // Increment it by 30 minutes but be aware of date
+                    this.closedUntil = new Date(new Date(this.closedUntil).getTime() + 30 * 60000)
+            } else {
+                    // Set it to 30 minutes in the future
+                    this.closedUntil = new Date(new Date().getTime() + 30 * 60000)
+            }
+            const supabase = useSupabaseClient()
+            const {data, error} = await supabase.from('restaurant_open').upsert({
+                    // ToDo Domi: Select restaurant_id from restaurant_has_personal oder user_owns_restaurant
+                    restaurant: "8c9ca1b6-0f91-407f-a073-c2b90407d571",
+                    closed_until: this.closedUntil
+                }
+            )
+            if (error) {
+                console.error(error)
+                return
+            }
+
         },
         // set up the listener for new orders
         async listenForNewOrders() {

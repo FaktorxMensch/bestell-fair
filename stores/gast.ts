@@ -1,5 +1,30 @@
 import {getProductTotalPrice} from "../composables/price";
 
+/**
+ * Store for the guest
+ * @method addProduct(product, quantity) add a product to the order
+ * @method changeQuantity(product, quantity) change the quantity of a product
+ * @method removeProduct(product) remove a product from the order
+ * @method resetOrder() reset the order
+ * @method setRestaurantId(restaurant_id) set the restaurant_id
+ * @method setCustomFields(custom_fields) set the custom_fields
+ * @method setField(field, value) set a field
+ * @method placeOrder() place the order in supabase
+ * @method storeTempClosedFunc(restaurant_id) check if the store is temporarily closed
+ * @property products the products in the order
+ * @property product_refs the product_refs in the order
+ * @property custom_fields the custom_fields in the order
+ * @property name the name of the guest
+ * @property phone the phone of the guest
+ * @property email the email of the guest
+ * @property restaurant_id the restaurant_id
+ * @property pickup_at the pickup_at
+ * @property remark the remark
+ * @property cartOpen if the cart is open
+ * @property storeTempClosed if the store is temporarily closed
+ *
+ */
+
 export const useGastStore = defineStore('gast', {
     persist: true,
     state: () => ({
@@ -7,6 +32,7 @@ export const useGastStore = defineStore('gast', {
         pickup_at: null,
         remark: '',
         cartOpen: false,
+        storeTempClosed: false,
         // embedOptions: {
         // should the back button be shown (to the other restaurants)
         // showBackButton: false,
@@ -129,6 +155,25 @@ export const useGastStore = defineStore('gast', {
             // weiterleitne zur bestellübersicht
             navigateTo('/bestellung/' + insert_id)
             // return data[0].id
-        },
+        }
+        // async storeTempClosedFunc(restaurant_id: number) {
+        //     const supabase = useSupabaseClient()
+        //     const {data, error} = await supabase.from('restaurant_open').select('*').eq('restaurant', restaurant_id)
+        //     if (error) {
+        //         console.error(error)
+        //         return
+        //     }
+        //     this.storeTempClosed = data[0].open
+        //     return this.storeTempClosed
+        // //     Check if the restaurant is open every 2 minutes
+        //     setInterval(async () => {
+        //         const {data, error} = await supabase.from('restaurant_open').select('*')
+        //         if (error) {
+        //             console.error(error)
+        //             return
+        //         }
+        //         this.storeTempClosed = data[0].open
+        //     })
+        // }
     },
 })

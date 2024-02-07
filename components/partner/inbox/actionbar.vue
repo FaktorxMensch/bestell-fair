@@ -1,6 +1,8 @@
 <script setup>
 const inboxStore = useInboxStore()
-const {orders, order,open} = storeToRefs(inboxStore)
+const {orders, order, closedUntil} = storeToRefs(inboxStore)
+
+const open = computed(() => new Date(closedUntil.value).getTime() <= new Date().getTime() || closedUntil.value === null)
 
 const showMorePopup = ref(false)
 
@@ -18,6 +20,8 @@ setInterval(() => {
   const channels = supabase.getChannels()
   connected.value = channels?.[0]?.state === 'joined'
 }, 5000)
+
+
 
 </script>
 <template>
@@ -54,12 +58,20 @@ setInterval(() => {
         </v-chip>
       </v-toolbar-title>
       <v-spacer/>
+      <v-btn v-if="!open" :prepend-icon="open ? 'mdi-check' : 'mdi-pause'"
+             variant="tonal"
+             :color="open ? 'grey' : 'warning'"
+             :key="open"
+             @click="inboxStore.changeTempClose()"
+             class="ml-4">
+        {{ open }}
+      </v-btn>
 
         <v-btn :prepend-icon="open ? 'mdi-check' : 'mdi-pause'"
                variant="tonal"
                :color="open ? 'grey' : 'warning'"
                :key="open"
-               @click="open = !open"
+               @click="inboxStore.changeTempClose()"
                class="ml-4">
           {{ open ? 'Online-Bestellungen aktiviert' : 'Online-Bestellungen pausiert' }}
         </v-btn>
