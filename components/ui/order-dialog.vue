@@ -50,6 +50,7 @@
                   :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                   variant="outlined"/>
         <v-btn size="x-large" class="mt-1 mb-5" color="teal-darken-4" rounded v-bind="props" @click="placeOrder"
+               :loading="loading"
                prepend-icon="mdi-check">
           Fertig ({{ pricef(price) }})
         </v-btn>
@@ -65,6 +66,8 @@ const props = defineProps({
   pickupTime: String,
 })
 
+const loading = ref(false);
+
 const gastStore = useGastStore();
 const {
   count, price, products, remark,
@@ -78,6 +81,8 @@ const dialog = ref(false);
 
 const placeOrder = async () => {
 
+  loading.value = true;
+
   // wir brauchen name und pickup_at auf jeden fall sowie eine rückrufnummer, ansonsten Swal fehler
   if (name.value == '' || phone.value == '' || pickup_at.value == null) {
     alert('Bitte fülle alle Felder aus')
@@ -85,6 +90,8 @@ const placeOrder = async () => {
     gastStore.placeOrder();
     dialog.value = false;
   }
+
+  loading.value = false;
 }
 const pickupTimes = Array.from({length: 10}, (_, i) => {
   // immer in 15 minuten slots. aber frühestens in 14 minuten aber im 15 minuten raster
