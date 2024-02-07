@@ -33,6 +33,7 @@ export const useGastStore = defineStore('gast', {
         remark: '',
         cartOpen: false,
         storeTempClosed: false,
+        ordersHistory: [],
         // embedOptions: {
         // should the back button be shown (to the other restaurants)
         // showBackButton: false,
@@ -114,6 +115,15 @@ export const useGastStore = defineStore('gast', {
             this[field] = value
         },
 
+        // load ordersHistory
+        loadOrdersHistory() {
+            this.ordersHistory = JSON.parse(localStorage.getItem('ordersHistory')) || []
+        },
+        clearOrdersHistory() {
+            localStorage.removeItem('ordersHistory')
+            this.ordersHistory = []
+        },
+
         // place order in supabase and return the order_id
         async placeOrder() {
             const supabase = useSupabaseClient()
@@ -124,7 +134,7 @@ export const useGastStore = defineStore('gast', {
             timestampValue.setSeconds(0); // Setze Sekunden auf
             const insert_id = crypto.randomUUID();
             console.log('insert_if', insert_id)
-            const {data, error} = await supabase.from('orders').insert({
+            const newOrder = {
                 id: insert_id,
                 restaurant_id: this.restaurant_id,
                 custom_fields: this.custom_fields,
@@ -135,7 +145,8 @@ export const useGastStore = defineStore('gast', {
                 phone: this.phone,
                 email: this.email,
                 pickup_at: timestampValue,
-            })
+            }
+            const {data, error} = await supabase.from('orders').insert(newOrder)
 
             // dann könen wir die products und product_refs im store löschen
             this.resetOrder()
@@ -154,6 +165,19 @@ export const useGastStore = defineStore('gast', {
                 text: 'Deine Bestellung wurde erfolgreich aufgegeben.',
                 icon: 'success',
             })
+
+            // im localstorage speichern
+            let ordersHistory = JSON.parse(localStorage.getItem('ordersHistory')) || []
+            const restaurant = await supabase.from('restaurants').select('name,icon_image_url').eq('id', this.restaurant_id).single()
+            console.log('restaurant', restaurant.data.name)
+            ordersHistory.push({
+                ...newOrder,
+                restaurant: restaurant.data
+            })
+            localStorage.setItem('ordersHistory', JSON.stringify(ordersHistory))
+
+            return;
+
             // weiterleitne zur bestellübersicht
             navigateTo('/bestellung/' + insert_id)
             // return data[0].id

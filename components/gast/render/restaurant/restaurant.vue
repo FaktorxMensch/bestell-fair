@@ -133,7 +133,8 @@ const {
   cartOpen
 } = storeToRefs(gastStore);
 
-const tempClose = ref(gastStore.storeTempClosedFunc(props.restaurant.id))
+// const tempClose = ref(gastStore.storeTempClosedFunc(props.restaurant.id))
+const tempClose = false
 console.log('tempClose', tempClose)
 
 const showRestaurantInfo = () => {
