@@ -58,13 +58,13 @@ setInterval(() => {
         </v-chip>
       </v-toolbar-title>
       <v-spacer/>
-      <v-btn v-if="!open" :prepend-icon="open ? 'mdi-check' : 'mdi-pause'"
+      <v-btn v-if="!open" :prepend-icon="'mdi-play'"
              variant="tonal"
-             :color="open ? 'grey' : 'warning'"
+             :color="'success'"
              :key="open"
-             @click="inboxStore.changeTempClose()"
+             @click="inboxStore.changeTempClose(true)"
              class="ml-4">
-        {{ open }}
+        Bestellungen öffnen
       </v-btn>
 
         <v-btn :prepend-icon="open ? 'mdi-check' : 'mdi-pause'"
@@ -73,7 +73,7 @@ setInterval(() => {
                :key="open"
                @click="inboxStore.changeTempClose()"
                class="ml-4">
-          {{ open ? 'Online-Bestellungen aktiviert' : 'Online-Bestellungen pausiert' }}
+          {{ open ? 'Bestellungen 30min schließen' : 'Schließung 30 min verlängern' }}
         </v-btn>
 <!--      <p class="pr-4">Letzte Änderung: {{ new Date(inboxStore.updatedAt).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }} Uhr </p>-->
       <v-menu v-model="showMorePopup" :close-on-content-click="false" location="bottom">
