@@ -5,13 +5,13 @@
       transition="dialog-bottom-transition"
   >
     <template v-slot:activator="{ props }">
-      <v-btn size="large" color="primary" text rounded block v-bind="props">
+      <v-btn size="large" color="teal-darken-4" text rounded block v-bind="props">
         <v-icon left>mdi-cart</v-icon>
         <span class="font-semibold"> {{ count }} Artikel </span>
       </v-btn>
     </template>
     <v-card>
-      <v-toolbar color="primary">
+      <v-toolbar color="teal-darken-4">
         <v-btn dark @click="dialog = false" icon="mdi-arrow-left"/>
         <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
       </v-toolbar>
@@ -49,7 +49,7 @@
                   :error="!pickup_at"
                   :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                   variant="outlined"/>
-        <v-btn size="x-large" class="mt-1 mb-5" color="primary" rounded v-bind="props" @click="placeOrder"
+        <v-btn size="x-large" class="mt-1 mb-5" color="teal-darken-4" rounded v-bind="props" @click="placeOrder"
                prepend-icon="mdi-check">
           Fertig ({{ pricef(price) }})
         </v-btn>

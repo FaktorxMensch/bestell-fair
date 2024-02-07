@@ -9,7 +9,7 @@
           <v-container>
             <v-text-field variant="outlined" v-model="props.product.name" label="Name"></v-text-field>
             <v-textarea variant="outlined" v-model="props.product.description" label="Description"></v-textarea>
-            <v-btn type="submit" color="primary">Submit</v-btn>
+            <v-btn type="submit" color="teal-darken-4">Submit</v-btn>
           </v-container>
         </v-form>
       </v-card-text>

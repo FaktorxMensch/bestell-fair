@@ -23,7 +23,9 @@ export const useGastStore = defineStore('gast', {
             product = JSON.parse(JSON.stringify(product))
             this.products.push({...product, quantity: quantity, total_price: getProductTotalPrice(product, quantity)})
             this.product_refs.push(product.id)
-            this.cartOpen = true
+            // open cart if screensize is greater than 540px
+            if (window.innerWidth > 540)
+                this.cartOpen = true
             Swal.fire({
                 title: 'Produkt hinzugefügt',
                 text: 'Das Produkt wurde erfolgreich hinzugefügt.',
