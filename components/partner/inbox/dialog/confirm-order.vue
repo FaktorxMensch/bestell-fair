@@ -79,6 +79,7 @@
             <div class="grid grid-cols-4 gap-4">
              <div
                  class="border p-2 rounded-lg cursor-pointer hover:bg-gray-500/10"
+                 @click="notify(notification)"
                  v-for="notification in notificationTemplates" :key="notification">
                <v-icon class="text-2xl">mdi-alert</v-icon>
                {{ notification }}
@@ -110,7 +111,7 @@
             color="success"
             @click="save"
         >
-          Bestätigen
+          Betätigen
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -120,7 +121,7 @@
 const emit = defineEmits(['setNewPickupAt', 'changeOrderStatus'])
 const props = defineProps(['order', 'prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
-const order = props.order
+const order = ref(props.order)
 
 const notificationTemplates = [
     'Leider gibt es einige Zutaten nicht mehr. Möchtest du die Bestellung stornieren oder ersetzen?',
@@ -143,6 +144,36 @@ watch(props, (value) => {
 const changePickupTime = async (change) => {
   order.value.pickup_at = new Date(new Date(order.value.pickup_at).getTime() + change)
 }
+
+const supabase = useSupabaseClient()
+const notify = async (notification) => {
+  if(!order.value.notifications) {
+    order.value.notifications = []
+  }
+  // add to notifications in order
+  order.value.notifications.push(notification)
+  // submit update to supabase
+  const {data, error} = await supabase
+      .from('orders')
+      .update({notifications: order.value.notifications})
+      .eq('id', order.value.id)
+      .select('*')
+
+  if (error) {
+    await Swal.fire({
+      title: 'Fehler',
+      text: 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.',
+      icon: 'error'
+    })
+  } else {
+    await Swal.fire({
+      title: 'Benachrichtigung gesendet',
+      text: 'Die Benachrichtigung wurde erfolgreich gesendet.',
+      icon: 'success'
+    })
+  }
+}
+
 
 const save = async () => {
 
