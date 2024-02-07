@@ -5,6 +5,10 @@ const props = defineProps(['product', 'layout', 'editable'])
 const gastStore = useGastStore()
 const optionGroups = computed(() => {
   return props.product.optionGroups.map((optionGroup) => {
+    // Catch case if selected is undefined
+    if (optionGroup.selected === undefined) {
+      optionGroup.selected = optionGroup.multiple ? [] : 0
+    }
     const multiple = typeof optionGroup.selected === 'object'
     return {
       name: optionGroup.name,
@@ -17,6 +21,10 @@ const optionGroups = computed(() => {
 })
 
 const flattenedSelected = computed(() => {
+  // Catch case if selected is undefined
+  if (optionGroups.value === undefined) {
+    return ''
+  }
   return optionGroups.value.map((optionGroup) => {
     return optionGroup.multiple ? optionGroup.selected.join(', ') : optionGroup.selected
   }).join(', ')

@@ -30,6 +30,8 @@ export const useGastStore = defineStore('gast', {
                 title: 'Produkt hinzugefügt',
                 text: 'Das Produkt wurde erfolgreich hinzugefügt.',
                 icon: 'success',
+                timer: 2e3,
+                timerProgressBar: true,
             })
         },
 

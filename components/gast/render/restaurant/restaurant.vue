@@ -164,6 +164,7 @@ const resetCart = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       products.value = [];
+      cartOpen.value = false
     }
   })
 }
