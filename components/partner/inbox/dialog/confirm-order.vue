@@ -166,10 +166,14 @@ const notify = async (notification) => {
       icon: 'error'
     })
   } else {
+    // autoclose
+    dialog.value = false
     await Swal.fire({
       title: 'Benachrichtigung gesendet',
       text: 'Die Benachrichtigung wurde erfolgreich gesendet.',
-      icon: 'success'
+      icon: 'success',
+      timer: 2000,
+      timerProgressBar: true
     })
   }
 }

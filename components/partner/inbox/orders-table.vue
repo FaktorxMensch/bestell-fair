@@ -69,8 +69,6 @@ const filterAll = (value, searchQuery, item) => {
                                       @changeOrderStatus="handleChangeOrderStatus"
                                       prepend-icon="mdi-plus">
   </partner-inbox-dialog-confirm-order>
-  {{selectedOrder?.id}}
-  {{confirmOrderDialog}}
   <partner-inbox-order-overview/>
   <v-data-table :headers="headers"
                 :items="orders"
@@ -99,13 +97,11 @@ const filterAll = (value, searchQuery, item) => {
           }}
         </td>
         <td v-else>offen</td>
-        <!--        Reduce price of all products to a sum-->
         <td>
           <v-chip :color="orderstatusToColor(item.status)">
             {{ item.status }}
           </v-chip>
         </td>
-        <!--        Reduce products by counting item * item.quantity-->
         <td>{{ item.products.reduce((acc, item) => acc + item.quantity, 0) }}</td>
         <td>{{ item.name }}</td>
         <td class="text-end">{{ pricef(item.total_price) }}</td>
