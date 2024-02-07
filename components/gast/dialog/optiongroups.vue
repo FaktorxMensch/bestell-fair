@@ -82,7 +82,8 @@ const addToCart = () => {
   //Check if required optionGroups have a selected option
   let unselectedOption = false
   productCopy.value.optionGroups.forEach((og) => {
-    if (!og.mandatory && !og.selected) {
+    // console.log('og: ', og)
+    if (!og.mandatory && og.selected === undefined) {
       //SHow user that a required option is not selected
       document.getElementsByClassName('optiongroup-'+og.name.replaceAll(' ', '').toLowerCase())[0].style.border = '3px solid red'
       unselectedOption = true
@@ -93,6 +94,7 @@ const addToCart = () => {
   if (unselectedOption) {
     return
   } else {
+    console.log('productCopy.value', productCopy.value)
     gastStore.addProduct(productCopy.value, quantity.value)
     toggle()
   }
