@@ -133,6 +133,9 @@ const {
   cartOpen
 } = storeToRefs(gastStore);
 
+const tempClose = ref(gastStore.storeTempClosedFunc(props.restaurant.id))
+console.log('tempClose', tempClose)
+
 const showRestaurantInfo = () => {
   const restaurant = props.restaurant
   // have a swal with .location, .email and .phone as well as showing buttons for calling, mailing them and google maps
