@@ -10,27 +10,30 @@
       </v-card-title>
       <v-list class="no-input-details">
         <v-list-item v-for="group in productCopy.optionGroups">
-          <div class="font-semibold text-sm">{{ group.name }}</div>
+          <div class="font-semibold text-sm">{{ group.name}} <span v-if="!group.mandatory" style="color: red">*</span></div>
 
           <!-- CHECKBOXES -->
           <template v-if="group.multiple">
-            <v-select multiple :items="group.options.map(({name},index) => ({name, index}))"
-
-                      v-model="group.selected"
-                      item-title="name"
-                      item-value="index"
-                      variant="outlined"
+            <v-select
+              multiple
+              :items="group.options.map(({name},index) => ({name, index}))"
+              v-model="group.selected"
+              item-title="name"
+              item-value="index"
+              variant="outlined"
+              :class="'optiongroup-'+group.name.replaceAll(' ', '').toLowerCase()"
             />
           </template>
 
           <!-- SELECT -->
           <template v-else>
             <v-select
-                :items="group.options.map(({name},index) => ({name, index}))"
-                v-model="group.selected"
-                item-title="name"
-                item-value="index"
-                variant="outlined"
+              :items="group.options.map(({name},index) => ({name, index}))"
+              v-model="group.selected"
+              item-title="name"
+              item-value="index"
+              variant="outlined"
+              :class="'optiongroup-'+group.name.replaceAll(' ', '').toLowerCase()"
             />
           </template>
 
@@ -76,8 +79,23 @@ const gastStore = useGastStore()
 const quantity = ref(1)
 
 const addToCart = () => {
-  gastStore.addProduct(productCopy.value, quantity.value)
-  toggle()
+  //Check if required optionGroups have a selected option
+  let unselectedOption = false
+  productCopy.value.optionGroups.forEach((og) => {
+    if (!og.mandatory && !og.selected) {
+      //SHow user that a required option is not selected
+      document.getElementsByClassName('optiongroup-'+og.name.replaceAll(' ', '').toLowerCase())[0].style.border = '3px solid red'
+      unselectedOption = true
+    } else {
+      document.getElementsByClassName('optiongroup-'+og.name.replaceAll(' ', '').toLowerCase())[0].style.border = 'none'
+    }
+  })
+  if (unselectedOption) {
+    return
+  } else {
+    gastStore.addProduct(productCopy.value, quantity.value)
+    toggle()
+  }
 }
 watch(dialog, (newValue) => {
   if (!newValue) return

@@ -107,7 +107,8 @@ const filterAll = (value, searchQuery, item) => {
           {{ item.status }}
           </v-chip>
         </td>
-        <td>{{ item.products.length }}</td>
+<!--        Reduce products by counting item * item.quantity-->
+        <td>{{ item.products.reduce((acc, item) => acc + item.quantity, 0) }}</td>
         <td>{{ item.name }}</td>
         <td class="text-end">{{ pricef(item.total_price) }}</td>
         <td class="flex gap-1.5 align-center justify-end py-1">

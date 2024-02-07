@@ -11,7 +11,7 @@ const props = defineProps(['restaurant'])
 // KATEGORIEN
 const unsortedProducts = ref(props.restaurant.products)
 
-// schaue, ob es mehr als eine kategori in allen produkten gibt
+// schaue, ob es mehr als eine kategorie in allen produkten gibt
 const hasCategories = unsortedProducts.value.some(p => p.category)
 
 // wenn es kategorien gibt, dann sortiere die produkte nach kategorien
