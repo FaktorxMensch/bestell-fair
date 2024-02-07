@@ -6,8 +6,10 @@
     <v-btn v-if="showBackButton" to="/restaurant" icon="mdi-arrow-left"/>
     <v-spacer class="hidden md:flex"/>
     <v-app-bar-title>{{ restaurant.name }}</v-app-bar-title>
-    <v-btn icon="mdi-cart" @click="toggleCart">
-      <v-badge :content="count" color="primary">
+    <v-btn
+        class="invisible md:visible"
+        icon="mdi-cart" @click="toggleCart">
+      <v-badge :content="count" color="teal-darken-4">
         <v-icon icon="mdi-shopping"/>
       </v-badge>
     </v-btn>

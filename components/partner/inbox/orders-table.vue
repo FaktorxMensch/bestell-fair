@@ -4,8 +4,8 @@ import {orderstatusToColor} from "~/composables/orderstatusToColor";
 const inboxStore = useInboxStore()
 const {orders} = storeToRefs(inboxStore)
 
-const editOrderDialog = ref(false)
-let selectedOrder : any = ref(null)
+const confirmOrderDialog = ref(false)
+let selectedOrder: any = ref(null)
 
 const headers = [
   {title: 'Bestellzeit', value: 'created_at', sortable: true},
@@ -27,26 +27,20 @@ const openOrder = async (item: any) => {
   if (item.status === 'Neu') {
     // item.status = 'Bestätigt'
     //ToDo: Open popup to confirm pickup time or change to new
-    await editOrder({item})
+    await confirmOrder(item)
     return
   }
   inboxStore.openOrder(item)
 }
 
-const editOrder = async ({item})=> {
-  if (editOrderDialog) {
-    editOrderDialog.value = false
-    await nextTick()
-  }
+const confirmOrder = async (item) => {
+  console.log('confirmOrder', item.id)
   selectedOrder = item
-  // selectedOrder.value = {
-  //   name: item.name,
-  //   pickup_at: item.pickup_at,
-  //   status: item.status,
-  //   products: item.products,
-  //   total_price: item.total_price,
-  // }
-  editOrderDialog.value = true
+  console.log('selectedOrder', selectedOrder)
+  confirmOrderDialog.value = false
+  await nextTick()
+  confirmOrderDialog.value = true
+  console.log('confirmOrderDialog', confirmOrderDialog)
 }
 
 const handleNewPickupAt = async (newPickupAt) => {
@@ -56,28 +50,24 @@ const handleNewPickupAt = async (newPickupAt) => {
 }
 const handleChangeOrderStatus = async (status) => {
   await inboxStore.updateOrderStatus(selectedOrder, status)
-  editOrderDialog.value = false
+  confirmOrderDialog.value = false
 }
 
 const search = ref("no")
 const filterAll = (value, searchQuery, item) => {
-  if(searchQuery == 'all') return true
-  else if (item.columns.status == "Storniert" ||  item.columns.status == "Abgeholt") return false
+  if (searchQuery == 'all') return true
+  else if (item.columns.status == "Storniert" || item.columns.status == "Abgeholt") return false
   else return true
 }
 </script>
 
 <template>
-  <partner-inbox-dialog-confirm-order :dialog="editOrderDialog"
-            :name="selectedOrder?.name"
-            :pickup_at="selectedOrder?.pickup_at"
-            :status="selectedOrder?.status"
-            :products="selectedOrder?.products"
-            @setNewPickupAt="handleNewPickupAt"
-            @changeOrderStatus="handleChangeOrderStatus"
-            :total_price="selectedOrder?.total_price"
-            prepend-icon="mdi-plus">
-
+  <partner-inbox-dialog-confirm-order :dialog="confirmOrderDialog"
+                                      :order="selectedOrder"
+                                      v-if="typeof selectedOrder?.id !== 'undefined' && confirmOrderDialog"
+                                      @setNewPickupAt="handleNewPickupAt"
+                                      @changeOrderStatus="handleChangeOrderStatus"
+                                      prepend-icon="mdi-plus">
   </partner-inbox-dialog-confirm-order>
   <partner-inbox-order-overview/>
   <v-data-table :headers="headers"
@@ -99,15 +89,19 @@ const filterAll = (value, searchQuery, item) => {
     <template v-slot:item="{ item }">
       <tr :class="item.status" @click="openOrder(item)" class="cursor-pointer">
         <td>{{ new Date(item.created_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }}</td>
-        <td v-if="item.pickup_at !== null">{{ new Date(item.pickup_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'})}}</td>
+        <td v-if="item.pickup_at !== null">{{
+            new Date(item.pickup_at).toLocaleTimeString('de-de', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          }}
+        </td>
         <td v-else>offen</td>
-<!--        Reduce price of all products to a sum-->
         <td>
           <v-chip :color="orderstatusToColor(item.status)">
-          {{ item.status }}
+            {{ item.status }}
           </v-chip>
         </td>
-<!--        Reduce products by counting item * item.quantity-->
         <td>{{ item.products.reduce((acc, item) => acc + item.quantity, 0) }}</td>
         <td>{{ item.name }}</td>
         <td class="text-end">{{ pricef(item.total_price) }}</td>
@@ -117,9 +111,11 @@ const filterAll = (value, searchQuery, item) => {
               <v-icon icon="mdi-phone"/>
             </v-chip>
           </a>
-            <v-chip class="cursor-pointer" color="warning" @click.stop title="Problem mit Bestellung melden">
-              <v-icon icon="mdi-alert-circle-outline"/>
-            </v-chip>
+          <v-chip class="cursor-pointer"
+                  @click.stop="confirmOrder(item)"
+                  color="warning" title="Problem mit Bestellung melden">
+            <v-icon icon="mdi-alert-circle-outline"/>
+          </v-chip>
           <v-chip class="cursor-pointer"
                   color="error"
                   @click.stop="inboxStore.updateOrderStatus(item, 'Storniert')"

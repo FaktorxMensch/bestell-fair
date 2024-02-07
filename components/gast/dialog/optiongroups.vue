@@ -56,7 +56,7 @@
         <v-btn icon="mdi-plus" @click="quantity++" :disabled="quantity >= 10" round/>
         <v-spacer></v-spacer>
         <v-btn
-            color="primary"
+            color="teal-darken-4"
             variant="flat"
             prepend-icon="mdi-cart-plus"
             @click="addToCart"

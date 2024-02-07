@@ -5,13 +5,13 @@
       transition="dialog-bottom-transition"
   >
     <template v-slot:activator="{ props }">
-      <v-btn size="large" color="primary" text rounded block v-bind="props">
+      <v-btn size="large" color="teal-darken-4" text rounded block v-bind="props">
         <v-icon left>mdi-cart</v-icon>
         <span class="font-semibold"> {{ count }} Artikel </span>
       </v-btn>
     </template>
     <v-card>
-      <v-toolbar color="primary">
+      <v-toolbar color="teal-darken-4">
         <v-btn dark @click="dialog = false" icon="mdi-arrow-left"/>
         <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
       </v-toolbar>
@@ -49,7 +49,8 @@
                   :error="!pickup_at"
                   :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                   variant="outlined"/>
-        <v-btn size="x-large" class="mt-1 mb-5" color="primary" rounded v-bind="props" @click="placeOrder"
+        <v-btn size="x-large" class="mt-1 mb-5" color="teal-darken-4" rounded v-bind="props" @click="placeOrder"
+               :loading="loading"
                prepend-icon="mdi-check">
           Fertig ({{ pricef(price) }})
         </v-btn>
@@ -65,6 +66,8 @@ const props = defineProps({
   pickupTime: String,
 })
 
+const loading = ref(false);
+
 const gastStore = useGastStore();
 const {
   count, price, products, remark,
@@ -78,6 +81,8 @@ const dialog = ref(false);
 
 const placeOrder = async () => {
 
+  loading.value = true;
+
   // wir brauchen name und pickup_at auf jeden fall sowie eine rückrufnummer, ansonsten Swal fehler
   if (name.value == '' || phone.value == '' || pickup_at.value == null) {
     alert('Bitte fülle alle Felder aus')
@@ -85,6 +90,8 @@ const placeOrder = async () => {
     gastStore.placeOrder();
     dialog.value = false;
   }
+
+  loading.value = false;
 }
 const pickupTimes = Array.from({length: 10}, (_, i) => {
   // immer in 15 minuten slots. aber frühestens in 14 minuten aber im 15 minuten raster

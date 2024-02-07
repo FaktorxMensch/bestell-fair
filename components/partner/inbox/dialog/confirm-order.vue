@@ -5,7 +5,7 @@
   >
     <v-card>
       <v-card-title>
-        <span class="text-h5">Bestellung bestätigen</span>
+        Bestellung
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -43,7 +43,7 @@
                 append-inner-icon="mdi-timer-outline"
                 required
                 disabled=""
-                :value="new Date(body.pickup_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'})"
+                :value="new Date(order.pickup_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'})"
             ></v-text-field>
           </v-col>
           <v-col
@@ -68,26 +68,23 @@
               +10 min
             </v-btn>
           </v-col>
-          <v-col cols="12">
-            <!--            <v-textarea-->
-            <!--                tabindex="2"-->
-            <!--                label="Tätigkeit"-->
-            <!--                v-model="body.description"-->
-            <!--                required-->
-            <!--            ></v-textarea>-->
+          <v-col cols="12" v-if="order.status === 'Neu'">
             <ui-order-element
-                v-for="product in body?.products" :key="product.name" :product="product" layout="normal"/>
+                v-for="product in order.products" :key="product.name" :product="product" layout="normal"/>
           </v-col>
-          <v-col cols="12">
-            <!--                v-if="quote?.items?.length>0"-->
-            <!--            <v-select-->
-            <!--                      :items="quote.items"-->
-            <!--                      item-title="description"-->
-            <!--                      item-value="description"-->
-            <!--                      label="Angebotsposition"-->
-            <!--                      clearable-->
-            <!--                      v-model="body.quoteItem"-->
-            <!--            />-->
+          <v-col cols="12" v-else>
+            <h2
+                class="text-xl font-semibold mb-2"
+            >Gast benachrichtigen</h2>
+            <div class="grid grid-cols-4 gap-4">
+             <div
+                 class="border p-2 rounded-lg cursor-pointer hover:bg-gray-500/10"
+                 @click="notify(notification)"
+                 v-for="notification in notificationTemplates" :key="notification">
+               <v-icon class="text-2xl">mdi-alert</v-icon>
+               {{ notification }}
+              </div>
+            </div>
           </v-col>
         </v-row>
       </v-card-text>
@@ -114,7 +111,7 @@
             color="success"
             @click="save"
         >
-          Bestätigen
+          Betätigen
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -122,44 +119,69 @@
 </template>
 <script setup>
 const emit = defineEmits(['setNewPickupAt', 'changeOrderStatus'])
-const props = defineProps(['name', 'pickup_at', 'status', 'products', 'total_price', 'prepend-icon', 'dialog'])
+const props = defineProps(['order', 'prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
+const order = ref(props.order)
+
+const notificationTemplates = [
+    'Leider gibt es einige Zutaten nicht mehr. Möchtest du die Bestellung stornieren oder ersetzen?',
+    'Aktuell keine EC-Kartenzahlung möglich. Bitte bar zahlen.',
+    'Es ist gerade sehr voll. Die Bestellung kann etwas länger dauern.',
+    'Deine Bestellung verzögert sich. Wir informieren dich, sobald sie fertig ist.'
+]
 
 // apply prop changes
 watch(props, (value) => {
   // dialog
   dialog.value = value.dialog ? value.dialog : false
 
-  // body atts (minutes, costs, description, quote, id)
-  body.value = {
-    name: props.name ? props.name : null,
-    pickup_at: props.pickup_at ? props.pickup_at : null,
-    status: props.status ? props.status : null,
-    products: props.products ? props.products : null,
-    total_price: props.total_price ? props.total_price : null
-  }
-  if (!body.value.pickup_at) {
-    body.value.pickup_at = new Date(Date.now() + 30 * 60 * 1000)
+  if (!order.value.pickup_at) {
+    order.value.pickup_at = new Date(Date.now() + 30 * 60 * 1000)
   }
 
-
-})
-
-const body = ref({
-  name: props.name ? props.name : null,
-  pickup_at: props.pickup_at ? props.pickup_at : null,
-  status: props.status ? props.status : null,
-  products: props.products ? props.products : null,
-  total_price: props.total_price ? props.total_price : null,
 })
 
 const changePickupTime = async (change) => {
-  body.value.pickup_at = new Date(new Date(body.value.pickup_at).getTime() + change)
+  order.value.pickup_at = new Date(new Date(order.value.pickup_at).getTime() + change)
 }
+
+const supabase = useSupabaseClient()
+const notify = async (notification) => {
+  if(!order.value.notifications) {
+    order.value.notifications = []
+  }
+  // add to notifications in order
+  order.value.notifications.push(notification)
+  // submit update to supabase
+  const {data, error} = await supabase
+      .from('orders')
+      .update({notifications: order.value.notifications})
+      .eq('id', order.value.id)
+      .select('*')
+
+  if (error) {
+    await Swal.fire({
+      title: 'Fehler',
+      text: 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.',
+      icon: 'error'
+    })
+  } else {
+    // autoclose
+    dialog.value = false
+    await Swal.fire({
+      title: 'Benachrichtigung gesendet',
+      text: 'Die Benachrichtigung wurde erfolgreich gesendet.',
+      icon: 'success',
+      timer: 2000,
+      timerProgressBar: true
+    })
+  }
+}
+
 
 const save = async () => {
 
-  emit('setNewPickupAt', body.value.pickup_at)
+  emit('setNewPickupAt', order.value.pickup_at)
   emit('changeOrderStatus', 'Bestätigt')
 
   dialog.value = false

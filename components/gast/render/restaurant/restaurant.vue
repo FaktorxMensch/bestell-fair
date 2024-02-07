@@ -51,7 +51,7 @@
     >
       <!-- SHOW CART -->
       <div v-if="count > 0" class="flex flex-col h-full">
-        <v-toolbar color="primary">
+        <v-toolbar color="teal-darken-4">
           <!--          <v-btn @click="cartOpen = false" icon="mdi-arrow-left"/>-->
           <v-toolbar-title>Bestellung</v-toolbar-title>
           <v-spacer/>
@@ -83,7 +83,7 @@
         <h1 class="text-4xl font-semibold p-4">Leerer Teller</h1>
         <p class="px-6 text-gray-500 text-center">Fülle deinen Warenkorb mit leckeren Gerichten, Getränken und
           Desserts.</p>
-        <v-btn @click="cartOpen = false" class="mt-4" color="primary" rounded>Ausblenden</v-btn>
+        <v-btn @click="cartOpen = false" class="mt-4" color="teal-darken-4" rounded>Ausblenden</v-btn>
         <div class="h-48"></div>
       </div>
 
@@ -91,13 +91,18 @@
   </div>
 
   <!-- BOTTOM CART -->
-  <v-toolbar class="bottom-0" id="cart-mobile" style="position:fixed" color="primary" location="bottom" @click="cartOpen =!cartOpen">
-    <v-toolbar-title class="text-lg font-bold">Bestellung</v-toolbar-title>
+  <v-toolbar
+      @click="cartOpen = !cartOpen"
+      class="bottom-0" id="cart-mobile" style="position:fixed" color="teal-darken-4" location="bottom">
+    <v-toolbar-title class="text-lg font-bold">
+      Gesamt:
+      {{ pricef(price) }}
+    </v-toolbar-title>
     <v-spacer/>
-    <v-btn icon>
-<!--      Reduce products to each product * product.count-->
-      <v-badge color="red" :content="products.reduce((acc, product) => acc + product.quantity, 0)" overlap>
-        <v-icon>mdi-cart</v-icon>
+    <!--    <v-btn icon="mdi-chevron-up" @click="cartOpen = !cartOpen"/>-->
+    <v-btn icon >
+      <v-badge color="red" :content="count">
+        <v-icon>mdi-shopping</v-icon>
       </v-badge>
     </v-btn>
   </v-toolbar>
@@ -162,9 +167,7 @@ const resetCart = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       products.value = [];
-      if (cartOpen.value) {
-        cartOpen.value = false
-      }
+      cartOpen.value = false
     }
   })
 }

@@ -5,7 +5,7 @@
         <v-chip-group
             :multiple="props.multiple"
             :mandatory="props.mandatory"
-            selected-class="text-primary"
+            selected-class="text-teal-darken-4"
             v-model="selected"
         >
           <v-chip
