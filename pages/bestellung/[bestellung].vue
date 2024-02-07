@@ -22,8 +22,17 @@
           <!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
           Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.
         </p>
-
       </div>
+
+      <div class="notifications">
+        <v-alert v-for="notification in order.notifications" :key="notification.id" :type="notification.type"
+                 icon="mdi-information"
+                 class="mt-2"
+        >
+          {{ notification }}
+        </v-alert>
+      </div>
+
       <v-btn @click="refresh"
              prepend-icon="mdi-refresh"
              class="mt-4 mb-2 w-full"
@@ -90,10 +99,22 @@ const refresh = async () => {
   loading.value = true
   const {data: orders, error} = await supabase.rpc('get_order', {order_id: route.params.bestellung});
   order.value = orders[0]
+  // unique notifications
+  order.value.notifications = Array.from(new Set(order.value.notifications))
+  // reverse
+  order.value.notifications.reverse()
+
+  // update the refreshedAt
   refreshedAt.value = Date.now()
   // wait 400ms
   await new Promise(resolve => setTimeout(resolve, 200));
   loading.value = false
 }
 import {orderstatusToClass, orderstatusToColor, orderstatusToIcon} from "~/composables/orderstatusToColor";
+
+// for the next 2 hours we will refresh the order every 5 minutes
+const refreshInterval = setInterval(refresh, 1000 * 6 * 5)
+setTimeout(() => {
+  clearInterval(refreshInterval)
+}, 1000 * 60 * 60 * 2)
 </script>
