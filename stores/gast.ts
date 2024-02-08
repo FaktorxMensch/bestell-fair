@@ -32,7 +32,6 @@ export const useGastStore = defineStore('gast', {
         pickup_at: null,
         remark: '',
         cartOpen: false,
-        storeTempClosed: false,
         ordersHistory: [],
         // embedOptions: {
         // should the back button be shown (to the other restaurants)
@@ -42,7 +41,7 @@ export const useGastStore = defineStore('gast', {
     getters: {
         // wieviele (auch count)
         count: (state) => state.products.reduce((acc, cur) => acc + cur.quantity ?? 1, 0),
-        price: (state) => state.products.reduce((acc, cur) => acc + cur.price * (cur.quantity ?? 1) ?? 0, 0),
+        price: (state) => state.products.reduce((acc, cur) => acc + cur.price * (cur.quantity ?? 1) ?? 0, 0)
     },
     actions: {
         // have a function to add a product to the order, with quantity (default 1) and write the product_ref as id of the original product
@@ -181,25 +180,6 @@ export const useGastStore = defineStore('gast', {
             // weiterleitne zur bestellübersicht
             navigateTo('/bestellung/' + insert_id)
             // return data[0].id
-        }
-        // async storeTempClosedFunc(restaurant_id: number) {
-        //     const supabase = useSupabaseClient()
-        //     const {data, error} = await supabase.from('restaurant_open').select('*').eq('restaurant', restaurant_id)
-        //     if (error) {
-        //         console.error(error)
-        //         return
-        //     }
-        //     this.storeTempClosed = data[0].open
-        //     return this.storeTempClosed
-        // //     Check if the restaurant is open every 2 minutes
-        //     setInterval(async () => {
-        //         const {data, error} = await supabase.from('restaurant_open').select('*')
-        //         if (error) {
-        //             console.error(error)
-        //             return
-        //         }
-        //         this.storeTempClosed = data[0].open
-        //     })
-        // }
+        },
     },
 })

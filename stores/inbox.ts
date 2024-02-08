@@ -27,6 +27,8 @@ export const useInboxStore = defineStore('inbox', {
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
         closedUntil: null,
+        closedMinutes: 0,
+        closedDecreaser: null,
         // isDarkMode: true,
     }),
     actions: {
@@ -136,12 +138,25 @@ export const useInboxStore = defineStore('inbox', {
         async changeTempClose(reset = false) {
             if (reset) {
                 this.closedUntil = null
-            } else if (this.closedUntil) {
+                this.closedMinutes = 0
+                //     Kill setInterval which was set a bit earlier
+                // console.log('clearing interval timer')
+                clearInterval(this.closedDecreaser)
+            } else if (this.closedUntil && new Date(this.closedUntil) > new Date()){
                     // Increment it by 30 minutes but be aware of date
                     this.closedUntil = new Date(new Date(this.closedUntil).getTime() + 30 * 60000)
+                    this.closedMinutes = Math.round((new Date(this.closedUntil).getTime() - new Date().getTime()) / 60000)
             } else {
                     // Set it to 30 minutes in the future
                     this.closedUntil = new Date(new Date().getTime() + 30 * 60000)
+                    this.closedMinutes = 30
+            }
+            if(this.closedMinutes > 0) {
+                // Start async function that decreases closedUntil every 1 minute
+                this.closedDecreaser = setInterval(() => {
+                    console.log('decreaseClosedMinutes running')
+                    this.closedMinutes = Math.round((new Date(this.closedUntil).getTime() - new Date().getTime()) / 60000)
+                }, 60000)
             }
             const supabase = useSupabaseClient()
             const {data, error} = await supabase.from('restaurant_open').upsert({

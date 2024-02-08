@@ -1,8 +1,8 @@
 <script setup>
 const inboxStore = useInboxStore()
-const {orders, order, closedUntil} = storeToRefs(inboxStore)
+const {orders, order, closedMinutes} = storeToRefs(inboxStore)
 
-const open = computed(() => new Date(closedUntil.value).getTime() <= new Date().getTime() || closedUntil.value === null)
+const open = computed(() => !closedMinutes || closedMinutes.value<1)
 
 const showMorePopup = ref(false)
 
@@ -58,22 +58,26 @@ setInterval(() => {
         </v-chip>
       </v-toolbar-title>
       <v-spacer/>
-      <v-btn v-if="!open" :prepend-icon="'mdi-play'"
+      <v-chip :color="open ? 'grey' : 'warning'"
+              class="ml-4"
+      size="default">
+      Bestellungen {{open? "offen" : 'noch ' + closedMinutes + ' min geschlossen'}}
+    </v-chip>
+      <v-btn v-if="!open" :prepend-icon="'mdi-timer-play-outline'"
              variant="tonal"
-             :color="'success'"
+             color="success"
              :key="open"
              @click="inboxStore.changeTempClose(true)"
              class="ml-4">
-        Bestellungen öffnen
+        öffnen
       </v-btn>
-
-        <v-btn :prepend-icon="open ? 'mdi-check' : 'mdi-pause'"
+        <v-btn :prepend-icon="open ? 'mdi-pause' : 'mdi-timer-pause-outline'"
                variant="tonal"
                :color="open ? 'grey' : 'warning'"
                :key="open"
                @click="inboxStore.changeTempClose()"
                class="ml-4">
-          {{ open ? 'Bestellungen 30min schließen' : 'Schließung 30 min verlängern' }}
+          {{ open ? 'schließen' : '+30 min' }}
         </v-btn>
 <!--      <p class="pr-4">Letzte Änderung: {{ new Date(inboxStore.updatedAt).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'}) }} Uhr </p>-->
       <v-menu v-model="showMorePopup" :close-on-content-click="false" location="bottom">
