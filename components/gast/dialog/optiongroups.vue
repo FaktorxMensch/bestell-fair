@@ -22,6 +22,7 @@
               item-value="index"
               variant="outlined"
               :class="'optiongroup-'+group.name.replaceAll(' ', '').toLowerCase()"
+              required="group.mandatory"
             />
           </template>
 
@@ -34,6 +35,7 @@
               item-value="index"
               variant="outlined"
               :class="'optiongroup-'+group.name.replaceAll(' ', '').toLowerCase()"
+              required="group.mandatory"
             />
           </template>
 
@@ -82,8 +84,8 @@ const addToCart = () => {
   //Check if required optionGroups have a selected option
   let unselectedOption = false
   productCopy.value.optionGroups.forEach((og) => {
-    // console.log('og: ', og)
-    if (!og.mandatory && og.selected === undefined) {
+    console.log('og: ', og)
+    if (!og.mandatory && (og.selected === undefined || og.selected.length === 0)) {
       //SHow user that a required option is not selected
       document.getElementsByClassName('optiongroup-'+og.name.replaceAll(' ', '').toLowerCase())[0].style.border = '3px solid red'
       unselectedOption = true
@@ -91,13 +93,10 @@ const addToCart = () => {
       document.getElementsByClassName('optiongroup-'+og.name.replaceAll(' ', '').toLowerCase())[0].style.border = 'none'
     }
   })
-  if (unselectedOption) {
-    return
-  } else {
-    console.log('productCopy.value', productCopy.value)
-    gastStore.addProduct(productCopy.value, quantity.value)
-    toggle()
-  }
+  if (unselectedOption) return
+  console.log('productCopy.value', productCopy.value)
+  gastStore.addProduct(productCopy.value, quantity.value)
+  toggle()
 }
 watch(dialog, (newValue) => {
   if (!newValue) return
