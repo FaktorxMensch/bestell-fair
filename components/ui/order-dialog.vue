@@ -87,7 +87,7 @@ const placeOrder = async () => {
   if (name.value == '' || phone.value == '' || pickup_at.value == null) {
     alert('Bitte fülle alle Felder aus')
   } else {
-    gastStore.placeOrder();
+    await gastStore.placeOrder();
     dialog.value = false;
   }
 
