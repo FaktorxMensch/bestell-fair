@@ -20,8 +20,9 @@
           density="compact"
           @update:model-value="verwaltenStore.setRestaurant"
           :model-value="restaurant"
-          class="me-5"
+          class="me-1"
       />
+      <v-btn target="_blank" :to="'/restaurant/'+restaurant.id" icon="mdi-share" v-if="restaurant?.id" class="me-5"/>
       <v-divider vertical/>
       <v-list-item
           lines="two"
