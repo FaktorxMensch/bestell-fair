@@ -20,7 +20,7 @@
 
 
       <v-switch label="Mehrfachauswahl" v-model="optionGroup.multiple"/>
-      <v-switch label="Pflichtauswahl" v-model="optionGroup.mandatory"/>
+      <v-switch label="Pflichtauswahl" v-model="optionGroup.mandatory" />
       <!--      <v-select label="Mehrfachauswahl" v-model="optionGroup.multiple" :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text" item-value="value"/>-->
       <!--      <v-select label="Pflichtauswahl" v-model="optionGroup.mandatory" :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text" item-value="value"/>-->
 
@@ -65,4 +65,36 @@ watch(() => props.modelValue, (value) => {
   optionGroups.value = value
 })
 const optionGroup = computed(() => optionGroups.value[tab.value])
+
+const checkMandatory = () => {
+  if (optionGroup.value.mandatory) {
+    console.log('checking mandatory')
+    // make sure there is at least one option selected (either array or single value)
+    if (optionGroup.value.default === undefined || optionGroup.value.default.length === 0) {
+      console.log('multirple', optionGroup.value.multiple)
+      optionGroup.value.default = optionGroup.value.multiple ? [optionGroup.value.options.map((option, index) => ({title: option.name, value: index}))[0]] : optionGroup.value.options.map((option, index) => ({title: option.name, value: index}))[0]
+    }
+  }
+}
+watch(() => optionGroup.value.mandatory, checkMandatory)
+
+const checkMultiple = () => {
+  // return if default is not set
+  if (typeof optionGroup.value.default === undefined) return
+
+  // wir müssen schauen dass default auch ein array ist oder single, je nachdem
+  if (optionGroup.value.multiple) {
+    // jetzt muss default ein array sein
+    if (!Array.isArray(optionGroup.value.default)) {
+      optionGroup.value.default = [optionGroup.value.default]
+    }
+  } else {
+    // jetzt muss default ein single value sein
+    if (Array.isArray(optionGroup.value.default)) {
+      optionGroup.value.default = optionGroup.value.default[0]
+    }
+  }
+}
+
+watch(() => optionGroup.value.multiple, checkMultiple)
 </script>
