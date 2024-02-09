@@ -71,7 +71,10 @@ export const useInboxStore = defineStore('inbox', {
                 console.error(error2)
                 return
             }
-            this.closedUntil = restaurant_open[0].closed_until
+            if (restaurant_open) {
+                this.closedUntil = restaurant_open[0].closed_until
+                this.changeTempClose()
+            }
 
             this.updatedAt = new Date()
 

@@ -34,7 +34,10 @@
               </tr>
             </table>
           </v-alert>
-          <div :class="{'opacity-50 pointer-events-none': !open}">
+          <v-alert v-if="closedMinutes>0" color="warning" icon="mdi-alert" class="mt-4">
+            Dieses Restaurant nimmt voraussichtlich noch {{closedMinutes}} Minuten keine Bestellungen an! Kommen Sie später wieder.
+          </v-alert>
+          <div :class="{'opacity-50 pointer-events-none': !open || closedMinutes>0}">
             <component :is="tabs[activeTab].component" :restaurant="restaurant"/>
           </div>
         </div>
@@ -130,10 +133,33 @@ const activeTab = ref(0)
 const gastStore = useGastStore();
 const {
   count, products, price,
-  cartOpen
+  cartOpen, restaurant_id
 } = storeToRefs(gastStore);
 
-const closedUntil = ref(0)
+const closedMinutes = ref(0)
+
+
+const renewClosedUntil = async (closedMinutes = null, restaurant_id = null) => {
+  if (!restaurant_id) return
+  // console.log("closedUntil renewing")
+  const supabase = useSupabaseClient()
+  const {data, error} = await supabase.from('restaurant_open').select('*').eq('restaurant', restaurant_id.value)
+  if (error) {
+    console.error(error)
+    return
+  }
+  const closedUntil = data[0].closed_until
+  // If closedUntil is set and in future
+  if (closedUntil && new Date(closedUntil).getTime() > new Date().getTime()) {
+    closedMinutes.value = Math.round((new Date(closedUntil).getTime() - new Date().getTime()) / 60000)
+  } else {
+    closedMinutes.value = 0
+  }
+  console.log("closedMinutes", closedMinutes.value)
+}
+renewClosedUntil(closedMinutes, restaurant_id)
+
+setInterval(renewClosedUntil, 60000, closedMinutes, restaurant_id)
 
 const showRestaurantInfo = () => {
   const restaurant = props.restaurant
