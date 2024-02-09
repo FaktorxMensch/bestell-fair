@@ -40,6 +40,8 @@
           </template>
 
           <!-- EXTRA INFO -->
+          {{console.log(typeof group.selected + ' ' + JSON.stringify(group.selected))}}
+          {{console.log(group.options )}}
           <span class="text-sm py-1 opacity-80 flex flex-wrap gap-1" v-if="group.selected !== null && group.selected !== undefined"
                v-for="selected in (typeof group.selected === 'object' ? group.selected.map(selected=>group.options[selected]) : [group.options[group.selected]])">
             <v-chip prepend-icon="mdi-plus" density="compact" v-if="selected.price">{{ pricef(selected.price) }}</v-chip>
