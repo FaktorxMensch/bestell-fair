@@ -35,21 +35,22 @@ const openOrder = async (item: any) => {
 
 const confirmOrder = async (item) => {
   console.log('confirmOrder', item.id)
-  selectedOrder = item
-  console.log('selectedOrder', selectedOrder)
+  selectedOrder.value = item
+  // console.log('selectedOrder', selectedOrder)
   confirmOrderDialog.value = false
   await nextTick()
   confirmOrderDialog.value = true
-  console.log('confirmOrderDialog', confirmOrderDialog)
+  // console.log('confirmOrderDialog', confirmOrderDialog)
 }
 
 const handleNewPickupAt = async (newPickupAt) => {
   // console.log('setNewPickupAt', newPickupAt)
   // editOrderDialog.value = false
-  await inboxStore.updatePickupAt(selectedOrder, newPickupAt)
+  console.log('selectedOrder', selectedOrder.value)
+  await inboxStore.updatePickupAt(selectedOrder.value, newPickupAt)
 }
 const handleChangeOrderStatus = async (status) => {
-  await inboxStore.updateOrderStatus(selectedOrder, status)
+  await inboxStore.updateOrderStatus(selectedOrder.value, status)
   confirmOrderDialog.value = false
 }
 

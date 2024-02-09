@@ -118,6 +118,7 @@
   </v-dialog>
 </template>
 <script setup>
+console.log('in confirm order dialog')
 const emit = defineEmits(['setNewPickupAt', 'changeOrderStatus'])
 const props = defineProps(['order', 'prepend-icon', 'dialog'])
 const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
