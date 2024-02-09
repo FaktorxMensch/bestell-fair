@@ -82,6 +82,7 @@
           <h1>Öffnungszeiten</h1>
         </v-card-title>
         <v-card-text v-if="restaurant.opening_hours" class="no-input-details mt-1 space-y-2">
+          {{restaurant.opening_hours }}
           <div v-for="(day, i) in restaurant.opening_hours" class="flex flex-wrap gap-2 items-center">
             <v-select variant="outlined" clearable="" density="compact" label="Öffnet am" v-model="day.day_open"
                       class="w-32"
@@ -146,7 +147,8 @@
 
 <script setup>
 const verwaltenStore = useVerwaltenStore();
-const {restaurant} = storeToRefs(verwaltenStore);
+const {restaurant} = storeToRefs(verwaltenStore)
+restaurant.value.opening_hours.sort((a, b) => { return a.day_open > b.day_open ? 1 : -1 })
 const submitForm = verwaltenStore.saveRestaurant
 const {uploadImage} = useFilehandler()
 
