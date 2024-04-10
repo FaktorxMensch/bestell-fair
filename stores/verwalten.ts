@@ -35,6 +35,9 @@ export const useVerwaltenStore = defineStore('verwalten', {
             }
             this.restaurants = data.map((r) => r.restaurant_id)
         },
+        pushRestaurant(restaurant) {
+            this.restaurants.push(restaurant)
+        },
         setRestaurant(id) {
             const index = this.restaurants.findIndex((r) => r.id === id)
             if (index >= 0) {

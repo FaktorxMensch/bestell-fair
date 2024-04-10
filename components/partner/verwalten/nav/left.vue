@@ -32,6 +32,7 @@ const items = [
   {title: 'Bestellungen', icon: 'mdi-cart', to: '/partner/inbox', target: '_blank'},
   {title: 'Einbindungscode', icon: 'mdi-qrcode', to: '/partner/verwalten/einbindungscode'},
 
+  {title: 'Import', icon: 'mdi-import', to: '/partner/verwalten/import'},
   // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
 const verwaltenStore = useVerwaltenStore()
