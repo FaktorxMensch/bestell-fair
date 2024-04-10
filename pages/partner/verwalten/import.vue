@@ -143,195 +143,143 @@ const instruction = `Du hilfst beim Einpflegen von Restaurants in einen Bestells
 Der User wird Dir vielleicht auch eine Menge Informationen irgendwo zufällig herkopieren. Versuche das auch in diesen Kontext zu parsen.
 Du holst Dir vom User alle Infos ein, sofern er sie Dir nicht bereits gegeben hat.
 Antworte auf keinen Fall, bevor Du nicht alle Informationen hast.
-Insbesondere zu den Öffnungszeiten und der Speisekarte sowie allen Konfigurationsoptionen innerhalb der Speisekarte.
+Insbesondere zu den Öffnungszeiten (0=Mo,1=Di,...) und der Speisekarte sowie allen Konfigurationsoptionen innerhalb der Speisekarte.
 
 Danach antwortest Du in folgendem validen JSON Schema:
 ${JSON.stringify(exampleRestaurant)}
 `
 
-const importJSON = ref('{\n' +
-    '  "id": 367128,\n' +
-    '  "lat": null,\n' +
-    '  "lon": null,\n' +
-    '  "name": null,\n' +
-    '  "tags": null,\n' +
-    '  "opened": false,\n' +
-    '  "visible": true,\n' +
-    '  "website": null,\n' +
-    '  "location": null,\n' +
-    '  "products": [\n' +
-    '    {\n' +
-    '      "name": "Falafelrolle",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "6.00",\n' +
-    '      "category": "Hauptgericht",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Falafelrolle",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Teller nach arabischer Art",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "7.50",\n' +
-    '      "category": "Hauptgericht",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Teller nach arabischer Art",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Vegetarischer Teller",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "8.50",\n' +
-    '      "category": "Hauptgericht",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Vegetarischer Teller",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Salat Teller",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "8.50",\n' +
-    '      "category": "Hauptgericht",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Salat Teller",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Hähnchen-Teller",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "9.00",\n' +
-    '      "category": "Hauptgericht",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Hähnchen-Teller",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Kufta Teller",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "9.50",\n' +
-    '      "category": "Hauptgericht",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Kufta Teller",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "3 Falafel",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "1.50",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "3 Falafel",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Arabisches Brot 1 St.",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "1.50",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Arabisches Brot 1 St.",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Baklava",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "1.50",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Baklava",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Gewürzte Oliven",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "3.00",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Gewürzte Oliven",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Hummus",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "3.50",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Hummus",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Linsensuppe",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "3.50",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Linsensuppe",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    },\n' +
-    '    {\n' +
-    '      "name": "Salat nach Saison",\n' +
-    '      "tags": [],\n' +
-    '      "image": null,\n' +
-    '      "price": "3.50",\n' +
-    '      "category": "Kleinere Leckereien",\n' +
-    '      "additives": [],\n' +
-    '      "allergens": [],\n' +
-    '      "description": "Salat nach Saison",\n' +
-    '      "ingredients": [],\n' +
-    '      "optionGroups": []\n' +
-    '    }\n' +
-    '  ],\n' +
-    '  "description": "Für Studierende gibt es 1€ Rabatt auf alle Hauptgerichte!",\n' +
-    '  "contact_name": null,\n' +
-    '  "contact_email": null,\n' +
-    '  "contact_phone": null,\n' +
-    '  "custom_fields": [],\n' +
-    '  "opening_hours": [],\n' +
-    '  "icon_image_url": null,\n' +
-    '  "payment_methods": [],\n' +
-    '  "feature_image_url": null\n' +
-    '}\n')
+const importJSON = ref(`{
+  "lat": 0,
+  "lon": 0,
+  "name": "Fatima und die 9 Zwerge",
+  "tags": null,
+  "opened": true,
+  "visible": true,
+  "website": "https://fatima-dresden.de/",
+  "location": "Nürnberger Str. 28, 01187 Dresden",
+  "products": [
+    {
+      "name": "Falafelrolle",
+      "tags": [],
+      "image": null,
+      "price": "6.00",
+      "category": "Hauptgericht",
+      "additives": [],
+      "allergens": [],
+      "description": "",
+      "ingredients": [],
+      "optionGroups": []
+    },
+    {
+      "name": "Teller nach arabischer Art",
+      "price": "7.50",
+      "category": "Hauptgericht"
+    },
+    {
+      "name": "Vegetarischer Teller",
+      "price": "8.50",
+      "category": "Hauptgericht"
+    },
+    {
+      "name": "Salat Teller",
+      "price": "8.50",
+      "category": "Hauptgericht"
+    },
+    {
+      "name": "Hähnchen-Teller",
+      "price": "9.00",
+      "category": "Hauptgericht"
+    },
+    {
+      "name": "Kufta Teller",
+      "price": "9.50",
+      "category": "Hauptgericht"
+    },
+    {
+      "name": "3 Falafel",
+      "price": "1.50",
+      "category": "Kleinere Leckereien"
+    },
+    {
+      "name": "Arabisches Brot 1 St.",
+      "price": "1.50",
+      "category": "Kleinere Leckereien"
+    },
+    {
+      "name": "Baklava",
+      "price": "1.50",
+      "category": "Kleinere Leckereien"
+    },
+    {
+      "name": "Gewürzte Oliven",
+      "price": "3.00",
+      "category": "Kleinere Leckereien"
+    },
+    {
+      "name": "Hummus",
+      "price": "3.50",
+      "category": "Kleinere Leckereien"
+    },
+    {
+      "name": "Linsensuppe",
+      "price": "3.50",
+      "category": "Kleinere Leckereien"
+    },
+    {
+      "name": "Salat nach Saison",
+      "price": "3.50",
+      "category": "Kleinere Leckereien"
+    }
+  ],
+  "description": "Die Oase für orientalische Leckereien und arabische Gastfreundschaft in Dresden. Für Studierende gibt es 1€ Rabatt auf alle Hauptgerichte!",
+  "contact_name": "",
+  "contact_email": "",
+  "contact_phone": "0178 8172441",
+  "custom_fields": ["Serviceoptionen: Nur Barzahlung", "Sitzgelegenheiten im Freien", "Keine Reservierungen möglich"],
+  "opening_hours": [
+    {
+      "day_open": 1,
+      "time_open": "12:00",
+      "time_close": "23:30"
+    },
+    {
+      "day_open": 2,
+      "time_open": "12:00",
+      "time_close": "23:30"
+    },
+    {
+      "day_open": 3,
+      "time_open": "12:00",
+      "time_close": "23:30"
+    },
+    {
+      "day_open": 4,
+      "time_open": "12:00",
+      "time_close": "23:30"
+    },
+    {
+      "day_open": 5,
+      "time_open": "12:00",
+      "time_close": "23:30"
+    },
+    {
+      "day_open": 6,
+      "time_open": "12:00",
+      "time_close": "23:30"
+    }
+  ],
+  "icon_image_url": "",
+  "payment_methods": ["Barzahlung"],
+  "feature_image_url": ""
+}
+`)
 
 const importNow = () => {
   try {
     const json = JSON.parse(importJSON.value)
-    verwaltenStore.pushRestaurant(json)
+    const id = crypto.randomUUID();
+    verwaltenStore.pushRestaurant({...json,id})
     console.log(json)
   } catch (e) {
     alert(e)
