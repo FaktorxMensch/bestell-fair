@@ -1,4 +1,5 @@
 <template>
+
   <v-tabs v-model="tab" show-arrows>
     <v-tab v-for="(optionGroup,index) in optionGroups" :value="index">
       {{ optionGroup.name }}
@@ -53,11 +54,15 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    Bitte eine Optionsgruppe auswählen {{ tab }}: {{ optionGroup }}
+  </div>
+
 </template>
 <script setup>
 const tab = ref(0)
 const props = defineProps(['optionGroups'])
-const optionGroup = computed(() => props.optionGroups.value[tab.value])
+const optionGroup = computed(() => props.optionGroups?.value?.[tab.value])
 
 const checkMandatory = () => {
   if (optionGroup.value.mandatory) {
@@ -91,6 +96,6 @@ const checkMultiple = () => {
   }
 }
 
-watch(() => optionGroup.value.mandatory, checkMandatory)
-watch(() => optionGroup.value.multiple, checkMultiple)
+watch(() => optionGroup.value?.mandatory, checkMandatory)
+watch(() => optionGroup.value?.multiple, checkMultiple)
 </script>
