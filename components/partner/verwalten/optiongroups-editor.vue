@@ -76,7 +76,7 @@ const checkMandatory = () => {
     }
   }
 }
-watch(() => optionGroup.value.mandatory, checkMandatory)
+watch(() => optionGroup.value?.mandatory, checkMandatory)
 
 const checkMultiple = () => {
   // return if default is not set

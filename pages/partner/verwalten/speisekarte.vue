@@ -45,10 +45,11 @@
           <v-divider class="my-4 border-b border-gray-800"/>
           <h2 class="text-xl font-bold m-2">Konfiguration für den Gast</h2>
 
-          <partner-verwalten-optiongroups-editor v-if="product.optionGroups" v-model="product.optionGroups"/>
-          <v-alert v-else color="red" icon="mdi-alert-circle-outline">
-            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.
-          </v-alert>
+          TODO: Optionsgroups sind auskommentiert
+<!--          <partner-verwalten-optiongroups-editor v-if="product.optionGroups" v-model="product.optionGroups"/>-->
+<!--          <v-alert v-else color="red" icon="mdi-alert-circle-outline">-->
+<!--            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.-->
+<!--          </v-alert>-->
 
         </div>
         <v-divider class="my-4 border-b border-gray-800"/>
@@ -61,7 +62,7 @@
     </v-expansion-panel>
     <v-expansion-panel
         expand-icon="mdi-plus-circle-outline"
-        @click="restaurant.products.push({name: 'Neues Produkt #'+(restaurant.products.length+1),category:'', price: 0, tags: [], image: null, description: '', ingredients: [], allergens: [], additives: [], optionGroups: []})"
+        @click="addProduct"
         title="Neues Produkt"
         ripple>
     </v-expansion-panel>
@@ -88,4 +89,20 @@ onMounted(() => {
     restaurant.value.products = []
   }
 })
+const addProduct = () => {
+  console.log(restaurant.value.products[2])
+  const newProduct = {
+    name: 'Neues Produkt #' + (restaurant.value.products.length + 1),
+    category: '',
+    price: 0,
+    tags: [],
+    image: null,
+    description: '',
+    ingredients: [],
+    allergens: [],
+    additives: [],
+    optionGroups: []
+  }
+  restaurant.value.products.push(newProduct)
+}
 </script>
