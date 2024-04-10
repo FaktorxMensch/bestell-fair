@@ -5,7 +5,7 @@
       {{ optionGroup.name }}
     </v-tab>
     <v-tab prepend-icon="mdi-plus-circle-outline"
-           @click="optionGroups.push({name: 'Neue Optionsgruppe #'+(optionGroups.length+1), options: []})">
+           @click="appendOptiongroup">
       Neue Optionsgruppe
     </v-tab>
   </v-tabs>
@@ -54,15 +54,19 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    Bitte eine Optionsgruppe auswählen {{ tab }}: {{ optionGroup }}
-  </div>
+  <p v-else class="p-2 text-gray-500">
+    Keine Optionsgruppe ausgewählt.
+  </p>
 
 </template>
 <script setup>
 const tab = ref(0)
 const props = defineProps(['optionGroups'])
-const optionGroup = computed(() => props.optionGroups?.value?.[tab.value])
+const optionGroup = computed(() => {
+  console.log(', props.optionGroups', props.optionGroups)
+  if (!props.optionGroups || !props.optionGroups.length > 0) return null
+  return props.optionGroups?.[tab.value]
+})
 
 const checkMandatory = () => {
   if (optionGroup.value.mandatory) {
@@ -98,4 +102,8 @@ const checkMultiple = () => {
 
 watch(() => optionGroup.value?.mandatory, checkMandatory)
 watch(() => optionGroup.value?.multiple, checkMultiple)
+
+const appendOptiongroup = () => {
+  props.optionGroups.push({name: 'Neue Optionsgruppe #' + (props.optionGroups.length + 1), options: []})
+}
 </script>
