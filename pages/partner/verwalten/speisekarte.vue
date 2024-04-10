@@ -45,11 +45,11 @@
           <v-divider class="my-4 border-b border-gray-800"/>
           <h2 class="text-xl font-bold m-2">Konfiguration für den Gast</h2>
 
-          TODO: Optionsgroups sind auskommentiert
-<!--          <partner-verwalten-optiongroups-editor v-if="product.optionGroups" v-model="product.optionGroups"/>-->
-<!--          <v-alert v-else color="red" icon="mdi-alert-circle-outline">-->
-<!--            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.-->
-<!--          </v-alert>-->
+          <partner-verwalten-optiongroups-editor v-if="product.optionGroups"
+                                                 :optionGroups="product.optionGroups"/>
+          <v-alert v-else color="red" icon="mdi-alert-circle-outline">
+            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.
+          </v-alert>
 
         </div>
         <v-divider class="my-4 border-b border-gray-800"/>

@@ -20,9 +20,7 @@
 
 
       <v-switch label="Mehrfachauswahl" v-model="optionGroup.multiple"/>
-      <v-switch label="Pflichtauswahl" v-model="optionGroup.mandatory" />
-      <!--      <v-select label="Mehrfachauswahl" v-model="optionGroup.multiple" :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text" item-value="value"/>-->
-      <!--      <v-select label="Pflichtauswahl" v-model="optionGroup.mandatory" :items="[{text: 'Ja', value: true}, {text: 'Nein', value: false}]" item-title="text" item-value="value"/>-->
+      <v-switch label="Pflichtauswahl" v-model="optionGroup.mandatory"/>
 
     </div>
 
@@ -58,13 +56,8 @@
 </template>
 <script setup>
 const tab = ref(0)
-const props = defineProps(['modelValue'])
-const emit = defineEmits(['update:modelValue'])
-const optionGroups = ref(props.modelValue)
-watch(() => props.modelValue, (value) => {
-  optionGroups.value = value
-})
-const optionGroup = computed(() => optionGroups.value[tab.value])
+const props = defineProps(['optionGroups'])
+const optionGroup = computed(() => props.optionGroups.value[tab.value])
 
 const checkMandatory = () => {
   if (optionGroup.value.mandatory) {
@@ -72,11 +65,13 @@ const checkMandatory = () => {
     // make sure there is at least one option selected (either array or single value)
     if (optionGroup.value.default === undefined || optionGroup.value.default.length === 0) {
       console.log('multirple', optionGroup.value.multiple)
-      optionGroup.value.default = optionGroup.value.multiple ? [optionGroup.value.options.map((option, index) => ({title: option.name, value: index}))[0]] : optionGroup.value.options.map((option, index) => ({title: option.name, value: index}))[0]
+      optionGroup.value.default = optionGroup.value.multiple ? [optionGroup.value.options.map((option, index) => ({
+        title: option.name,
+        value: index
+      }))[0]] : optionGroup.value.options.map((option, index) => ({title: option.name, value: index}))[0]
     }
   }
 }
-watch(() => optionGroup.value?.mandatory, checkMandatory)
 
 const checkMultiple = () => {
   // return if default is not set
@@ -96,5 +91,6 @@ const checkMultiple = () => {
   }
 }
 
+watch(() => optionGroup.value.mandatory, checkMandatory)
 watch(() => optionGroup.value.multiple, checkMultiple)
 </script>
