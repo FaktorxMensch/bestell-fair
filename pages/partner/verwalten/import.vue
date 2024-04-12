@@ -1,13 +1,70 @@
 <template>
+  <h1 class="text-3xl font-bold mb-5">Account erstellen</h1>
+  <div class="flex gap-2">
+    <v-text-field v-model="signUp.name" label="Name"/>
+    <v-text-field v-model="signUp.email" label="E-Mail" type="email"/>
+    <v-text-field v-model="signUp.password" label="Passwort"/>
+  </div>
+  <div class="flex gap-2">
+    <v-btn @click="signUpNow"
+           color="primary"
+           prepend-icon="mdi-account">Account erstellen
+    </v-btn>
+    <v-spacer/>
+    <v-btn @click="fakeUser" color="grey" prepend-icon="mdi-account">Fake User erstellen</v-btn>
+    <v-btn @click="randomPass" color="grey" prepend-icon="mdi-key">Passwort generieren</v-btn>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-5">Restaurant importieren</h1>
   <v-textarea v-model="instruction" label="Kopiere folgenden Prompt in ChatGPT" rows="4"></v-textarea>
   <v-textarea v-model="importJSON" label="Füge die JSON-Antwort hier ein" rows="4"/>
   <v-btn @click="importNow">JSON-Antwort jetzt importieren</v-btn>
-
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})
 const verwaltenStore = useVerwaltenStore()
 const {restaurants} = storeToRefs(verwaltenStore)
+
+const signUp = ref({
+  email: '',
+  name: '',
+  password: ''
+})
+
+const randomPass = () => {
+  // 100 adjektive in der küche/essen
+  const randomAdjektive = ['scharf', 'salzig', 'süß', 'bitter', 'saftig', 'knusprig', 'cremig', 'fluffig', 'kross', 'zart', 'würzig', 'mild', 'fruchtig', 'herzhaft', 'fettig', 'fettarm', 'fettfrei']
+  const randomWorte = ['Hund', 'Katze', 'Maus', 'Haus', 'Auto', 'Brot', 'Käse', 'Wurst', 'Kuchen', 'Kaffee', 'Tee', 'Milch', 'Zucker', 'Salz', 'Pfeffer', 'Butter', 'Marmelade', 'Honig', 'Ei', 'Mehl', 'Zitrone', 'Orange', 'Apfel', 'Birne', 'Banane', 'Erdbeere', 'Himbeere', 'Blaubeere', 'Kirsche', 'Pfirsich', 'Pflaume', 'Zwetschge', 'Kürbis', 'Gurke', 'Tomate', 'Kartoffel', 'Zwiebel', 'Knoblauch', 'Paprika', 'Chili', 'Ingwer', 'Koriander', 'Petersilie', 'Basilikum', 'Rosmarin', 'Thymian', 'Majoran', 'Oregano', 'Salbei', 'Lavendel', 'Minze', 'Zitronenmelisse', 'Kamille', 'Fenchel', 'Anis', 'Kümmel', 'Kreuzkümmel', 'Kardamom', 'Vanille', 'Zimt', 'Nelke', 'Muskat', 'Piment', 'Curry', 'Kurkuma', 'Safran', 'Senf', 'Meerrettich', 'Wasabi', 'Sojasauce', 'Worcestersauce', 'Ketchup', 'Mayonnaise', 'Senf', 'Remoulade', 'Tartare', 'Aioli', 'Pesto', 'Guacamole', 'Salsa', 'Chutney', 'Relish', 'Sambal', 'Harissa', 'Ajvar', 'Tapenade', 'Hummus', 'Tzatziki', 'Cacik', 'Labneh', 'Baba Ganoush', 'Muhammara', 'Skordalia', 'Raita', 'Miso', 'Tahini', 'Peanutbutter', 'Nutella', 'Marmite', 'Vegemite', 'Haggis', 'Surströmm']
+  const randomFarben = ['rot', 'grün', 'blau', 'gelb', 'orange', 'lila', 'rosa', 'schwarz', 'weiß', 'braun', 'grau', 'silber', 'gold', 'türkis', 'magenta', 'cyan', 'indigo', 'violett', 'beige', 'khaki', 'oliv', 'apricot', 'koralle', 'rosé', 'mint', 'limette', 'zitrone', 'mandarine', 'kastanie', 'kupfer', 'bronze', 'bernstein', 'saphir', 'rubin', 'smaragd', 'topas', 'opal', 'amethyst', 'granat', 'peridot', 'aquamarin', 'turmalin', 'malachit', 'onyx', 'karneol', 'jade', 'lapislazuli', 'tansanit', 'morganit']
+  const randomEssen = ['Pizza', 'Pasta', 'Burger', 'Salat', 'Suppe', 'Eintopf', 'Curry', 'Sushi', 'Tapas', 'Tacos', 'Burritos', 'Enchiladas', 'Quesadillas', 'Tortillas', 'Empanadas', 'Arepa', 'Pupusa', 'Tamales', 'Ceviche', 'Chimichanga', 'Fajitas', 'Mole', 'Chili', 'Gumbo', 'Jambalaya', 'Grits', 'Biscuits', 'Gravy', 'Pancakes', 'Waffles', 'French Toast', 'Croissant', 'Baguette', 'Ciabatta', 'Focaccia', 'Pretzel', 'Bagel', 'Muffin', 'Donut', 'Cupcake', 'Brownie', 'Cookie', 'Pie', 'Cobbler', 'Crisp', 'Crumble', 'Pudding', 'Parfait', 'Trifle', 'Mousse', 'Sorbet', 'Gelato', 'Sherbet', 'Granita', 'Popsicle', 'Ice Cream', 'Sundae', 'Float', 'Milkshake', 'Smoothie', 'Juice', 'Lemonade', 'Iced Tea', 'Coffee', 'Espresso', 'Cappuccino', 'Latte', 'Mocha', 'Macchiato', 'Americano', 'Affogato', 'Tea', 'Chai', 'Matcha', 'Hot Chocolate', 'Cider', 'Eggnog', 'Punch', 'Sangria', 'Margarita', 'Mojito', 'Martini', 'Mimosa', 'Cosmopolitan', 'Daiquiri', 'Mai Tai', 'Pina Colada', 'Mule', 'Screwdriver', 'Bloody Mary', 'Mint Julep', 'Old Fashioned', 'Manhattan', 'Negroni', 'Whiskey Sour', 'Tom Collins', 'Gin Fizz', 'Sidecar', 'Bellini', 'Kir Royale', 'Spritz', 'Paloma', 'Dark and Stormy', 'Pisco Sour', 'Caipirinha', 'Moscow Mule', 'Mojito', 'Margarita']
+  const allesZusammen = [...randomAdjektive, ...randomWorte, ...randomFarben, ...randomEssen]
+
+  let parts = []
+  for (let i = 0; i < 2; i++) {
+    parts.push(allesZusammen[Math.floor(Math.random() * allesZusammen.length)])
+  }
+  const pass = parts.join(Math.floor(Math.random() * 100) + '-')
+  signUp.value.password = pass.replace(/ /g, '')
+}
+
+const signUpNow = async () => {
+  try {
+  } catch (e) {
+  }
+}
+
+const fakeUser = () => {
+  const firstNames = ['Alice', 'Bob', 'Charlie', 'David', 'Emma', 'Frank', 'Grace', 'Henry', 'Ivy', 'Jack', 'Kate', 'Liam', 'Mia', 'Noah', 'Olivia', 'Peter', 'Quinn', 'Rachel', 'Samuel', 'Taylor', 'Uma', 'Victor', 'Wendy', 'Xander', 'Yvonne', 'Zachary'];
+  const lastNames = ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark', 'Rodriguez', 'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'Hernandez', 'King', 'Wright', 'Lopez', 'Hill', 'Scott', 'Green', 'Adams', 'Baker', 'Gonzalez', 'Nelson', 'Carter', 'Mitchell', 'Perez', 'Roberts', 'Turner', 'Phillips', 'Campbell', 'Parker', 'Evans', 'Edwards', 'Collins', 'Stewart', 'Sanchez', 'Morris', 'Rogers', 'Reed', 'Cook', 'Morgan', 'Bell', 'Murphy', 'Bailey', 'Rivera', 'Cooper', 'Richardson', 'Cox', 'Howard', 'Ward', 'Torres', 'Peterson', 'Gray', 'Ramirez', 'James', 'Watson', 'Brooks', 'Kelly', 'Sanders', 'Price', 'Bennett', 'Wood', 'Barnes', 'Ross', 'Henderson', 'Coleman', 'Jenkins', 'Perry', 'Powell', 'Long', 'Patterson', 'Hughes', 'Flores', 'Washington', 'Butler', 'Simmons', 'Foster', 'Gonzales', 'Bryant', 'Alexander', 'Russell', 'Griffin', 'Diaz', 'Hayes', 'Myers', 'Ford', 'Hamilton', 'Graham', 'Sullivan', 'Wallace', 'Woods', 'Cole', 'West', 'Jordan', 'Owens', 'Reynolds', 'Fisher', 'Ellis', 'Harrison', 'Gibson', 'Mcdonald', 'Cruz', 'Marshall', 'Ortiz', 'Gomez', 'Murray', 'Freeman', 'Wells', 'Webb', 'Simpson', 'Stevens', 'Tucker', 'Porter', 'Hunter', 'Hicks', 'Crawford', 'Henry', 'Boyd', 'Mason', 'Morales', 'Kennedy', 'Warren', 'Dixon', 'Ramos', 'Reyes', 'Burns', 'Gordon', 'Shaw', 'Holmes', 'Rice', 'Robertson', 'Hunt', 'Black', 'Daniels', 'Palmer', 'Mills', 'Nichols', 'Grant', 'Knight', 'Ferguson', 'Rose', 'Stone', 'Hawkins', 'Dunn', 'Perkins', 'Hudson', 'Spencer', 'Gardner', 'Stephens', 'Payne', 'Pierce', 'Berry', 'Matthews', 'Arnold', 'Wagner', 'Willis', 'Ray', 'Watkins', 'Olson', 'Carroll', 'Duncan', 'Snyder', 'Hart', 'Cunningham', 'Bradley', 'Lane', 'Andrews', 'Ruiz', 'Harper', 'Fox', 'Riley', 'Armstrong', 'Carpenter', 'Weaver', 'Greene', 'Lawrence', 'Elliott', 'Chavez', 'Sims', 'Austin', 'Peters', 'Kelley', 'Franklin', 'Lawson', 'Fields', 'Gutierrez', 'Ryan', 'Schmidt', 'Carr', 'Vasquez', 'Castillo', 'Wheeler', 'Chapman', 'Oliver', 'Montgomery', 'Richards', 'Williamson', 'Johnston', 'Banks', 'Meyer', 'Bishop', 'Mccoy', 'Howell', 'Alvarez', 'Morrison', 'Hansen', 'Fernandez', 'Garza', 'Harvey', 'Little', 'Burton', 'Stanley', 'Nguyen', 'George', 'Jacobs', 'Reid', 'Kim', 'Fuller', 'Lynch', 'Dean', 'Gilbert', 'Garrett', 'Romero', 'Welch', 'Larson', 'Frazier', 'Burke', 'Hanson', 'Day', 'Mendoza', 'Moreno', 'Bowman', 'Medina', 'Fowler', 'Brewer', 'Hoffman', 'Carlson', 'Silva', 'Pearson', 'Holland', 'Douglas', 'Fleming', 'Jensen', 'Vargas', 'Byrd', 'Davidson', 'Hopkins', 'May', 'Terry', 'Herrera', 'Wade', 'Soto', 'Walters', 'Curtis', 'Neal', 'Caldwell', 'Lowe', 'Jennings', 'Barnett', 'Graves', 'Jimenez', 'Horton', 'Shelton', 'Barrett', 'Obrien', 'Castro', 'Sutton', 'Gregory', 'Mckinney', 'Lucas', 'Miles', 'Craig', 'Rodriquez', 'Chambers', 'Holt', 'Lambert', 'Fletcher', 'Watts', 'Bates', 'Hale', 'Rhodes', 'Pena', 'Beck', 'Newman', 'Haynes', 'Mcdaniel', 'Mendez', 'Bush', 'Vaughn', 'Parks', 'Dawson', 'Santiago', 'Norris', 'Hardy', 'Love', 'Steele', 'Curry', 'Powers', 'Schultz', 'Barker', 'Guzman', 'Page', 'Munoz', 'Ball', 'Keller', 'Chandler', 'Weber', 'Leonard', 'Walsh', 'Lyons', 'Ramsey', 'Wolfe', 'Schneider', 'Mullins', 'Benson', 'Sharp', 'Bowen', 'Daniel', 'Barber', 'Cummings', 'Hines', 'Baldwin', 'Griffith', 'Valdez', 'Hubbard', 'Salazar', 'Reeves', 'Warner', 'Stevenson', 'Burgess', 'Santos', 'Tate', 'Cross', 'Garner', 'Mann', 'Mack', 'Moss', 'Thornton', 'Dennis', 'Mcgee', 'Farmer', 'Delgado', 'Aguilar', 'Vega', 'Glover', 'Manning', 'Cohen', 'Harmon', 'Rodgers', 'Robbins', 'Newton', 'Todd', 'Blair', 'Higgins', 'Ingram', 'Reese', 'Cannon', 'Strickland', 'Townsend', 'Potter', 'Goodwin', 'Walton']
+
+  const name = `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`
+  const email = `${name.replace(/ /g, '.').toLowerCase()}@mail.bestell-fair.de`
+
+  signUp.value.email = email.replace(/ /g, '').replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').replace(/[^a-z0-9.@-]/g, '')
+  signUp.value.name = name
+
+  randomPass()
+}
 
 const exampleRestaurant = {
   // "id": "8c9ca1b6-0f91-407f-a073-c2b90407d571",
@@ -279,7 +336,8 @@ const importNow = () => {
   try {
     const json = JSON.parse(importJSON.value)
     const id = crypto.randomUUID();
-    verwaltenStore.pushRestaurant({...json,id})
+    console.log('id',id)
+    verwaltenStore.pushRestaurant({...json, id})
     console.log(json)
   } catch (e) {
     alert(e)

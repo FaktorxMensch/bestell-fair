@@ -5,7 +5,8 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "@nuxtjs/tailwindcss",
         "@nuxtjs/supabase",
-        "nuxt-vuetify",
+        // "nuxt-vuetify",
+        'vuetify-nuxt-module',
         "@pinia-plugin-persistedstate/nuxt"
     ],
     app: {
@@ -37,4 +38,30 @@ export default defineNuxtConfig({
     },
     css: ['~/assets/css/main.sass'],
     ssr: false,
+    vuetify: {
+        moduleOptions: {
+            /* module specific options */
+        },
+        vuetifyOptions: {
+            /* vuetify options */
+            defaults: {
+                VTextarea: {variant: 'outlined'},
+                VTextField: {variant: 'outlined'},
+                VBtn: {color: 'teal-darken-2', style: {'text-transform': 'none', 'letter-spacing': 'initial'}},
+            },
+        }
+    }
 })
+
+/*
+  defaults: {
+                global: {
+                    // ripple: false,
+                },
+                VBtn: {
+                    variant: 'flat',
+                    color: '#282d37',
+                    style: 'text-transform: none;',
+                    size: 'large',
+                },
+ */
