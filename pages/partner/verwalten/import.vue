@@ -1,4 +1,7 @@
 <template>
+  <v-alert type="error" icon="mdi-information" class="mb-5">
+    noch keine supabase anbindung, alles fake
+  </v-alert>
   <h1 class="text-3xl font-bold mb-5">Account erstellen</h1>
   <div class="flex gap-2">
     <v-text-field v-model="signUp.name" label="Name"/>
