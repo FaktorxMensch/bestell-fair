@@ -35,4 +35,5 @@ jobs:
       - run: echo ${{ secrets.MONGO_URI }}
       - run: yarn install
       - run: yarn build --if-present
+      - run: yarn start
       - run: yarn test
