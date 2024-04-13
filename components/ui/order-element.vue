@@ -34,6 +34,7 @@ const flattenedSelected = computed(() => {
 <template>
   <div class="order-element">
     <img class="aspect-square w-12"
+         v-if="product.image"
          :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image" alt="Product image"/>
     <div class="">
       <div class="text-sm font-medium leading-4 mb-1">{{ product.name }}</div>
@@ -53,12 +54,13 @@ const flattenedSelected = computed(() => {
     <div class="flex flex-col gap-2">
       <!--      <div class="bg-gray-400/30 p-1 rounded-full text-center">{{ pricef(product.total_price) }}</div>-->
       <div class="flex items-center" v-if="editable">
-        <v-btn icon="mdi-minus" v-if="product.quantity > 1" density="compact" @click="product.quantity--"/>
-        <v-btn icon="mdi-delete" v-else density="compact" @click="gastStore.removeProduct(product)"/>
+        <v-btn icon="mdi-minus" variant="text" v-if="product.quantity > 1" density="comfortable"
+               @click="product.quantity--"/>
+        <v-btn icon="mdi-delete" variant="text" v-else density="comfortable" @click="gastStore.removeProduct(product)"/>
         <div class="bg-gray-400/30 px-3 p-1 rounded-full text-center"> {{ product.quantity }}</div>
-        <v-btn icon="mdi-plus" density="compact" @click="product.quantity++"/>
+        <v-btn icon="mdi-plus" variant="text" density="comfortable" @click="product.quantity++"/>
       </div>
-      <div v-else class="text-xl mx-2">{{product.quantity}}&times;</div>
+      <div v-else class="text-xl mx-2">{{ product.quantity }}&times;</div>
     </div>
   </div>
 </template>

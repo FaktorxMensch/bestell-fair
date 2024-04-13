@@ -53,8 +53,8 @@ export const useGastStore = defineStore('gast', {
             if (window.innerWidth > 540)
                 this.cartOpen = true
             Swal.fire({
-                title: 'Produkt hinzugefügt',
-                text: 'Das Produkt wurde erfolgreich hinzugefügt.',
+                title: '+1 ' + product.name,
+                text: product.name + ' wurde zum Warenkorb hinzugefügt.',
                 icon: 'success',
                 timer: 2e3,
                 timerProgressBar: true,
