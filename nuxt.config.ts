@@ -7,6 +7,7 @@ export default defineNuxtConfig({
         "@nuxtjs/supabase",
         // "nuxt-vuetify",
         'vuetify-nuxt-module',
+        '@sidebase/nuxt-pdf',
         "@pinia-plugin-persistedstate/nuxt"
     ],
     app: {
