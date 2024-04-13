@@ -57,7 +57,6 @@ const showAdditionalInfo = ref(false)
 const gastStore = useGastStore()
 const addToCart = () => gastStore.addProduct(props.product)
 
-
 // von allen optiongroups die ausgewählten optionen holen und die ersten 4 nehmen 'und mehr ...' oder halt die ersten 3
 const getWahlAusText = (optionGroups) => {
   // aus allen option groups alle möglichen optionen den name hole
