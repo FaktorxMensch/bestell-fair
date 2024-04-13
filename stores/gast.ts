@@ -175,10 +175,11 @@ export const useGastStore = defineStore('gast', {
             })
             localStorage.setItem('ordersHistory', JSON.stringify(ordersHistory))
 
-            return;
-
             // weiterleitne zur bestellübersicht
-            navigateTo('/bestellung/' + insert_id)
+            // navigateTo('/bestellung/' + insert_id)
+            console.log('redirecting to /bestellung/' + insert_id)
+
+            useRouter().push('/bestellung/' + insert_id)
             // return data[0].id
         },
     },
