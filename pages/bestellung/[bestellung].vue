@@ -57,7 +57,8 @@
 
       <p v-if="order.status === 'Storniert'">
         Diese Bestellung wurde storniert, du kannst sie nicht mehr abholen.
-        <a @click="undoStornieren" v-if="undoStornierungAvailable" class="text-teal-darken-3 cursor-pointer">Stornierung rückgängig machen</a>
+        <a @click="undoStornieren" v-if="undoStornierungAvailable" class="text-teal-darken-3 cursor-pointer">Stornierung
+          rückgängig machen</a>
       </p>
       <p v-else> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}. Abholung bei {{ restaurant.name }}
         <div> {{ restaurant.location }}.</div>
@@ -127,6 +128,7 @@ setTimeout(() => {
   clearInterval(refreshInterval)
 }, 1000 * 60 * 60 * 2)
 
+
 const stornieren = async () => {
   const {isConfirmed} = await Swal.fire({
     title: 'Bestellung stornieren?',
@@ -177,4 +179,9 @@ const undoStornieren = async () => {
     }
   }
 }
+
+onMounted(() => {
+  // 1x pro minute aktualisieren
+  setInterval(refresh, 1000 * 60)
+})
 </script>

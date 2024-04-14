@@ -1,7 +1,4 @@
 <template>
-  <v-alert type="error" icon="mdi-information" class="mb-5">
-    noch keine supabase anbindung, alles fake
-  </v-alert>
   <h1 class="text-3xl font-bold mb-5">Account erstellen</h1>
   <div class="flex gap-2">
     <v-text-field v-model="signUp.name" label="Name"/>
@@ -21,12 +18,26 @@
   <h1 class="text-3xl font-bold mb-5">Restaurant importieren</h1>
   <v-textarea v-model="instruction" label="Kopiere folgenden Prompt in ChatGPT" rows="4"></v-textarea>
   <v-textarea v-model="importJSON" label="Füge die JSON-Antwort hier ein" rows="4"/>
-  <v-btn @click="importNow">JSON-Antwort jetzt importieren</v-btn>
+  <v-btn :disabled="!newUser" @click="importNow">JSON-Antwort jetzt importieren</v-btn>
+
+  <div v-if="newRestaurant" class="border-t">
+    <h1 class="text-3xl font-bold mb-5">Text für Kund:innen</h1>
+    <textarea v-model="newRestaurantText" class="w-full h-96" readonly></textarea>
+  </div>
+
+
+  <h1 class="text-3xl font-bold mb-5">Freigabe per PostgreSQL</h1>
+  <p class="text-lg">Führe folgendes SQL-Statement aus, um die E-Mail-Adresse zu bestätigen:</p>
+  <div
+      class="bg-gray-100 p-4 rounded-lg text-sm"
+      label="SQL-Statement" rows="4"> update auth.users set email_confirmed_at = now() where  true </div>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})
 const verwaltenStore = useVerwaltenStore()
 const {restaurants} = storeToRefs(verwaltenStore)
+const supabase = useSupabaseClient()
+const user = useSupabaseUser()
 
 const signUp = ref({
   email: '',
@@ -47,12 +58,50 @@ const randomPass = () => {
     parts.push(allesZusammen[Math.floor(Math.random() * allesZusammen.length)])
   }
   const pass = parts.join(Math.floor(Math.random() * 100) + '-')
-  signUp.value.password = pass.replace(/ /g, '')
+  // werfe per regex alle nicht alphanumerischen oder - oder zahlen raus
+  signUp.value.password = pass.replace(/[^a-zA-Z0-9-]/g, '')
 }
+
+const newUser = ref(null)
+
 
 const signUpNow = async () => {
   try {
+
+    const {data, error} = await supabase.auth.getSession()
+    console.log('session:', data, error)
+
+    let {data: data2, error: error2} = await supabase.auth.signUp({
+      email: signUp.value.email,
+      password: signUp.value.password,
+      options: {
+        data: {
+          name: signUp.value.name,
+          generator: 'import',
+          role: 'partner',
+        }
+      }
+    })
+
+    if (!data2) {
+      alert(error2.message)
+      return
+    }
+
+    console.log('user id:', data2?.user?.id)
+    newUser.value = data2?.user
+
+    await supabase.auth.setSession(data.session)
+
+    await Swal.fire({
+      title: 'Erfolgreich!',
+      text: 'Dein Account wurde erstellt.',
+      icon: 'success',
+      timer: 1000,
+      confirmButtonText: 'OK',
+    })
   } catch (e) {
+    alert(e.message)
   }
 }
 
@@ -335,15 +384,81 @@ const importJSON = ref(`{
 }
 `)
 
-const importNow = () => {
+const newRestaurant = ref(null)
+
+const importNow = async () => {
   try {
     const json = JSON.parse(importJSON.value)
     const id = crypto.randomUUID();
-    console.log('id',id)
-    verwaltenStore.pushRestaurant({...json, id})
-    console.log(json)
+    newRestaurant.value = {...json, id}
+
+    // in supabase create into restaurants
+    const {data, error} = await supabase
+        .from('restaurants')
+        .insert(newRestaurant.value)
+        .select()
+
+    console.log('restaurant created', data, error)
+    verwaltenStore.pushRestaurant(newRestaurant.value)
+
+    // if failed, show error
+    if (error) {
+      alert('Fehler beim Importieren: ' + error.message)
+    } else {
+      Swal.fire({
+        title: 'Restaurant importiert!',
+        text: 'Das Restaurant wurde erfolgreich importiert.',
+        timer: 1000,
+        icon: 'success',
+        confirmButtonText: 'Schließen'
+      })
+    }
+
+    // insert into user_owns_restaurant
+    const {data: user_owns_restaurant, error: error2} = await supabase.from('user_owns_restaurant')
+        .insert({user_id: newUser.value.id, restaurant_id: id}).select();
+
+    console.log('user_owns_restaurant', user_owns_restaurant, error2)
+    if (error2) alert('Fehler beim Zuweisen des Restaurants: ' + error2.message)
+
+    // also add an entry for the current user
+    const {data: user_owns_restaurant2, error: error3} = await supabase.from('user_owns_restaurant')
+        .insert({user_id: user.value.id, restaurant_id: id}).select();
+    if (error3) alert('Fehler beim Zuweisen des Restaurants: ' + error3.message)
+    console.log('user_owns_restaurant2', user_owns_restaurant2, error3)
+
   } catch (e) {
     alert(e)
   }
 }
+
+// wenns nach dem 12 april ist, leere das json
+if (new Date() > new Date('2024-04-16')) {
+  importJSON.value = ''
+}
+
+const newRestaurantText = computed(() => {
+  if (!newRestaurant.value) return ''
+  return `\
+Hallo ${signUp.value?.name},
+
+Ihr Restaurant "${newRestaurant.value.name}" ist jetzt in unserem System eingepflegt.
+Sie finden es unter folgendem Link: https://bestell-fair.de/restaurant/${newRestaurant.value.id}
+
+Bitte überprüfen Sie die Angaben und sagen Sie uns Bescheid, wenn etwas nicht stimmt.
+
+Falls Sie selbst noch Änderungen vornehmen möchten, können Sie sich auch unter folgendem Link einloggen: https://bestell-fair.de/login
+Ihre Zugangsdaten sind:
+
+E-Mail: ${signUp.value?.email}
+Passwort: ${signUp.value?.password}
+
+Um später die Bestellungen zu verwalten, klicken Sie auf ihrem Tablet oder Smartphone nach dem Einloggen in der Seitenleiste auf "Bestellungen".
+
+Bei Fragen rufen Sie uns gerne an unter 0162 68 99 628 oder schreiben Sie uns eine E-Mail an info@bestell-fair.de, wir helfen Ihnen gerne weiter.
+
+Viele Grüße,
+Ihr Bestell-Fair Team aus der Dresdner Neustadt
+`
+})
 </script>
