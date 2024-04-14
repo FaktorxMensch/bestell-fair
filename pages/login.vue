@@ -62,8 +62,10 @@ watch(user, (newUser) => {
 const error = ref('')
 
 definePageMeta({layout: 'landing'})
+
 </script>
 <template>
+
   <v-main class="flex">
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">

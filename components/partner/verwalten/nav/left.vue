@@ -31,7 +31,7 @@ const items = [
   {title: 'Personal', icon: 'mdi-account-group', to: '/partner/verwalten/personal'},
   {title: 'Bestellungen', icon: 'mdi-cart', to: '/partner/inbox', target: '_blank'},
   {title: 'Einbindungscode', icon: 'mdi-qrcode', to: '/partner/verwalten/einbindungscode'},
-  // {title: 'Import [BETA]', icon: 'mdi-import', to: '/partner/verwalten/import'},
+  {title: 'Import [BETA]', icon: 'mdi-import', to: '/partner/verwalten/import'},
   // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
 const verwaltenStore = useVerwaltenStore()
