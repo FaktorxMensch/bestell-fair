@@ -1,6 +1,12 @@
 # Hosting
-
 supabase url:  https://api.bestell-fair.de
+
+# Admin
+Wenn man *@bestell-fair.de* als Email hat, ist man automatisch Admin.
+
+# Wartung
+
+Restaurant importieren mit Account erstellung und allem: http://localhost:3000/partner/verwalten/import
 
 # Nuxt 3 Minimal Starter
 
