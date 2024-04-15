@@ -33,8 +33,12 @@ h1
   //@apply text-lg
   text-transform: none
 
-.v-app-bar .v-input__details
+.v-app-bar .v-input__details,.v-list .v-input__details
   @apply hidden
+
+.v-toolbar
+  .v-toolbar__content
+    @apply flex gap-2 items-center
 
 .no-input-details .v-input__details
   @apply hidden

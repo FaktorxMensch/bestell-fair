@@ -1,19 +1,17 @@
 <template>
-  <div class="flex items-center mb-4 gap-2">
-    <p class="text-gray-600">Hier kannst Du Deine Speisekarte bearbeiten und neue Produkte hinzufügen.</p>
-    <v-spacer/>
+  <v-toolbar>
     <v-btn text color="teal-darken-3" @click="addProduct">
       <v-icon>mdi-plus</v-icon>
       Neues Produkt hinzufügen
     </v-btn>
+    <v-spacer/>
     <v-btn text="Änderungen speichern"
            :loading="loading"
            variant="flat"
            prepend-icon="mdi-content-save"
            color="teal-darken-3"
            @click="saveRestaurant"/>
-
-  </div>
+  </v-toolbar>
 
   <v-navigation-drawer>
     <v-list>
@@ -23,14 +21,17 @@
             <v-icon>mdi-book-open</v-icon>
             <span>Speisekarte</span>
             <v-spacer/>
-            <v-btn @click="addProduct" icon="mdi-plus" />
+            <v-btn @click="addProduct" icon="mdi-plus"/>
           </div>
         </v-list-item-title>
       </v-list-item>
       <!-- have a search and a list of product in restaurant.products -->
-      <v-list-item v-for="product in restaurant.products" :key="product.name" @click="selectedProduct = product">
+      <v-text-field class="m-2" v-model="search" label="Suche nach Produkt" density="compact"
+                    prepend-inner-icon="mdi-magnify"/>
+      <v-list-item v-for="product in filteredProducts" :key="product.name" @click="selectedProduct = product">
         <v-list-item-title>{{ product.name }}</v-list-item-title>
       </v-list-item>
+      <div v-if="filteredProducts.length === 0" class="text-center text-gray-500">Keine Produkte gefunden.</div>
     </v-list>
   </v-navigation-drawer>
 
@@ -148,4 +149,11 @@ const saveRestaurant = async () => {
 }
 
 const selectedProduct = ref(null)
+
+const search = ref('')
+const filteredProducts = computed(() => {
+  if (!restaurant.value.products) return []
+  if (!search.value) return restaurant.value.products
+  return restaurant.value.products.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
+})
 </script>
