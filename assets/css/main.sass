@@ -33,11 +33,18 @@ h1
   //@apply text-lg
   text-transform: none
 
-.v-app-bar .v-input__details
+.v-app-bar .v-input__details, .v-list .v-input__details
   @apply hidden
+
+.v-toolbar
+  .v-toolbar__content
+    @apply flex gap-2 items-center
 
 .no-input-details .v-input__details
   @apply hidden
+
+.v-card .v-card
+  @apply no-input-details flex flex-col gap-2 p-2 pb-0
 
 .container
   @apply mx-auto max-w-6xl
@@ -56,8 +63,9 @@ h1
 #swal2-html-container button, #swal2-html-container .btn
   @apply rounded-full p-3 shadow-none text-white w-full mt-2 block cursor-pointer outline-none
   background: rgb(24, 103, 192)
+
   &:hover, &:focus
     filter: brightness(1.15)
+
   &:active
     @apply opacity-75
-

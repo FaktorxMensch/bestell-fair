@@ -15,14 +15,14 @@
                  href="/partner/verwalten" v-if="user && user.user_metadata.role === 'partner'">Mein Account
           </v-btn>
           <v-btn rounded size="large" variant="flat" href="/partner/inbox" v-else-if="user"
-                  prepend-icon="mdi-list-status"
+                 prepend-icon="mdi-list-status"
           >Bestellungen
           </v-btn>
-          <v-btn rounded size="large" variant="flat" href="/login" v-else>Login</v-btn>
+          <v-btn rounded size="large" variant="text" href="/login" v-else>Login</v-btn>
           <v-btn rounded size="large" variant="flat" href="/logout" color="teal-darken-3" v-if="user">Abmelden</v-btn>
-          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/partner-werden">Jetzt Partner
-            werden
-          </v-btn>
+          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/demo"
+                 append-icon="mdi-arrow-right">Demo starten</v-btn>
+          <!--          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/partner-werden">Jetzt Partner werden </v-btn>-->
         </div>
       </v-app-bar>
 

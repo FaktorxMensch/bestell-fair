@@ -2,12 +2,20 @@
   <v-app id="partner-verwalten">
     <partner-verwalten-nav-top/>
     <partner-verwalten-nav-left/>
-    <v-main>
-      <div class="p-4" v-if="restaurant" :key="restaurant">
+    <v-main v-if="restaurant">
+      <div class="p-4" v-if="nav.layout" :key="restaurant">
         <h1 class="text-3xl font-bold">{{ nav?.title }}</h1>
         <slot/>
       </div>
+      <slot v-else/>
     </v-main>
+    <v-progress-circular
+        v-else
+        color="teal-darken-3"
+        indeterminate
+        size="64"
+        class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    />
     <partner-verwalten-nav-footer/>
   </v-app>
 </template>
@@ -18,8 +26,8 @@ const title = defineProps(['title'])
 const user = useSupabaseUser()
 // check if the users role is partner
 watch(user, () => {
-  console.log('uservalue',user.value)
-  if(user.value.user_metadata.role !== 'partner') {
+  console.log('uservalue', user.value)
+  if (user.value.user_metadata.role !== 'partner' && user.value.user_metadata.role !== 'demo') {
     Swal.fire({
       title: 'Kein Zugriff',
       text: 'Du hast keine Berechtigung für diese Seite',

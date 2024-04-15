@@ -17,7 +17,7 @@
           prepend-inner-icon="mdi-store"
           dense
           variant="solo"
-          density="compact"
+          density="comfortable"
           @update:model-value="verwaltenStore.setRestaurant"
           :model-value="restaurant"
           class="me-1"
@@ -26,7 +26,7 @@
       <v-divider vertical/>
       <v-list-item
           lines="two"
-          prepend-avatar="/partner/login_avatar.jpeg"
+          prepend-avatar="/partner/avatar.svg"
           @click=""
           :title="user.user_metadata.name"
           :subtitle="user.email"

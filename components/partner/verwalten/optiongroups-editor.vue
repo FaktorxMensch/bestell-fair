@@ -6,18 +6,20 @@
     </v-tab>
     <v-tab prepend-icon="mdi-plus-circle-outline"
            @click="appendOptiongroup">
-      Neue Optionsgruppe
+      Konfiguration
     </v-tab>
   </v-tabs>
-  <div v-if="optionGroup" class="p-4 bg-gray-100">
+  <div v-if="optionGroup" class="py-4">
 
     <div class="lg:flex lg:gap-4">
-      <v-text-field label="Name der Optionsgruppe (z.B. Soße, Größe, Toppings)"
+      <v-text-field label="Anzeigename (z.B. Soße, Größe, Toppings)"
                     v-model="optionGroup.name"/>
-      <v-select label="Standardauswahl" v-model="optionGroup.default"
-                :items="optionGroup.options.map((option, index) => ({title: option.name, value: index}))"
-                :multiple="optionGroup.multiple"
-                item-title="title" item-value="value"/>
+      <v-select
+          :label="'Standardauswahl' + (optionGroup.multiple ? 'en' : '') + ' ' + optionGroup.name + (optionGroup.mandatory ? ' (Pflichtauswahl)' : '')"
+          v-model="optionGroup.default"
+          :items="optionGroup.options.map((option, index) => ({title: option.name, value: index}))"
+          :multiple="optionGroup.multiple"
+          item-title="title" item-value="value"/>
 
 
       <v-switch label="Mehrfachauswahl" v-model="optionGroup.multiple"/>
@@ -25,37 +27,40 @@
 
     </div>
 
-    <div class="md:grid gap-2 grid-cols-3 xl:grid-cols-3">
-      <v-card v-for="option in optionGroup.options">
-        <v-text-field label="Name der Option (z.B. Ketchup, Mayo, Scharf)" v-model="option.name"/>
-        <v-text-field label="Preis der Option" v-model="option.price" type="number" suffix="€" step="0.01"/>
+    <div class="md:grid gap-x-2 grid-cols-3 xl:grid-cols-3">
+      <v-card variant="outlined" v-for="(option, index) in optionGroup.options" :key="index">
+        <div class="flex gap-2">
+          <v-text-field :label="optionGroup.name + ' #'+(index+1)"
+                        v-model="option.name"/>
+          <v-text-field label="Zusatzkosten" v-model="option.price" type="number" suffix="€" step="0.01"/>
+        </div>
         <v-combobox label="Zutaten" v-model="option.ingredients" chips multiple/>
         <v-combobox label="Allergene" v-model="option.allergens" chips multiple/>
         <v-combobox label="Zusatzstoffe" v-model="option.additives" chips multiple/>
-        <v-btn @click="optionGroup.options.splice(optionGroup.options.indexOf(option), 1)"
-               class="w-full"
+        <v-btn @click="optionGroup.options.splice(optionGroup.options.indexOf(option), 1)" prepend-icon="mdi-delete"
+               variant="text"
         >
-          <v-icon>mdi-delete</v-icon>
           {{ option.name }} löschen
         </v-btn>
       </v-card>
       <div class="col-span-3 xl:col-span-3 gap-2 flex">
         <v-btn
-            @click="optionGroup.options.push({name: 'Neue Option #'+(optionGroup.options.length+1), price: 0, ingredients: [], allergens: [], additives: []})"
+            @click="optionGroup.options.push({name: 'Neue '+optionGroup.name+' #'+(optionGroup.options.length+1), price: 0, ingredients: [], allergens: [], additives: []})"
             variant="outlined"
-            prepend-icon="mdi-plus-circle-outline"> Neue ' {{ optionGroup.name }} ' hinzufügen
+            prepend-icon="mdi-plus-circle-outline"> Neue {{ optionGroup.name }} hinzufügen
         </v-btn>
+        <v-spacer/>
         <v-btn
             variant="tonal"
             color="error"
-            @click="optionGroups.splice(tab, 1)" prepend-icon="mdi-delete"> Optionsgruppe '{{ optionGroup.name }}'
-          löschen
+            @click="deleteOptiongroup(optionGroup)" prepend-icon="mdi-delete"> Konfiguration
+          {{ optionGroup.name }} löschen
         </v-btn>
       </div>
     </div>
   </div>
-  <p v-else class="p-2 text-gray-500">
-    Keine Optionsgruppe ausgewählt.
+  <p v-else class="py-4 text-gray-500">
+    Klicke auf das Plus-Symbol um eine neue Konfiguration für Gäste hinzuzufügen.
   </p>
 
 </template>
@@ -103,7 +108,47 @@ const checkMultiple = () => {
 watch(() => optionGroup.value?.mandatory, checkMandatory)
 watch(() => optionGroup.value?.multiple, checkMultiple)
 
+const optionGroupPresets = [
+  {
+    name: 'Größe',
+    options: []
+  },
+  {
+    name: 'Soße',
+    options: []
+  },
+  {
+    name: 'Toppings',
+    options: []
+  },
+  {
+    name: 'Extras',
+    options: []
+  }
+]
 const appendOptiongroup = () => {
-  props.optionGroups.push({name: 'Neue Optionsgruppe #' + (props.optionGroups.length + 1), options: []})
+  // schaue, ob aus den presets bestimmte namen noch nicht vorkommen
+  const newOptionGroup = optionGroupPresets.find(preset => !props.optionGroups.find(group => group.name === preset.name))
+  if (newOptionGroup) {
+    props.optionGroups.push(newOptionGroup)
+  } else {
+    props.optionGroups.push({name: 'Konfiguration #' + (props.optionGroups.length + 1), options: []})
+  }
+}
+
+const deleteOptiongroup = async (optionGroup) => {
+  const {value} = await Swal.fire({
+    title: 'Konfiguration löschen',
+    text: `Möchtest du die Konfiguration '${optionGroup.name}' wirklich löschen?`,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Ja, löschen',
+    cancelButtonText: 'Abbrechen'
+  })
+  if (!value) return
+  const index = props.optionGroups.indexOf(optionGroup)
+  if (index > -1) {
+    props.optionGroups.splice(index, 1)
+  }
 }
 </script>
