@@ -11,7 +11,7 @@
                color="primary"
                append-icon="mdi-play"
                :loading="loading">
-          Jetzt erstellen
+          Demo Restaurant erstellen
         </v-btn>
       </template>
       <template v-else>
