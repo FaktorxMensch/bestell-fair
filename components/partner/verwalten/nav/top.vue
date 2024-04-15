@@ -26,7 +26,7 @@
       <v-divider vertical/>
       <v-list-item
           lines="two"
-          prepend-avatar="/partner/login_avatar.jpeg"
+          prepend-avatar="/partner/avatar.svg"
           @click=""
           :title="user.user_metadata.name"
           :subtitle="user.email"
