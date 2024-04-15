@@ -27,7 +27,7 @@
           <v-spacer/>
           <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image"
                v-if="product.image"
-               class="w-28 lg:w-32 mt-4"/>
+               class="w-28 lg:w-32 mt-4 rounded-md"/>
           <v-spacer/>
         </div>
       </div>

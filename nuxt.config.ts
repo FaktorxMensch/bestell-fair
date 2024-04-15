@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     },
     supabase: {
         redirectOptions: {
-            exclude: ["/", "/test", "/login", "/register", "/kontakt", "/partner-werden", "/confirm",
+            exclude: ["/", "/test", "/login", "/register", "/kontakt", "/partner-werden", "/confirm", "/demo",
                 "/restaurant", "/restaurant/**", "/bestellung", "/bestellung/**", "/partner/inbox", "/partner/inbox/**"
             ],
 
@@ -57,6 +57,9 @@ export default defineNuxtConfig({
                         VTextField: {density: 'compact'},
                         VCombobox: {density: 'compact'},
                     }
+                },
+                VList: {
+                    VBtn: {variant: 'flat'}
                 }
             },
         }

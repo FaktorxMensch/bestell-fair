@@ -27,7 +27,7 @@ const user = useSupabaseUser()
 // check if the users role is partner
 watch(user, () => {
   console.log('uservalue', user.value)
-  if (user.value.user_metadata.role !== 'partner') {
+  if (user.value.user_metadata.role !== 'partner' && user.value.user_metadata.role !== 'demo') {
     Swal.fire({
       title: 'Kein Zugriff',
       text: 'Du hast keine Berechtigung für diese Seite',

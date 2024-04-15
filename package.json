@@ -24,6 +24,7 @@
     "vuetify-nuxt-module": "^0.13.2"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.42.4",
     "cypress": "^13.7.3",
     "qrcode.vue": "^3.4.1",
     "sweetalert2": "^11.10.2"

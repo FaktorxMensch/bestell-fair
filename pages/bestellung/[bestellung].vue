@@ -38,6 +38,7 @@
              class="mt-4 mb-2 w-full"
              size="large"
              :loading="loading"
+             v-if="order.status !== 'Storniert'"
              color="teal-darken-3"
       >Aktualisieren
       </v-btn>
@@ -52,7 +53,8 @@
       <v-list
           v-if="showProducts"
           :items="order.products.map((product) => ({ title: product.name, subtitle: pricef(product.price), prependAvatar: 'https://api.bestell-fair.de/storage/v1/object/public/' + product.image, }))"
-          class="divide-y border my-4 rounded"
+          class="divide-y border my-4 rounded "
+          :class="{'line-through': order.status === 'Storniert'}"
           item-props lines="two"/>
 
       <p v-if="order.status === 'Storniert'">
@@ -102,7 +104,7 @@ setInterval(() => {
   refreshedDiff.value = 'vor ' + timeAgo(refreshedAt.value)
 }, 100)
 
-const showProducts = ref(false)
+const showProducts = ref(!false)
 const loading = ref(false)
 
 const refresh = async () => {

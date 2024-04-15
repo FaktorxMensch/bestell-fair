@@ -1,7 +1,11 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
-const email = ref('')
-const password = ref('')
+
+const route = useRoute()
+const {query} = route
+
+const email = ref(query.email || '')
+const password = ref(query.password || '')
 
 let lastRedirect = null
 
