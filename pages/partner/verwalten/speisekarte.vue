@@ -1,10 +1,11 @@
 <template>
   <v-toolbar>
+    <v-app-bar-nav-icon @click="drawer = !drawer"/>
+    <v-spacer/>
     <v-btn text color="teal-darken-3" @click="addProduct">
       <v-icon>mdi-plus</v-icon>
       Neues Produkt hinzufügen
     </v-btn>
-    <v-spacer/>
     <v-btn text="Änderungen speichern"
            :loading="loading"
            variant="flat"
@@ -13,7 +14,9 @@
            @click="saveRestaurant"/>
   </v-toolbar>
 
-  <v-navigation-drawer>
+  <v-navigation-drawer
+      v-model="drawer"
+  >
     <v-list>
       <v-list-item @click="selectedProduct = null">
         <v-list-item-title>
@@ -21,7 +24,7 @@
             <v-icon>mdi-book-open</v-icon>
             <span>Speisekarte</span>
             <v-spacer/>
-            <v-btn @click="addProduct" icon="mdi-plus"/>
+            <!--            <v-btn @click="addProduct" icon="mdi-plus"/>-->
           </div>
         </v-list-item-title>
       </v-list-item>
@@ -84,7 +87,7 @@
 
       <v-divider class="my-4 border-b border-gray-800"/>
       <v-btn class="float-right" text color="error"
-             @click="restaurant.products.splice(restaurant.products.indexOf(product), 1)">
+             @click="deleteProduct(product)">
         <v-icon>mdi-delete</v-icon>
         Produkt '{{ product.name }}' löschen
       </v-btn>
@@ -119,6 +122,7 @@ const fileChange = async (event, product = null) => {
   console.log('path', path)
 }
 
+const drawer = ref(true)
 onMounted(() => {
   if (!restaurant.value.products) {
     restaurant.value.products = []
@@ -156,4 +160,11 @@ const filteredProducts = computed(() => {
   if (!search.value) return restaurant.value.products
   return restaurant.value.products.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
 })
+
+const deleteProduct = (product) => {
+  const index = restaurant.value.products.indexOf(product)
+  if (index > -1) {
+    restaurant.value.products.splice(index, 1)
+  }
+}
 </script>

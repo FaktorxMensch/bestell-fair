@@ -1,11 +1,15 @@
 <template>
   <v-navigation-drawer theme="dark"
+                       width="240"
+                       rail
+                       expand-on-hover
                        v-model="drawer">
     <!--    rail-->
     <!--    :rail-width="220"-->
     <v-list class="h-full flex flex-col">
       <v-list-item v-for="item in items"
                    :to="`${item.to}`"
+                   :append-icon="item.appendIcon"
                    :target="item.target"
                    :prepend-icon="item.icon" :key="item.title" :title="item.title"></v-list-item>
       <v-spacer/>
@@ -26,17 +30,20 @@
 <script setup>
 let items = [
   // {title: 'Übersicht', icon: 'mdi-view-dashboard', to: '/'},
-  {title: 'Restaurant', icon: 'mdi-store', to: '/partner/verwalten/restaurant',layout:true},
-  {title: 'Speisekarte', icon: 'mdi-food', to: '/partner/verwalten/speisekarte',layout:false},
-  {title: 'Personal', icon: 'mdi-account-group', to: '/partner/verwalten/personal',layout:true},
-  {title: 'Bestellungen', icon: 'mdi-cart', to: '/partner/inbox', target: '_blank',layout:true},
-  {title: 'Einbindungscode', icon: 'mdi-qrcode', to: '/partner/verwalten/einbindungscode',layout:true},
+  {title: 'Restaurant', icon: 'mdi-home', to: '/partner/verwalten/restaurant', layout: true},
+  {title: 'Speisekarte', icon: 'mdi-food', to: '/partner/verwalten/speisekarte', layout: false},
+  {title: 'Personal', icon: 'mdi-account-group', to: '/partner/verwalten/personal', layout: true},
+  {title: 'Einbinden', icon: 'mdi-code-tags', to: '/partner/verwalten/einbindungscode', layout: true},
+  {
+    title: 'Bestellungen', icon: 'mdi-inbox', to: '/partner/inbox', target: '_blank', layout: true,
+    appendIcon: 'mdi-open-in-new'
+  },
   // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
 const user = useSupabaseUser()
 // if email is @bestell-fair.de
 if (user.value.email?.includes('@bestell-fair.de')) {
-  items.push({title: 'Import [BETA]', icon: 'mdi-import', to: '/partner/verwalten/import',layout:true})
+  // items.push({title: 'Import [BETA]', icon: 'mdi-import', to: '/partner/verwalten/import', layout: true})
 }
 const verwaltenStore = useVerwaltenStore()
 const {drawer} = storeToRefs(verwaltenStore)
