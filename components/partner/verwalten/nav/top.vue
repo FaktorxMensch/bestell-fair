@@ -17,7 +17,7 @@
           prepend-inner-icon="mdi-store"
           dense
           variant="solo"
-          density="compact"
+          density="comfortable"
           @update:model-value="verwaltenStore.setRestaurant"
           :model-value="restaurant"
           class="me-1"

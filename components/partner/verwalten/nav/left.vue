@@ -15,17 +15,20 @@
       <v-spacer/>
       <!-- hilfe und kontakt sektion direkt im drawer mit telefonnummer und email -->
       <v-list-item prepend-icon="mdi-lifebuoy" base-color="amber"
-                   href="mailto:info@bestell-fair.de" nav
+                   class="pl-4"
+                   :href="mailtoHelp"
+                   nav
                    target="_blank">
         <!-- mehrere zeilen text -->
         <v-list-item-content>
-          <v-list-item-title>Fragen oder Probleme?</v-list-item-title>
-          <v-list-item-subtitle>Wir helfen Dir gerne weiter.</v-list-item-subtitle>
+          <v-list-item-title>Frage oder Problem?</v-list-item-title>
+          <v-list-item-subtitle>Wir helfen weiter</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 
+  {{user.value}}
 </template>
 <script setup>
 let items = [
@@ -51,6 +54,10 @@ const route = useRoute()
 watch(() => route.path, () => {
   verwaltenStore.setNav(items.filter(item => route.path.includes(item.to))[0])
 }, {immediate: true})
+
+console.log(user.value.user_metadata.name)
+// mailto:info@bestell-fair.de with restaurent und beispiel subject und beispiel inhalt
+const mailtoHelp = computed(()=>`mailto:info@bestell-fair.de?subject=Frage%20oder%20Problem&body=Sehr%20geehrtes%20Bestell-Fair-Team,%0D%0A%0D%0AHier%20ist%20meine%20Frage%20oder%20mein%20Problem:%0D%0A%0D%0AMit%20freundlichen%20Grüßen,%0D%0A${user.value.user_metadata?.name}%0a%0aAktuelle%20Seite:%20${window.location.href}%0aRestaurant:%20${verwaltenStore.restaurant?.id}%0aUser:%20${user.value.id}`)
 </script>
 <style>
 .v-navigation-drawer .v-list-item-title {

@@ -14,9 +14,7 @@
            @click="saveRestaurant"/>
   </v-toolbar>
 
-  <v-navigation-drawer
-      v-model="drawer"
-  >
+  <v-navigation-drawer v-model="drawer">
     <v-list>
       <v-list-item @click="selectedProduct = null">
         <v-list-item-title>
@@ -38,72 +36,63 @@
     </v-list>
   </v-navigation-drawer>
 
-  <!--  <v-expansion-panels class="v-card no-input-details" variant="accordion">-->
-  <!--    <v-expansion-panel v-for="product in restaurant.products" :title="product.name">-->
-  <!--      <template #text>-->
-  <v-card v-if="selectedProduct" v-for="product in [selectedProduct]">
-    <v-card-title>
-      <h1 class="text-xl font-bold">{{ product.name }}</h1>
-    </v-card-title>
-    <v-card-item>
-      <div class="lg:flex py-2">
-        <div class="flex-1">
-          <div class="grid gap-2 grid-cols-2 lg:grid-cols-4">
-            <v-text-field label="Name" v-model="product.name"/>
-            <v-text-field label="Preis" v-model="product.price" type="number" suffix="€" step="0.01"/>
-            <v-select label="Stichworte" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']"
-                      chips=""
-                      multiple/>
-            <v-file-input
-                :prepend-icon="null"
-                prepend-inner-icon="mdi-image"
-                variant="solo"
-                label="Bild" @change="event=>fileChange(event,product)"/>
-          </div>
+  <div class="p-4">
+    <v-card v-if="selectedProduct" v-for="product in [selectedProduct]">
+      <v-card-title>
+        <h1 class="text-xl font-bold">{{ product.name }}</h1>
+      </v-card-title>
+      <v-card-item>
+        <div class="lg:flex py-2">
+          <div class="flex-1">
+            <div class="grid gap-2 grid-cols-2 lg:grid-cols-4 no-input-details">
+              <v-text-field label="Name in der Speisekarte" v-model="product.name"/>
+              <v-text-field label="Preis" v-model="product.price" type="number" suffix="€" step="0.01"/>
+              <v-select label="Filterbare Tags" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']"
+                        chips=""
+                        multiple/>
+              <v-file-input
+                  :prepend-icon="null"
+                  prepend-inner-icon="mdi-image"
+                  variant="solo"
+                  label="Bild für Vorschau" @change="event=>fileChange(event,product)"/>
+            </div>
 
-          <div class="lg:grid lg:grid-cols-3 mt-2 lg:gap-2">
-            <v-combobox label="Zutaten" v-model="product.ingredients" chips multiple/>
-            <v-combobox label="Allergene" v-model="product.allergens" chips multiple/>
-            <v-combobox label="Zusatzstoffe" v-model="product.additives" chips multiple/>
-          </div>
+            <div class="lg:grid lg:grid-cols-2 mt-2 lg:gap-2">
+              <v-text-field label="Kleiner Beitext für die Speisekarte (optional)" v-model="product.description"/>
+              <v-text-field label="Kategorie" v-model="product.category"/>
+            </div>
 
-          <div class="lg:grid lg:grid-cols-2 mt-2 lg:gap-2">
-            <v-text-field label="Beschreibung" v-model="product.description"/>
-            <v-text-field label="Kategorie" v-model="product.category"/>
+            <!-- pflichtangaben -->
+            <p class="text-sm text-gray-500 mt-2">Pflichtangaben</p>
+            <div class="lg:grid lg:grid-cols-3 mt-2 lg:gap-2">
+              <v-combobox label="Zutaten" density="compact" v-model="product.ingredients" chips multiple/>
+              <v-combobox label="Allergene" density="compact" v-model="product.allergens" chips multiple/>
+              <v-combobox label="Zusatzstoffe" density="compact" v-model="product.additives" chips multiple/>
+            </div>
+
           </div>
+          <img
+              :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image+'?token='+Math.random()"
+              class="w-48 h-48 ms-2 rounded object-cover" v-if="product.image"/>
         </div>
-        <img
-            :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image+'?token='+Math.random()"
-            class="w-48 h-48 ms-2 rounded object-cover" v-if="product.image"/>
-      </div>
 
-      <v-divider class="my-4 border-b border-gray-800"/>
-      <h2 class="text-xl font-bold m-2">Konfiguration für den Gast</h2>
+        <v-divider class="my-4 border-b border-gray-800"/>
+        <h2 class="text-xl font-bold m-2">Konfiguration für den Gast</h2>
 
-      <partner-verwalten-optiongroups-editor v-if="product.optionGroups" :optionGroups="product.optionGroups"/>
-      <!--          <v-alert v-else color="red" icon="mdi-alert-circle-outline">-->
-      <!--            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.-->
-      <!--          </v-alert>-->
+        <partner-verwalten-optiongroups-editor v-if="product.optionGroups" :optionGroups="product.optionGroups"/>
+        <!--          <v-alert v-else color="red" icon="mdi-alert-circle-outline">-->
+        <!--            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.-->
+        <!--          </v-alert>-->
 
-      <v-divider class="my-4 border-b border-gray-800"/>
-      <v-btn class="float-right" text color="error"
-             @click="deleteProduct(product)">
-        <v-icon>mdi-delete</v-icon>
-        Produkt '{{ product.name }}' löschen
-      </v-btn>
-    </v-card-item>
-  </v-card>
-
-  <!--      </template>-->
-  <!--    </v-expansion-panel>-->
-  <!--    <v-expansion-panel-->
-  <!--        expand-icon="mdi-plus-circle-outline"-->
-  <!--        @click="addProduct"-->
-  <!--        title="Neues Produkt"-->
-  <!--        ripple>-->
-  <!--    </v-expansion-panel>-->
-  <!--  </v-expansion-panels>-->
-
+        <v-divider class="mb-4 border-b border-gray-800"/>
+        <v-btn class="float-right mb-2" text color="error"
+               @click="deleteProduct(product)">
+          <v-icon>mdi-delete</v-icon>
+          {{ product.name }} löschen
+        </v-btn>
+      </v-card-item>
+    </v-card>
+  </div>
 
 </template>
 
@@ -161,7 +150,18 @@ const filteredProducts = computed(() => {
   return restaurant.value.products.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
 })
 
-const deleteProduct = (product) => {
+const deleteProduct = async (product) => {
+  // swal confirm
+  const {value} = await Swal.fire({
+    title: 'Produkt löschen',
+    text: `Möchtest du das Produkt '${product.name}' und inklusive Bilder und Konfigurationsmöglichkeiten wirklich löschen?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ja, löschen',
+    cancelButtonText: 'Abbrechen'
+  })
+  if (!value) return
+
   const index = restaurant.value.products.indexOf(product)
   if (index > -1) {
     restaurant.value.products.splice(index, 1)

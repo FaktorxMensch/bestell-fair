@@ -46,9 +46,18 @@ export default defineNuxtConfig({
         vuetifyOptions: {
             /* vuetify options */
             defaults: {
-                VTextarea: {variant: 'outlined'},
-                VTextField: {variant: 'outlined'},
+                VTextarea: {variant: 'outlined', density: 'comfortable'},
+                VTextField: {variant: 'outlined', density: 'comfortable'},
+                VCombobox: {variant: 'outlined', density: 'comfortable'},
+                VSelect: {variant: 'outlined', density: 'comfortable'},
+                VSwitch: {variant: 'outlined', density: 'comfortable'},
                 VBtn: {color: 'teal-darken-2', style: {'text-transform': 'none', 'letter-spacing': 'initial'}},
+                VCard: {
+                    VCard: {
+                        VTextField: {density: 'compact'},
+                        VCombobox: {density: 'compact'},
+                    }
+                }
             },
         }
     }

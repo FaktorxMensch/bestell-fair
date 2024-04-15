@@ -1,11 +1,11 @@
 <template>
-  <v-row>
+  <v-row class="no-input-details ">
     <v-col cols="12" md="6">
       <v-card>
         <v-card-title>Restaurant</v-card-title>
         <v-card-text>
           <!-- have as grid of three two or one, depending on screen size -->
-          <v-form>
+          <v-form class="space-y-4">
             <v-text-field
                 variant="outlined"
                 label="Name des Restaurants" v-model="restaurant.name"/>
@@ -13,7 +13,7 @@
                 variant="outlined"
                 label="Beschreibungs und Willkommens Text" rows="2" v-model="restaurant.description"/>
 
-            <div class="grid grid-cols-3 md:grid-cols-2 gap-x-4">
+            <div class="grid grid-cols-3 md:grid-cols-2 gap-4">
 
               <v-file-input label="Logo-Bild" accept="image/*"
                             :prepend-icon="null"
@@ -59,20 +59,15 @@
                       multiple
                       chips
                       :items="['Name', 'Telefon', 'E-Mail', 'Anmerkungen', 'Tischnummer', 'Lieferadresse' ]"></v-select>
-            <!--            <v-select label="Tags" v-model="restaurant.tags" multiple chips :items="['Vegan', 'Vegetarisch', 'Glutenfrei', 'Laktosefrei', 'Bio', 'Fairtrade', 'Regional', 'Saisonal']"></v-select>-->
-            <!--              <v-text-field label="Kurzform des Restaurant Namens (optional)" v-model="restaurant.slug"-->
-            <!--                            hint="z.B. fatima, oder dicker-schmidt"-->
-            <!--                            :rules="[v => v.length <= 20 || 'Maximal 20 Zeichen', v => v.length >= 3 || 'Mindestens 3 Zeichen',  v => /^[a-z0-9-]+$/.test(v) || 'Nur Kleinbuchstaben, Zahlen und Bindestriche']"-->
-            <!--              ></v-text-field>-->
-
-            <v-switch label="Restaurant in der Übersicht anzeigen" :color="restaurant.visible ? 'teal' : 'grey'" inset
-                      v-model="restaurant.visible"></v-switch>
-
-            <div class="flex justify-end">
-              <v-btn @click="submitForm"
-                     prepend-icon="mdi-check"
-                     rounded color="teal">Speichern
-              </v-btn>
+            <v-alert v-if="!restaurant.visible" type="warning" icon="mdi-alert"
+                     density="compact"
+            >Das Restaurant ist nicht sichtbar, Gäste
+              finden es nur über den direkten Link
+            </v-alert>
+            <div class="flex justify-between items-center">
+              <v-switch label="Restaurant sichtbar" :color="restaurant.visible ? 'teal' : 'grey'" inset
+                        v-model="restaurant.visible"></v-switch>
+              <v-btn @click="submitForm" prepend-icon="mdi-check">Speichern</v-btn>
             </div>
           </v-form>
         </v-card-text>
@@ -120,10 +115,7 @@
                    prepend-icon="mdi-plus"
                    rounded>Hinzufügen
             </v-btn>
-            <v-btn @click="submitForm" class="mt-4"
-                   prepend-icon="mdi-check"
-                   rounded color="teal">Speichern
-            </v-btn>
+            <v-btn @click="submitForm" class="mt-4" prepend-icon="mdi-check">Speichern</v-btn>
           </div>
         </v-card-text>
         <v-card-text v-else>
@@ -147,7 +139,9 @@
 <script setup>
 const verwaltenStore = useVerwaltenStore();
 const {restaurant} = storeToRefs(verwaltenStore)
-restaurant.value.opening_hours.sort((a, b) => { return a.day_open > b.day_open ? 1 : -1 })
+restaurant.value.opening_hours.sort((a, b) => {
+  return a.day_open > b.day_open ? 1 : -1
+})
 const submitForm = verwaltenStore.saveRestaurant
 const {uploadImage} = useFilehandler()
 
