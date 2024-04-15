@@ -1,72 +1,106 @@
 <template>
-  <div class="flex justify-between items-center mb-4">
+  <div class="flex items-center mb-4 gap-2">
     <p class="text-gray-600">Hier kannst Du Deine Speisekarte bearbeiten und neue Produkte hinzufügen.</p>
+    <v-spacer/>
+    <v-btn text color="teal-darken-3" @click="addProduct">
+      <v-icon>mdi-plus</v-icon>
+      Neues Produkt hinzufügen
+    </v-btn>
     <v-btn text="Änderungen speichern"
            :loading="loading"
            variant="flat"
            prepend-icon="mdi-content-save"
            color="teal-darken-3"
            @click="saveRestaurant"/>
+
   </div>
-  <v-expansion-panels class="v-card no-input-details" variant="accordion">
-    <v-expansion-panel v-for="product in restaurant.products" :title="product.name">
-      <template #text>
-        <div class="p-2">
-          <div class="lg:flex">
-            <div class="flex-1">
-              <div class="grid gap-2 grid-cols-2 lg:grid-cols-4">
-                <v-text-field label="Name" v-model="product.name"/>
-                <v-text-field label="Preis" v-model="product.price" type="number" suffix="€" step="0.01"/>
-                <v-select label="Stichworte" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']"
-                          chips=""
-                          multiple/>
-                <v-file-input
-                    :prepend-icon="null"
-                    prepend-inner-icon="mdi-image"
-                    variant="solo"
-                    label="Bild" @change="event=>fileChange(event,product)"/>
-              </div>
 
-              <div class="lg:grid lg:grid-cols-3 mt-2 lg:gap-2">
-                <v-combobox label="Zutaten" v-model="product.ingredients" chips multiple/>
-                <v-combobox label="Allergene" v-model="product.allergens" chips multiple/>
-                <v-combobox label="Zusatzstoffe" v-model="product.additives" chips multiple/>
-              </div>
+  <v-navigation-drawer>
+    <v-list>
+      <v-list-item @click="selectedProduct = null">
+        <v-list-item-title>
+          <div class="font-bold text-lg flex items-center gap-2">
+            <v-icon>mdi-book-open</v-icon>
+            <span>Speisekarte</span>
+            <v-spacer/>
+            <v-btn @click="addProduct" icon="mdi-plus" />
+          </div>
+        </v-list-item-title>
+      </v-list-item>
+      <!-- have a search and a list of product in restaurant.products -->
+      <v-list-item v-for="product in restaurant.products" :key="product.name" @click="selectedProduct = product">
+        <v-list-item-title>{{ product.name }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 
-              <div class="lg:grid lg:grid-cols-2 mt-2 lg:gap-2">
-                <v-text-field label="Beschreibung" v-model="product.description"/>
-                <v-text-field label="Kategorie" v-model="product.category"/>
-              </div>
-            </div>
-            <img
-                :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image+'?token='+Math.random()"
-                class="w-48 h-48 ms-2 rounded object-cover" v-if="product.image"/>
+  <!--  <v-expansion-panels class="v-card no-input-details" variant="accordion">-->
+  <!--    <v-expansion-panel v-for="product in restaurant.products" :title="product.name">-->
+  <!--      <template #text>-->
+  <v-card v-if="selectedProduct" v-for="product in [selectedProduct]">
+    <v-card-title>
+      <h1 class="text-xl font-bold">{{ product.name }}</h1>
+    </v-card-title>
+    <v-card-item>
+      <div class="lg:flex py-2">
+        <div class="flex-1">
+          <div class="grid gap-2 grid-cols-2 lg:grid-cols-4">
+            <v-text-field label="Name" v-model="product.name"/>
+            <v-text-field label="Preis" v-model="product.price" type="number" suffix="€" step="0.01"/>
+            <v-select label="Stichworte" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']"
+                      chips=""
+                      multiple/>
+            <v-file-input
+                :prepend-icon="null"
+                prepend-inner-icon="mdi-image"
+                variant="solo"
+                label="Bild" @change="event=>fileChange(event,product)"/>
           </div>
 
-          <v-divider class="my-4 border-b border-gray-800"/>
-          <h2 class="text-xl font-bold m-2">Konfiguration für den Gast</h2>
+          <div class="lg:grid lg:grid-cols-3 mt-2 lg:gap-2">
+            <v-combobox label="Zutaten" v-model="product.ingredients" chips multiple/>
+            <v-combobox label="Allergene" v-model="product.allergens" chips multiple/>
+            <v-combobox label="Zusatzstoffe" v-model="product.additives" chips multiple/>
+          </div>
 
-          <partner-verwalten-optiongroups-editor v-if="product.optionGroups" :optionGroups="product.optionGroups"/>
-<!--          <v-alert v-else color="red" icon="mdi-alert-circle-outline">-->
-<!--            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.-->
-<!--          </v-alert>-->
-
+          <div class="lg:grid lg:grid-cols-2 mt-2 lg:gap-2">
+            <v-text-field label="Beschreibung" v-model="product.description"/>
+            <v-text-field label="Kategorie" v-model="product.category"/>
+          </div>
         </div>
-        <v-divider class="my-4 border-b border-gray-800"/>
-        <v-btn class="float-right" text color="error"
-               @click="restaurant.products.splice(restaurant.products.indexOf(product), 1)">
-          <v-icon>mdi-delete</v-icon>
-          Produkt '{{ product.name }}' löschen
-        </v-btn>
-      </template>
-    </v-expansion-panel>
-    <v-expansion-panel
-        expand-icon="mdi-plus-circle-outline"
-        @click="addProduct"
-        title="Neues Produkt"
-        ripple>
-    </v-expansion-panel>
-  </v-expansion-panels>
+        <img
+            :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/'+product.image+'?token='+Math.random()"
+            class="w-48 h-48 ms-2 rounded object-cover" v-if="product.image"/>
+      </div>
+
+      <v-divider class="my-4 border-b border-gray-800"/>
+      <h2 class="text-xl font-bold m-2">Konfiguration für den Gast</h2>
+
+      <partner-verwalten-optiongroups-editor v-if="product.optionGroups" :optionGroups="product.optionGroups"/>
+      <!--          <v-alert v-else color="red" icon="mdi-alert-circle-outline">-->
+      <!--            <strong>Keine Optionsgruppen</strong> für dieses Produkt vorhanden.-->
+      <!--          </v-alert>-->
+
+      <v-divider class="my-4 border-b border-gray-800"/>
+      <v-btn class="float-right" text color="error"
+             @click="restaurant.products.splice(restaurant.products.indexOf(product), 1)">
+        <v-icon>mdi-delete</v-icon>
+        Produkt '{{ product.name }}' löschen
+      </v-btn>
+    </v-card-item>
+  </v-card>
+
+  <!--      </template>-->
+  <!--    </v-expansion-panel>-->
+  <!--    <v-expansion-panel-->
+  <!--        expand-icon="mdi-plus-circle-outline"-->
+  <!--        @click="addProduct"-->
+  <!--        title="Neues Produkt"-->
+  <!--        ripple>-->
+  <!--    </v-expansion-panel>-->
+  <!--  </v-expansion-panels>-->
+
+
 </template>
 
 <script setup>
@@ -112,4 +146,6 @@ const saveRestaurant = async () => {
   await verwaltenStore.saveRestaurant(restaurant.value)
   loading.value = false
 }
+
+const selectedProduct = ref(null)
 </script>
