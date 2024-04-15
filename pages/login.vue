@@ -3,7 +3,17 @@ const supabase = useSupabaseClient()
 const email = ref('')
 const password = ref('')
 
+let lastRedirect = null
+
 const redirectUser = async (user) => {
+
+
+  // ignore 1s old redirects
+  if (lastRedirect && Date.now() - lastRedirect < 1000) {
+    return
+  }
+  lastRedirect = Date.now()
+
   const {data: restaurant_has_personal, error} = await supabase.from('restaurant_has_personal')
       .select(`*`)
       .eq('user_id', user.id);
@@ -13,7 +23,24 @@ const redirectUser = async (user) => {
 
   // wenn es einen Eintrag in restaurant_has_personal gibt, dann ist es ein Personal, sonst ein Restaurant
   if (user_owns_restaurant.length > 0) {
-    window.location.href = '/partner/verwalten'
+
+    loading.value = false
+    // ask via swal if the user wants to 'Bestellungen ansehen', oder 'Restaurant bearbeiten'
+    const {isConfirmed} = await Swal.fire({
+      title: 'Willkommen zurück!',
+      text: 'Was möchtest du tun?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Bestellungen ansehen',
+      cancelButtonText: 'Restaurant bearbeiten',
+    })
+
+    if (isConfirmed) {
+      return window.location.href = '/partner/inbox'
+    } else {
+      return window.location.href = '/partner/verwalten'
+    }
+
   } else if (restaurant_has_personal.length > 0) {
     window.location.href = '/partner/inbox'
   } else if (user) {
@@ -29,6 +56,7 @@ const redirectUser = async (user) => {
 
 
 const signInWithPassword = async () => {
+  loading.value = true
   const {data, error} = await supabase.auth.signInWithPassword({
     email: email.value,
     password: password.value,
@@ -46,9 +74,10 @@ const signInWithPassword = async () => {
       confirmButtonText: 'OK',
     })
     error.value = message
-  } else {
-    const user = useSupabaseUser()
-    redirectUser(user.value)
+    // } else {
+    // const user = useSupabaseUser()
+    // redirectUser(user.value)
+    loading.value = false
   }
 }
 
@@ -62,7 +91,7 @@ watch(user, (newUser) => {
 const error = ref('')
 
 definePageMeta({layout: 'landing'})
-
+const loading = ref(false)
 </script>
 <template>
 
@@ -81,7 +110,9 @@ definePageMeta({layout: 'landing'})
           <v-alert type="error" v-if="error" class="mb-4">{{ error }}</v-alert>
           <v-text-field rounded autofocus="" variant="outlined" label="E-Mail" v-model="email" type="email"/>
           <v-text-field rounded variant="outlined" label="Passwort" type="password" v-model="password"/>
-          <v-btn rounded size="large" type="submit" variant="flat" color="teal-darken-3" @click="signInWithPassword">
+          <v-btn rounded size="large" type="submit" variant="flat" color="teal-darken-3"
+                 :loading="loading" :disabled="!email || !password"
+                 @click="signInWithPassword">
             Login
           </v-btn>
           <!-- register -->

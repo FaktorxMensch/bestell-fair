@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "cypress": "^13.7.3",
+    "qrcode.vue": "^3.4.1",
     "sweetalert2": "^11.10.2"
   }
 }

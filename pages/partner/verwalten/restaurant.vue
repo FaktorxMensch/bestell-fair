@@ -5,12 +5,20 @@
            variant="flat"
            prepend-icon="mdi-content-save"
            color="teal-darken-3"
-           @click="verwaltenStore.saveRestaurant"/>
+           :loading="loading"
+           @click="saveRestaurant"/>
   </div>
   <partner-verwalten-form-restaurant/>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})
 const verwaltenStore = useVerwaltenStore()
+
+const loading = ref(false)
+const saveRestaurant = async () => {
+  loading.value = true
+  await verwaltenStore.saveRestaurant(restaurant.value)
+  loading.value = false
+}
 </script>
 

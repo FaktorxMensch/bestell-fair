@@ -19,8 +19,9 @@
     </v-card-title>
     <v-card-text>
 
-      <img :src="`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chld=L|0&chl=${url}?ref=qr`" alt="QR-Code"
-           class="w-36 mt-1 mb-3"/>
+      <qrcode-vue :value="url" size="200" level="L"  class="w-36 mt-1 mb-4" />
+<!--      <img :src="`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chld=L|0&chl=${url}?ref=qr`" alt="QR-Code"-->
+<!--           class="w-36 mt-1 mb-3"/>-->
       <p>Du kannst auch diesen QR-Code verwenden, um deine Gäste auf deine Bestellseite zu leiten.</p>
       <span class="w-64 text-gray-500 text-sm">Rechtsklick auf den QR-Code und "Bild speichern unter..." um ihn zu speichern.</span>
     </v-card-text>
@@ -28,6 +29,7 @@
 
 </template>
 <script setup>
+import QrcodeVue from 'qrcode.vue'
 definePageMeta({layout: 'partner-verwalten'})
 const store = useVerwaltenStore()
 const {restaurant} = storeToRefs(store)

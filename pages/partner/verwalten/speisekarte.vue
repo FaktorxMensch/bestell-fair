@@ -2,10 +2,11 @@
   <div class="flex justify-between items-center mb-4">
     <p class="text-gray-600">Hier kannst Du Deine Speisekarte bearbeiten und neue Produkte hinzufügen.</p>
     <v-btn text="Änderungen speichern"
+           :loading="loading"
            variant="flat"
            prepend-icon="mdi-content-save"
            color="teal-darken-3"
-           @click="verwaltenStore.saveRestaurant"/>
+           @click="saveRestaurant"/>
   </div>
   <v-expansion-panels class="v-card no-input-details" variant="accordion">
     <v-expansion-panel v-for="product in restaurant.products" :title="product.name">
@@ -103,5 +104,12 @@ const addProduct = () => {
     optionGroups: []
   }
   restaurant.value.products.push(newProduct)
+}
+
+const loading = ref(false)
+const saveRestaurant = async () => {
+  loading.value = true
+  await verwaltenStore.saveRestaurant(restaurant.value)
+  loading.value = false
 }
 </script>

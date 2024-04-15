@@ -24,16 +24,20 @@
 
 </template>
 <script setup>
-const items = [
+let items = [
   // {title: 'Übersicht', icon: 'mdi-view-dashboard', to: '/'},
   {title: 'Restaurant', icon: 'mdi-store', to: '/partner/verwalten/restaurant'},
   {title: 'Speisekarte', icon: 'mdi-food', to: '/partner/verwalten/speisekarte'},
   {title: 'Personal', icon: 'mdi-account-group', to: '/partner/verwalten/personal'},
   {title: 'Bestellungen', icon: 'mdi-cart', to: '/partner/inbox', target: '_blank'},
   {title: 'Einbindungscode', icon: 'mdi-qrcode', to: '/partner/verwalten/einbindungscode'},
-  {title: 'Import [BETA]', icon: 'mdi-import', to: '/partner/verwalten/import'},
   // {title: 'Einstellungen', icon: 'mdi-cog', to: '/einstellungen'},
 ]
+const user = useSupabaseUser()
+// if email is @bestell-fair.de
+if (user.value.email?.includes('@bestell-fair.de')) {
+  items.push({title: 'Import [BETA]', icon: 'mdi-import', to: '/partner/verwalten/import'})
+}
 const verwaltenStore = useVerwaltenStore()
 const {drawer} = storeToRefs(verwaltenStore)
 const route = useRoute()
