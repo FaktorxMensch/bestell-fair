@@ -116,12 +116,12 @@
     <!--      </div>-->
     <!--    </div>-->
 
-      <div class="px-20 py-28 max-w-3xl mx-auto">
-        <h1 class="text-7xl font-bold text-center">Roadmap</h1>
-        <p class="text-2xl text-center mt-6">Wir entwickeln unsere Plattform stetig weiter, um dir die beste Erfahrung
-          zu
-          bieten.</p>
-      </div>
+    <div class="px-20 py-28 max-w-3xl mx-auto">
+      <h1 class="text-7xl font-bold text-center">Roadmap</h1>
+      <p class="text-2xl text-center mt-6">Wir entwickeln unsere Plattform stetig weiter, um dir die beste Erfahrung
+        zu
+        bieten.</p>
+    </div>
 
     <!-- FUTURE FUNCTIONALITY 1/3 -->
     <div class="bg-lime-100 flex  flex-col md:flex-row">
@@ -495,6 +495,9 @@ footer a::after {
   }
 }
 
+.insta > div {
+  @apply aspect-square border flex items-center justify-center flex-col gap-3 p-6 box-border;
+}
 </style>
 <script setup lang="ts">
 definePageMeta({layout: 'landing'})

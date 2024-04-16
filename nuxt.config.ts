@@ -5,7 +5,6 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "@nuxtjs/tailwindcss",
         "@nuxtjs/supabase",
-        // "nuxt-vuetify",
         'vuetify-nuxt-module',
         '@sidebase/nuxt-pdf',
         "@pinia-plugin-persistedstate/nuxt"
