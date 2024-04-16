@@ -3,9 +3,9 @@
     <v-app>
       <v-app-bar app>
         <v-toolbar-title>
-          <nuxt-link to="/" class="flex gap-2">
+          <nuxt-link to="/" class="flex gap-3">
             <img src="/logo.png" alt="Bestell Fair!" class="h-12"/>
-            <h1 class="mt-1 text-4xl text-teal-800">Bestell Fair!</h1>
+            <h1 class="mt-1 text-4xl text-green-800 font-black">Bestell Fair!</h1>
           </nuxt-link>
         </v-toolbar-title>
         <!-- have a btn here -->
@@ -19,9 +19,9 @@
                  prepend-icon="mdi-list-status"
           >Bestellungen
           </v-btn>
-          <v-btn rounded size="large" variant="text" href="/login" v-else>Login</v-btn>
+          <v-btn rounded size="large" variant="text" color="green-darken-3" href="/login" v-else>Login</v-btn>
           <v-btn rounded size="large" variant="flat" href="/logout" color="teal-darken-3" v-if="user">Abmelden</v-btn>
-          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/demo"
+          <v-btn rounded size="large" variant="flat" color="green-darken-3" v-else href="/demo"
                  append-icon="mdi-arrow-right">Demo starten
           </v-btn>
           <!--          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/partner-werden">Jetzt Partner werden </v-btn>-->
