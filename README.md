@@ -1,5 +1,6 @@
 # Hosting
 supabase url:  https://api.bestell-fair.de
+release branch ist: production
 
 # Admin
 Wenn man *@bestell-fair.de* als Email hat, ist man automatisch Admin.
