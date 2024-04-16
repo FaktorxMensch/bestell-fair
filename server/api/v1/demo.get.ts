@@ -1,5 +1,9 @@
 import {createClient} from '@supabase/supabase-js'
 
+// dotenv
+import {config} from 'dotenv'
+config()
+
 // zeit, nach der ein demo restaurant gelöscht wird
 const lifeTime = 24 * 60 * 60 * 1000
 
