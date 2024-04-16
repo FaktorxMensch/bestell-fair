@@ -3,65 +3,55 @@
   <v-main>
 
 
-
     <!-- EIN BEREICH, WO DIE LEUTE DIREKT ESSEN BESTELLEN KÖNNEN -->
     <!-- BEREICH FÜR GÄSTE HINWEISE -->
+    <div
+        class="bg-lime-300 border-b p-10 sm:p-20 gap-x-20 gap-y-10 border-gray-200 flex flex-col lg:flex-row lg:items-center lg:justify-center">
+      <!--      <img-->
+      <!--          src="/landing/banner.jpeg"-->
+      <!--          class="lg:w-1/2 object-cover"-->
+      <!--      >-->
 
-    <div class="px-4 py-8 md:px-6 lg:px-8 text-center border-b border-gray-200 bg-teal-900 text-white">
-      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
-        <!-- SUBTITLE Du hast Hunger -->
-        <span class="text-gray-100">Du hast Hunger? </span>
+      <img src="/logo.png"
+           class="object-contain max-w-56"/>
+
+      <div class="border-box lg:w-1/2">
+        <h1 class="mb-6 lg:text-6xl lg:pt-8 ">
+          Hunger?
+        </h1>
+        <div class="text-lime-800 max-w-4xl my-4 mx-auto lg:text-xl text-lg mb-6">
+          Statt anzurufen, kannst du jetzt ganz einfach online vorbestellen und dann bei deinem Lieblingsrestaurant
+          abholen.
+          Du unterstützt damit die Gastronomie in der Dresdner Neustadt und sparst dir das Warten.
+        </div>
+        <v-btn class="mb-9" rounded size="x-large" variant="flat" color="white" href="/restaurant"
+               append-icon="mdi-arrow-right">Jetzt vorbestellen
+        </v-btn>
       </div>
-      <div class="text-teal-300 max-w-4xl my-4 mx-auto lg:text-xl text-lg mb-8">
-        Statt anzurufen, kannst du jetzt ganz einfach online vorbestellen und dann bei deinem Lieblingsrestaurant abholen.
-        Du unterstützt damit die Gastronomie in der Dresdner Neustadt und sparst dir das Warten.
-      </div>
-      <v-btn class="mb-5" rounded size="large" variant="flat" color="teal-darken-3" href="/restaurant"
-             append-icon="mdi-arrow-right">Jetzt vorbestellen
-      </v-btn>
     </div>
 
-    <!-- HERO -->
-    <div class="text-800 flex flex-col md:flex-row">
-      <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto block md:hidden object-cover"
-           style="height: 30vh"/>
-      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
-        <section class="flex flex-col lg:px-12 gap-2">
-          <span class="block text-4xl sm:text-6xl font-bold mb-1">Über <span class="text-teal-800">Bestell Fair</span></span>
-          <div class="text-2xl sm:text-4xl font-bold mb-7">Was wir machen</div>
-          <p class="mt-0 mb-5 text-xl text-700 line-height-3">
-            Unser Team hat es sich zur Aufgabe gemacht, die Gastronomie in der Dresdner Neustadt zu unterstützen.
-            Wir bieten eine Plattform, auf der du deine Lieblingsgerichte vorbestellen kannst, um sie dann bei deinem
-            Lieblingsrestaurant abzuholen. Dabei verzichten wir auf eine Provision, sodass die Restaurants den vollen
-            Betrag erhalten.
-
-          </p>
-          <div>
-            <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner werden
-            </v-btn>
-          </div>
-        </section>
-      </div>
-      <div class="col-12 flex-1 md:col-6 overflow-hidden">
-        <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto hidden md:block"
-             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);min-height: calc(100vh - 64px);"/>
-      </div>
-    </div>
 
     <!-- SCREENSHOTS -->
     <div class="bg-gray-100 px-4 py-8 md:px-6 lg:px-8 text-center">
-      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-8 ">
-        <span class="text-gray-900">Schnell erklärt, </span>
-        <span class="text-teal-800"> was wir tun</span>
-      </div>
-      <div class="text-gray-700 max-w-6xl my-4 mx-auto lg:text-xl text-lg mb-8">Wir haben eine Plattform entwickelt, die
-        es
-        dir ermöglicht,
-        deine Lieblingsgerichte vorzubestellen und dann bei deinem Lieblingsrestaurant abzuholen. Dabei verzichten wir
-        auf eine Provision, sodass die Restaurants den vollen Betrag erhalten.
+
+      <div class="px-20 py-28 max-w-3xl mx-auto">
+        <h1 class="text-7xl font-bold text-center">Schnell erklärt</h1>
+        <p class="text-2xl text-center mt-6">Du kannst bei Deinem Lieblingsrestaurant zur Abholung vorbestellen. Dein
+          Restaurant zahlt keine Provision, und erhält den vollen Betrag.</p>
       </div>
 
-      <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-8 text-gray-900">So wird bestellt:</div>
+      <!--      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-12 ">-->
+      <!--        <span class="text-gray-900">Schnell erklärt, </span>-->
+      <!--        <span class="text-teal-800"> was wir tun</span>-->
+      <!--      </div>-->
+      <!--      <div class="text-gray-700 max-w-6xl my-4 mx-auto lg:text-xl text-lg mb-8">Wir haben eine Plattform entwickelt, die-->
+      <!--        es-->
+      <!--        dir ermöglicht,-->
+      <!--        deine Lieblingsgerichte vorzubestellen und dann bei deinem Lieblingsrestaurant abzuholen. Dabei verzichten wir-->
+      <!--        auf eine Provision, sodass die Restaurants den vollen Betrag erhalten.-->
+      <!--      </div>-->
+
+      <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-8 text-gray-900">Für den Gast:</div>
       <!-- Beispiel Bild 1 -->
       <div class="examples">
         <div>
@@ -82,7 +72,7 @@
         </div>
       </div>
 
-      <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-8 text-gray-900">Das passiert im Hintergrund:</div>
+      <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-12 text-gray-900">Für das Restaurant:</div>
       <div class="examples">
         <div>
           <img src="/landing/screenshots/img3.jpeg" alt="Image"/>
@@ -96,8 +86,45 @@
 
     </div>
 
+    <!-- HERO -->
+    <!--    <div class="flex flex-col md:flex-row">-->
+    <!--      <img src="/landing/draw_authentication_fs4.jpeg"-->
+    <!--           alt="Image" class="md:ml-auto block md:hidden object-cover"-->
+    <!--           style="height: 30vh"/>-->
+    <!--      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">-->
+    <!--        <section class="flex flex-col lg:px-12 gap-2">-->
+    <!--          <span class="block text-4xl sm:text-6xl font-bold mb-1">Über <span-->
+    <!--              class="text-green-600">Bestell Fair</span></span>-->
+    <!--          <div class="text-2xl sm:text-4xl font-bold mb-7">Was wir machen</div>-->
+    <!--          <p class="mt-0 mb-5 text-xl text-700 line-height-3">-->
+    <!--            Unser Team hat es sich zur Aufgabe gemacht, die Gastronomie in der Dresdner Neustadt zu unterstützen.-->
+    <!--            Wir bieten eine Plattform, auf der du deine Lieblingsgerichte vorbestellen kannst, um sie dann bei deinem-->
+    <!--            Lieblingsrestaurant abzuholen. Dabei verzichten wir auf eine Provision, sodass die Restaurants den vollen-->
+    <!--            Betrag erhalten.-->
+
+    <!--          </p>-->
+    <!--          <div>-->
+    <!--            <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner-->
+    <!--              werden-->
+    <!--            </v-btn>-->
+    <!--          </div>-->
+    <!--        </section>-->
+    <!--      </div>-->
+    <!--      <div class="col-12 flex-1 md:col-6 overflow-hidden">-->
+    <!--        <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto hidden md:block"-->
+    <!--             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);min-height: calc(100vh - 64px);"/>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <div class="px-20 py-28 max-w-3xl mx-auto">
+      <h1 class="text-7xl font-bold text-center">Roadmap</h1>
+      <p class="text-2xl text-center mt-6">Wir entwickeln unsere Plattform stetig weiter, um dir die beste Erfahrung
+        zu
+        bieten.</p>
+    </div>
+
     <!-- FUTURE FUNCTIONALITY 1/3 -->
-    <div class="bg-white flex  flex-col md:flex-row">
+    <div class="bg-lime-100 flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
         <img src="/landing/functionality/table_qr.jpeg" alt="Image" class="md:ml-auto hidden md:block"
@@ -121,7 +148,7 @@
     </div>
 
     <!-- FUTURE FUNCTIONALITY 2/3 -->
-    <div class="bg-gray-200 flex  flex-col md:flex-row">
+    <div class="bg-white flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
@@ -150,7 +177,7 @@
       <!--      </div>-->
     </div>
     <!-- FUTURE FUNCTIONALITY 3/3 -->
-    <div class="bg-white flex  flex-col md:flex-row">
+    <div class="bg-amber-100 flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
         <img src="/landing/functionality/eve_discount.jpeg" alt="Image" class="md:ml-auto hidden md:block"
@@ -175,7 +202,7 @@
 
 
     <!-- FEATURES -->
-    <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-neutral-100">
+    <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-gray-100">
       <div class="mb-6 font-bold text-4xl lg:text-6xl lg:pt-12 ">
         <span class="text-gray-900">Einmal zahlen, </span>
         <span class="text-teal-800">unzählige Funktionen</span>
@@ -424,7 +451,7 @@ footer a::after {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   align-content: center;
 }
@@ -440,16 +467,17 @@ footer a::after {
 }
 
 .examples div img {
+  @apply rounded shadow bg-white border;
   width: 350px;
   height: 150px;
   object-fit: contain;
 }
 
 .examples div h2 {
+  @apply md:h-24;
   font-size: 1.5rem;
   font-weight: 500;
   margin-top: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -467,6 +495,9 @@ footer a::after {
   }
 }
 
+.insta > div {
+  @apply aspect-square border flex items-center justify-center flex-col gap-3 p-6 box-border;
+}
 </style>
 <script setup lang="ts">
 definePageMeta({layout: 'landing'})

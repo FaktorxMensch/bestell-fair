@@ -5,7 +5,6 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "@nuxtjs/tailwindcss",
         "@nuxtjs/supabase",
-        // "nuxt-vuetify",
         'vuetify-nuxt-module',
         '@sidebase/nuxt-pdf',
         "@pinia-plugin-persistedstate/nuxt"
@@ -18,7 +17,7 @@ export default defineNuxtConfig({
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},
                 {hid: 'description', name: 'description', content: ''},
             ],
-            link: [{rel: 'icon', type: 'image/x-icon', href: '/icon.png'}],
+            link: [{rel: 'icon', type: 'image/x-icon', href: '/logo.png'}],
             // favicon
         },
     },
@@ -51,7 +50,7 @@ export default defineNuxtConfig({
                 VCombobox: {variant: 'outlined', density: 'comfortable'},
                 VSelect: {variant: 'outlined', density: 'comfortable'},
                 VSwitch: {variant: 'outlined', density: 'comfortable'},
-                VBtn: {color: 'teal-darken-2', style: {'text-transform': 'none', 'letter-spacing': 'initial'}},
+                VBtn: {color: 'teal-darken-3', style: {'text-transform': 'none', 'letter-spacing': 'initial'}},
                 VCard: {
                     VCard: {
                         VTextField: {density: 'compact'},

@@ -34,6 +34,10 @@ export const useVerwaltenStore = defineStore('verwalten', {
                 return
             }
             this.restaurants = data.map((r) => r.restaurant_id)
+            // select the first one if no restaurant is selected
+            if (this.restaurants.length > 0) {
+                this.restaurantIndex = 0
+            }
         },
         pushRestaurant(restaurant) {
             this.restaurants.push(restaurant)

@@ -148,7 +148,7 @@ const renewClosedUntil = async (closedMinutes = null, restaurant_id = null) => {
     console.error(error)
     return
   }
-  const closedUntil = data[0].closed_until
+  const closedUntil = data[0]?.closed_until
   // If closedUntil is set and in future
   if (closedUntil && new Date(closedUntil).getTime() > new Date().getTime()) {
     closedMinutes.value = Math.round((new Date(closedUntil).getTime() - new Date().getTime()) / 60000)
