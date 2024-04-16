@@ -1,6 +1,5 @@
 # Hosting
-supabase url:  https://api.bestell-fair.de
-
+supabase url in .env.example
 # Admin
 Wenn man *@bestell-fair.de* als Email hat, ist man automatisch Admin.
 
