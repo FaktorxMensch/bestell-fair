@@ -116,14 +116,15 @@
     <!--      </div>-->
     <!--    </div>-->
 
-    <div class="px-20 py-28 max-w-3xl mx-auto">
-      <h1 class="text-7xl font-bold text-center">Roadmap</h1>
-      <p class="text-2xl text-center mt-6">Wir entwickeln unsere Plattform stetig weiter, um dir die beste Erfahrung zu
-        bieten.</p>
-    </div>
+      <div class="px-20 py-28 max-w-3xl mx-auto">
+        <h1 class="text-7xl font-bold text-center">Roadmap</h1>
+        <p class="text-2xl text-center mt-6">Wir entwickeln unsere Plattform stetig weiter, um dir die beste Erfahrung
+          zu
+          bieten.</p>
+      </div>
 
     <!-- FUTURE FUNCTIONALITY 1/3 -->
-    <div class="bg-white flex  flex-col md:flex-row">
+    <div class="bg-lime-100 flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
         <img src="/landing/functionality/table_qr.jpeg" alt="Image" class="md:ml-auto hidden md:block"
@@ -147,7 +148,7 @@
     </div>
 
     <!-- FUTURE FUNCTIONALITY 2/3 -->
-    <div class="bg-gray-200 flex  flex-col md:flex-row">
+    <div class="bg-white flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
@@ -176,7 +177,7 @@
       <!--      </div>-->
     </div>
     <!-- FUTURE FUNCTIONALITY 3/3 -->
-    <div class="bg-white flex  flex-col md:flex-row">
+    <div class="bg-amber-100 flex  flex-col md:flex-row">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex flex-1 md:col-6 overflow-hidden">
         <img src="/landing/functionality/eve_discount.jpeg" alt="Image" class="md:ml-auto hidden md:block"
@@ -201,7 +202,7 @@
 
 
     <!-- FEATURES -->
-    <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-neutral-100">
+    <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-gray-100">
       <div class="mb-6 font-bold text-4xl lg:text-6xl lg:pt-12 ">
         <span class="text-gray-900">Einmal zahlen, </span>
         <span class="text-teal-800">unzählige Funktionen</span>

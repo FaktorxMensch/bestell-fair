@@ -103,7 +103,7 @@ const loading = ref(false)
     <v-row>
       <v-col cols="12" md="6" class="hidden md:flex">
         <img
-            src="/partner/draw_authentication_fs1.jpeg"
+            src="/landing/draw_authentication_fs2.jpeg"
             class="h-full w-full bg-orange-400 object-cover"
         />
       </v-col>
