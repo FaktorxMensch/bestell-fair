@@ -51,7 +51,7 @@ export default defineNuxtConfig({
                 VCombobox: {variant: 'outlined', density: 'comfortable'},
                 VSelect: {variant: 'outlined', density: 'comfortable'},
                 VSwitch: {variant: 'outlined', density: 'comfortable'},
-                VBtn: {color: 'green-darken-2', style: {'text-transform': 'none', 'letter-spacing': 'initial'}},
+                VBtn: {color: 'teal-darken-3', style: {'text-transform': 'none', 'letter-spacing': 'initial'}},
                 VCard: {
                     VCard: {
                         VTextField: {density: 'compact'},

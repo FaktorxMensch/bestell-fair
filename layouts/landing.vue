@@ -19,9 +19,9 @@
                  prepend-icon="mdi-list-status"
           >Bestellungen
           </v-btn>
-          <v-btn rounded size="large" variant="text" color="green-darken-3" href="/login" v-else>Login</v-btn>
+          <v-btn rounded size="large" variant="text" color="teal-darken-3" href="/login" v-else>Login</v-btn>
           <v-btn rounded size="large" variant="flat" href="/logout" color="teal-darken-3" v-if="user">Abmelden</v-btn>
-          <v-btn rounded size="large" variant="flat" color="green-darken-3" v-else href="/demo"
+          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/demo"
                  append-icon="mdi-arrow-right">Demo starten
           </v-btn>
           <!--          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/partner-werden">Jetzt Partner werden </v-btn>-->
