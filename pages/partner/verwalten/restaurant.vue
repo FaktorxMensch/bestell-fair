@@ -17,7 +17,7 @@ const verwaltenStore = useVerwaltenStore()
 const loading = ref(false)
 const saveRestaurant = async () => {
   loading.value = true
-  await verwaltenStore.saveRestaurant(restaurant.value)
+  await verwaltenStore.saveRestaurant(verwaltenStore.restaurant.value)
   loading.value = false
 }
 </script>
