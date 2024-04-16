@@ -3,8 +3,9 @@
     <v-app>
       <v-app-bar app>
         <v-toolbar-title>
-          <nuxt-link to="/">
-            <h1 class="text-4xl text-teal-900">Bestell Fair!</h1>
+          <nuxt-link to="/" class="flex gap-2">
+            <img src="/logo.png" alt="Bestell Fair!" class="h-12"/>
+            <h1 class="mt-1 text-4xl text-teal-800">Bestell Fair!</h1>
           </nuxt-link>
         </v-toolbar-title>
         <!-- have a btn here -->
@@ -21,7 +22,8 @@
           <v-btn rounded size="large" variant="text" href="/login" v-else>Login</v-btn>
           <v-btn rounded size="large" variant="flat" href="/logout" color="teal-darken-3" v-if="user">Abmelden</v-btn>
           <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/demo"
-                 append-icon="mdi-arrow-right">Demo starten</v-btn>
+                 append-icon="mdi-arrow-right">Demo starten
+          </v-btn>
           <!--          <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/partner-werden">Jetzt Partner werden </v-btn>-->
         </div>
       </v-app-bar>
