@@ -35,7 +35,8 @@
             </table>
           </v-alert>
           <v-alert v-if="closedMinutes>0" color="warning" icon="mdi-alert" class="mt-4">
-            Dieses Restaurant nimmt voraussichtlich noch {{closedMinutes}} Minuten keine Bestellungen an! Kommen Sie später wieder.
+            Dieses Restaurant nimmt voraussichtlich noch {{ closedMinutes }} Minuten keine Bestellungen an! Kommen Sie
+            später wieder.
           </v-alert>
           <div :class="{'opacity-50 pointer-events-none': !open || closedMinutes>0}">
             <component :is="tabs[activeTab].component" :restaurant="restaurant"/>
@@ -97,13 +98,13 @@
   <v-toolbar
       @click="cartOpen = !cartOpen"
       class="bottom-0" id="cart-mobile" style="position:fixed" color="teal-darken-4" location="bottom">
-    <v-toolbar-title class="text-lg font-bold">
+    <div class="text-lg ps-4 font-bold">
       Gesamt:
       {{ pricef(price) }}
-    </v-toolbar-title>
+    </div>
     <v-spacer/>
     <!--    <v-btn icon="mdi-chevron-up" @click="cartOpen = !cartOpen"/>-->
-    <v-btn icon >
+    <v-btn icon>
       <v-badge color="red" :content="count">
         <v-icon>mdi-shopping</v-icon>
       </v-badge>

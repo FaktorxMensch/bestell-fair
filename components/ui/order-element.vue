@@ -31,14 +31,18 @@ const flattenedSelected = computed(() => {
     return optionGroup.multiple ? optionGroup.selected.join(', ') : optionGroup.selected
   }).join(', ')
 })
+
+// const restaurant_id = computed(() => {
+//   return gastStore.restaurant_id || inboxStore.restaurant
+// })
 </script>
 
 <template>
   <div class="order-element">
     <img class="aspect-square w-12"
          v-if="product.image"
-          :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + inboxStore.restaurant + '/products/' + product.image"
-          alt="product image"/>
+         :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + product.image"
+         alt="product image"/>
     <div class="">
       <div class="text-sm font-medium leading-4 mb-1">{{ product.name }}</div>
       <div class="optiongroups space-y-1" v-if="layout === 'normal'">
