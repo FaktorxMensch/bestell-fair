@@ -33,6 +33,12 @@
         </v-alert>
       </div>
 
+      <!-- wenn bestellung neu, zeigen alert, dass die bestellung noch nicht bestätigt wurde -->
+      <v-alert v-if="order.status === 'Neu'" type="warning" icon="mdi-information"
+      class="mt-3">
+        HINWEIS: Diese Bestellung wurde vom Restaurant noch nicht bestätigt. Bitte warte auf die Bestätigung.
+      </v-alert>
+
       <v-btn @click="refresh"
              prepend-icon="mdi-refresh"
              class="mt-4 mb-2 w-full"
