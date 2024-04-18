@@ -1,7 +1,7 @@
 
 
 // zeit, nach der ein demo restaurant gelöscht wird
-import {supabase} from "~/composables/supabaseServiceRole";
+import {supabaseServiceRole as supabase} from "~/composables/supabaseServiceRole";
 
 const lifeTime = 24 * 60 * 60 * 1000
 

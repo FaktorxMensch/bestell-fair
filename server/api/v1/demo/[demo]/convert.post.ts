@@ -1,4 +1,4 @@
-import {supabase} from "~/composables/supabaseServiceRole";
+import {supabaseServiceRole as supabase} from "~/composables/supabaseServiceRole";
 
 /**
  POST localhost:3000/api/v1/demo/51fcf87a-fed2-4193-b5bb-363b2142f0d7/convert
