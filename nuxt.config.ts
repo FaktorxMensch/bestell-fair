@@ -16,6 +16,16 @@ export default defineNuxtConfig({
                 {charset: 'utf-8'},
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},
                 {hid: 'description', name: 'description', content: ''},
+                // web app capable
+                {name: 'mobile-web-app-capable', content: 'yes'},
+                {name: 'apple-mobile-web-app-capable', content: 'yes'},
+                // web app icon
+                {name: 'apple-mobile-web-app-status-bar-style', content: 'black'},
+                {name: 'theme-color', content: '#282d37'},
+                // favicon
+                {rel: 'icon', type: 'image/x-icon', href: '/logo.png'},
+                {rel: 'apple-touch-icon', href: '/logo.png'},
+
             ],
             link: [{rel: 'icon', type: 'image/x-icon', href: '/logo.png'}],
             // favicon
