@@ -23,7 +23,6 @@ export const useInboxStore = defineStore('inbox', {
         order: null, // die aktuell geöffnete Bestellung
         orders: [], // alle Bestellungen
         updatedAt: new Date(),
-        restaurant:null,
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
         closedUntil: null,
@@ -31,6 +30,19 @@ export const useInboxStore = defineStore('inbox', {
         closedDecreaser: null,
         // isDarkMode: true,
     }),
+    getters: {
+        restaurant(state) {
+            // from the first order get the restaurant
+            if (state.orders.length === 0) return null
+            return state.orders[0].restaurant_id
+            // return 'NOT IMPLEMENTED YET'
+            // const verwaltenStore = useVerwaltenStore()
+            // console.log('restaurant', verwaltenStore.restaurants)
+            // if (verwaltenStore.restaurant === null) return null
+            // return verwaltenStore.restaurant
+        }
+
+    },
     actions: {
         playClick() {
             const audio = new Audio('/partner/inbox/click.mp3')
@@ -72,7 +84,7 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
             if (restaurant_open) {
-                this.closedUntil = restaurant_open[0].closed_until
+                this.closedUntil = restaurant_open?.[0]?.closed_until
                 // this.changeTempClose()
             }
 
