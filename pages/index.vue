@@ -16,7 +16,7 @@
            class="object-contain max-w-56"/>
 
       <div class="border-box lg:w-1/2">
-        <h1 class="mb-6 lg:text-6xl lg:pt-8 ">
+        <h1 class="mb-6 lg:text-6xl text-5xl   lg:pt-8 ">
           Hunger?
         </h1>
         <div class="text-lime-800 max-w-4xl my-4 mx-auto lg:text-xl text-lg mb-6">
@@ -34,7 +34,7 @@
     <!-- SCREENSHOTS -->
     <div class="bg-gray-100 px-4 py-8 md:px-6 lg:px-8 text-center">
 
-      <div class="px-20 py-28 max-w-3xl mx-auto">
+      <div class="lg:px-20 lg:py-28 max-w-3xl mx-auto px-10 pb-15">
         <h1 class="text-7xl font-bold text-center">Schnell erklärt</h1>
         <p class="text-2xl text-center mt-6">Du kannst bei Deinem Lieblingsrestaurant zur Abholung vorbestellen. Dein
           Restaurant zahlt keine Provision, und erhält den vollen Betrag.</p>

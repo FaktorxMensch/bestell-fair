@@ -60,9 +60,19 @@ const filterAll = (value, searchQuery, item) => {
   else if (item.columns.status == "Storniert" || item.columns.status == "Abgeholt") return false
   else return true
 }
+
+// computed property, true if there is at least one order with status 'Neu'
+const hasNewOrders = computed(() => {
+  return orders.value.some((order) => order.status === 'Neu')
+})
 </script>
 
 <template>
+  <div class="has-new-orders" v-if="hasNewOrders">
+    <!--    <v-alert dense outlined type="info" icon="mdi-information">-->
+    <!--      Es gibt neue Bestellungen. Klicke auf eine Bestellung um sie zu bestätigen.-->
+    <!--    </v-alert>-->
+  </div>
   <partner-inbox-dialog-confirm-order :dialog="confirmOrderDialog"
                                       :order="selectedOrder"
                                       v-if="typeof selectedOrder?.id !== 'undefined' && confirmOrderDialog"
@@ -170,6 +180,26 @@ tr {
   }
   100% {
     background-color: #7770;
+  }
+}
+
+.has-new-orders {
+  animation: flashing 1s infinite;
+  @apply fixed inset-0 z-50 bg-yellow-200 pointer-events-none;
+}
+
+@keyframes flashing {
+  0% {
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>

@@ -30,7 +30,8 @@
   <p class="text-lg">Führe folgendes SQL-Statement aus, um die E-Mail-Adresse zu bestätigen:</p>
   <div
       class="bg-gray-100 p-4 rounded-lg text-sm"
-      label="SQL-Statement" rows="4"> update auth.users set email_confirmed_at = now() where  true </div>
+      label="SQL-Statement" rows="4"> update auth.users set email_confirmed_at = now() where true
+  </div>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})

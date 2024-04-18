@@ -18,7 +18,7 @@
       <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
       <div class="flex justify-between">
         <p>Bestellt für {{ order.name || 'Gast' }} aufgegeben {{ timeDiff(order.created_at) }}, Abholung
-          {{ timeDiff(order.pickup_at) }}.
+          {{ timeDiff(order.pickup_at) }} (um {{ order.pickup_at.substr(11, 5) }} Uhr).
           <!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
           Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.
         </p>
@@ -52,10 +52,22 @@
 
       <v-list
           v-if="showProducts"
-          :items="order.products.map((product) => ({ title: product.name, subtitle: pricef(product.price), prependAvatar: 'https://api.bestell-fair.de/storage/v1/object/public/' + product.image, }))"
           class="divide-y border my-4 rounded "
           :class="{'line-through': order.status === 'Storniert'}"
-          item-props lines="two"/>
+      >
+        <v-list-item v-for="product in order.products">
+          <div class="flex items-center gap-4">
+            <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + product.image"
+                 class="h-16 rounded-lg border"/>
+            <v-list-item-content>
+              <v-list-item-title>{{ product.name }}</v-list-item-title>
+              <v-list-item-subtitle>
+                {{ product.quantity }}x {{ pricef(product.price) }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </div>
+        </v-list-item>
+      </v-list>
 
       <p v-if="order.status === 'Storniert'">
         Diese Bestellung wurde storniert, du kannst sie nicht mehr abholen.
