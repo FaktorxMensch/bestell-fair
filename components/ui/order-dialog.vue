@@ -16,7 +16,9 @@
         <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="container px-5 no-input-details flex flex-col gap-4">
+      <v-form class="container px-5 no-input-details flex flex-col gap-4
+      overflow-y-auto overflow-x-hidden
+">
         <h2>Persönliche Daten</h2>
         <label>Dein Name</label>
         <v-text-field
