@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <v-app-bar-nav-icon @click="drawer = !drawer" />
+    <v-app-bar-nav-icon @click="drawer = !drawer"/>
     <v-spacer/>
     <v-btn text color="teal-darken-3" @click="addProduct">
       <v-icon>mdi-plus</v-icon>
@@ -15,7 +15,7 @@
   </v-toolbar>
 
   <v-navigation-drawer v-model="drawer">
-    <v-list>
+    <v-list v-model:opened="open">
       <v-list-item @click="selectedProduct = null">
         <v-list-item-title>
           <div class="font-bold text-lg flex items-center gap-2">
@@ -29,10 +29,27 @@
       <!-- have a search and a list of product in restaurant.products -->
       <v-text-field class="m-2" v-model="search" label="Suche nach Produkt" density="compact"
                     prepend-inner-icon="mdi-magnify"/>
-      <v-list-item v-for="product in filteredProducts" :key="product.name" @click="selectedProduct = product">
-        <v-list-item-title>{{ product.name }}</v-list-item-title>
-      </v-list-item>
-      <div v-if="filteredProducts.length === 0" class="text-center text-gray-500">Keine Produkte gefunden.</div>
+      <template v-for="(products, category) in filteredProducts">
+        <v-list-item
+            class="font-bold"
+            :append-icon="open.includes(category) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+            @click="open.includes(category) ? open = open.filter(o => o !== category) : open.push(category)"
+            :active="open.includes(category)">
+          {{ category }}
+        </v-list-item>
+        <v-list-item v-for="product in products" :key="product.name" @click="selectProductLike(product)"
+                     active-color="teal-darken-3"
+                     v-if="open.includes(category)"
+                     :active="isSameProduct(selectedProduct,product)">
+          <v-list-item-title>{{ product.name }}</v-list-item-title>
+        </v-list-item>
+      </template>
+      <!--      <v-list-item v-for="product in filteredProducts" :key="product.name" @click="selectedProduct = product"-->
+      <!--                   :active="selectedProduct === product">-->
+      <!--        <v-list-item-title>{{ product.name }}</v-list-item-title>-->
+      <!--      </v-list-item>-->
+      <!--      -->
+      <!--      <div v-if="filteredProducts.length === 0" class="text-center text-gray-500">Keine Produkte gefunden.</div>-->
     </v-list>
   </v-navigation-drawer>
 
@@ -45,7 +62,8 @@
         <div class="lg:flex py-2">
           <div class="flex-1">
             <div class="grid gap-2 grid-cols-2 lg:grid-cols-4 no-input-details">
-              <v-text-field label="Name in der Speisekarte" v-model="product.name"/>
+              <v-text-field label="Name in der Speisekarte" v-model="product.name"
+              />
               <v-text-field label="Preis" v-model="product.price" type="number" suffix="€" step="0.01"/>
               <v-select label="Filterbare Tags" v-model="product.tags" :items="['vegan', 'vegetarisch', 'glutenfrei']"
                         chips=""
@@ -144,6 +162,8 @@ const addProduct = () => {
     optionGroups: []
   }
   restaurant.value.products.push(newProduct)
+  // jetzt direkt auswählen
+  selectedProduct.value = newProduct
 }
 
 const loading = ref(false)
@@ -153,13 +173,37 @@ const saveRestaurant = async () => {
   loading.value = false
 }
 
+const open = ref([])
+
 const selectedProduct = ref(null)
 
 const search = ref('')
 const filteredProducts = computed(() => {
+
+  const ungroupedProducts = restaurant.value.products.map(product => {
+    return {
+      ...product,
+      category: product.category || 'Ohne Kategorie'
+    }
+  })
+
+  // group by category
+  const groupedProducts = ungroupedProducts.reduce((acc, product) => {
+    if (!acc[product.category]) {
+      acc[product.category] = []
+    }
+    acc[product.category].push(product)
+    return acc
+  }, {})
+
+  // open all categories, if none are open yet
+  if (open.value.length === 0) {
+    open.value = Object.keys(groupedProducts)
+  }
+
   if (!restaurant.value.products) return []
-  if (!search.value) return restaurant.value.products
-  return restaurant.value.products.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
+  if (!search.value) return groupedProducts
+  return groupedProducts.filter(product => product.name.toLowerCase().includes(search.value.toLowerCase()))
 })
 
 const deleteProduct = async (product) => {
@@ -178,5 +222,23 @@ const deleteProduct = async (product) => {
   if (index > -1) {
     restaurant.value.products.splice(index, 1)
   }
+
+  // direkt schliessen
+  selectedProduct.value = null
+
+  // wenn es geht, wähle das element davor aus über index
+  if (restaurant.value.products[index - 1]) {
+    selectedProduct.value = restaurant.value.products[index - 1]
+  }
+
+}
+const selectProductLike = (product) => {
+  selectedProduct.value = restaurant.value.products.find(p => isSameProduct(p, product))
+}
+
+const isSameProduct = (product1, product2) => {
+  // if one of them is null, or both are null, return false
+  if (!product1 || !product2) return false
+  return product1.name === product2.name && product1.price === product2.price
 }
 </script>
