@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <v-app-bar-nav-icon @click="drawer = !drawer"/>
+    <v-app-bar-nav-icon @click="drawer = !drawer" />
     <v-spacer/>
     <v-btn text color="teal-darken-3" @click="addProduct">
       <v-icon>mdi-plus</v-icon>
@@ -92,6 +92,18 @@
         </v-btn>
       </v-card-item>
     </v-card>
+
+    <!-- IF NO PRODUCT IS SELECTED, EXPLAIN AND SHOW ADD BUTTON -->
+    <v-alert v-else color="gray" icon="mdi-information-outline"
+    >
+      <strong>Kein Produkt ausgewählt</strong>. Wähle ein Produkt aus der Liste links aus oder füge ein neues Produkt
+      hinzu.
+      <v-spacer/>
+      <v-btn @click="addProduct" class="mt-3">
+        <v-icon>mdi-plus</v-icon>
+        Neues Produkt hinzufügen
+      </v-btn>
+    </v-alert>
   </div>
 
 </template>

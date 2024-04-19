@@ -35,6 +35,7 @@ let items = [
   // {title: 'Übersicht', icon: 'mdi-view-dashboard', to: '/'},
   {title: 'Restaurant', icon: 'mdi-home', to: '/partner/verwalten/restaurant', layout: true},
   {title: 'Speisekarte', icon: 'mdi-food', to: '/partner/verwalten/speisekarte', layout: false},
+  {title: 'ChatGPT', icon: 'mdi-robot-happy', to: '/partner/verwalten/chatgpt', layout: true},
   {title: 'Personal', icon: 'mdi-account-group', to: '/partner/verwalten/personal', layout: true},
   {title: 'Einbinden', icon: 'mdi-code-tags', to: '/partner/verwalten/einbindungscode', layout: true},
   {
