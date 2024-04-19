@@ -30,7 +30,7 @@ const importRestaurant = async () => {
 
     await Swal.fire({
       title: 'Import erfolgreich',
-      text: 'Die Änderungen wurden erfolgreich geladen. Bitte überprüfe die Änderungen und speichere sie.',
+      text: 'Die Änderungen wurden erfolgreich geladen. Bitte überprüfe die Änderungen und speichere sie. Falls du nicht zufrieden bist, kannst du die Änderungen verwerfen, indem du die Seite neu lädst.',
       icon: 'success'
     })
 

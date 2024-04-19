@@ -53,6 +53,16 @@ export const useVerwaltenStore = defineStore('verwalten', {
                 return
             }
 
+            // is_demo_template und is_demo müssen gleich bleiben
+            if (this.restaurant.is_demo_template !== restaurant.is_demo_template || this.restaurant.is_demo !== restaurant.is_demo) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Fehler beim Speichern',
+                    text: 'Demo-Status darf nicht geändert werden',
+                })
+                return
+            }
+
             // felder müssen gleich bleiben
             const keys = Object.keys(this.restaurant)
             for (const key of keys) {
