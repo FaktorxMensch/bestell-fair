@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "release" ]
 
 env:
   SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
