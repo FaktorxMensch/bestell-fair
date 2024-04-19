@@ -1,13 +1,10 @@
 <template>
-  <div class="flex justify-between items-center mb-1">
-    <v-chip color="teal" text-color="white" class="me-2">Neu</v-chip>
-    <p class="text-gray-600">
-      Verwalte hier die Konten deines Personals, mit denen Bestellungen angenommen werden
-      können.
-    </p>
+  <partner-verwalten-nav-header
+      subtitle=" Verwalte hier die Konten deines Personals, mit denen Bestellungen angenommen werden können. "
+      :is-new="true">
     <v-spacer/>
     <partner-verwalten-dialog-personal/>
-  </div>
+  </partner-verwalten-nav-header>
   <v-card>
     <partner-verwalten-table-personal/>
   </v-card>
