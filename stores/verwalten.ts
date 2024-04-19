@@ -42,6 +42,32 @@ export const useVerwaltenStore = defineStore('verwalten', {
         pushRestaurant(restaurant) {
             this.restaurants.push(restaurant)
         },
+        overwriteCurrentRestaurant(restaurant) {
+            // stelle sicher, dass die struktur des restaurants gleich bleibt
+            if (this.restaurant.id !== restaurant.id) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Fehler beim Speichern',
+                    text: 'Restaurant ID darf nicht geändert werden',
+                })
+                return
+            }
+
+            // felder müssen gleich bleiben
+            const keys = Object.keys(this.restaurant)
+            for (const key of keys) {
+                if (restaurant[key] === undefined) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Fehler beim Speichern',
+                        text: `Feld ${key} fehlt`,
+                    })
+                    return
+                }
+            }
+
+            this.restaurants[this.restaurantIndex] = restaurant
+        },
         setRestaurant(id) {
             const index = this.restaurants.findIndex((r) => r.id === id)
             if (index >= 0) {
