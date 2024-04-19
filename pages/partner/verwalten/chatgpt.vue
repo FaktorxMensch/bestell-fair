@@ -1,7 +1,10 @@
 <template>
   <partner-verwalten-nav-header
+      :is-new="true"
       subtitle="Bearbeite Dieses JSON mit ChatGPT und klicke dann auf Änderungen laden.">
-
+    <v-spacer/>
+    <v-btn @click="openChatgpt" append-icon="mdi-open-in-new" target="_blank"
+           text="ChatGPT öffnen"/>
   </partner-verwalten-nav-header>
   <v-card>
     <v-card-title>
@@ -61,4 +64,8 @@ const importRestaurant = async () => {
 const hasChanges = computed(() => {
   return restaurantAsJSON.value !== JSON.stringify(verwaltenStore.restaurant)
 })
+
+const openChatgpt = () => {
+  window.open('https://chat.openai.com/?model=gpt-4', '_blank')
+}
 </script>

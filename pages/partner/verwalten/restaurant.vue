@@ -1,13 +1,11 @@
 <template>
-    <partner-verwalten-nav-header subtitle="Verwalte hier die Anzeige Deines Restaurants in der App.">
-      <v-btn text="Änderungen speichern"
-             variant="flat"
-             prepend-icon="mdi-content-save"
-             color="teal-darken-3"
-             :loading="loading"
-             @click="saveRestaurant"/>
-    </partner-verwalten-nav-header>
-    <partner-verwalten-form-restaurant/>
+  <partner-verwalten-nav-header subtitle="Verwalte hier die Anzeige Deines Restaurants in der App.">
+    <v-btn text="Änderungen speichern"
+           prepend-icon="mdi-content-save"
+           :loading="loading"
+           @click="saveRestaurant"/>
+  </partner-verwalten-nav-header>
+  <partner-verwalten-form-restaurant/>
 </template>
 <script setup>
 definePageMeta({layout: 'partner-verwalten'})
