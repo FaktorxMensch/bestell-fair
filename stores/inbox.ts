@@ -89,7 +89,7 @@ export const useInboxStore = defineStore('inbox', {
             const {
                 data: restaurant_open,
                 error: error2
-            } = await supabase.from('restaurant_open').select('*').eq('restaurant', '8c9ca1b6-0f91-407f-a073-c2b90407d571')
+            } = await supabase.from('restaurant_open').select('*').eq('restaurant', this.restaurant)
             if (error2) {
                 console.error(error2)
                 return
@@ -187,7 +187,7 @@ export const useInboxStore = defineStore('inbox', {
             const supabase = useSupabaseClient()
             const {data, error} = await supabase.from('restaurant_open').upsert({
                     // ToDo Domi: Select restaurant_id from restaurant_has_personal oder user_owns_restaurant
-                    restaurant: "8c9ca1b6-0f91-407f-a073-c2b90407d571",
+                    restaurant: this.restaurant,
                     closed_until: this.closedUntil
                 }
             )
