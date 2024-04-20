@@ -1,7 +1,8 @@
 name: Enable automerge on branch main
 
 on:
-  pull_request_target:
+  pull_request:
+    branches: [ main ]
 
   # Try enabling auto-merge for the specified pull request,
   # review or all open pull requests if none is specified.
