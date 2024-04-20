@@ -32,24 +32,13 @@
 
 
     <!-- SCREENSHOTS -->
-    <div class="bg-gray-100 px-4 py-8 md:px-6 lg:px-8 text-center">
+    <div class="bg-gray-100  p-4 lg:py-8 md:px-6 lg:px-8 text-center">
 
-      <div class="lg:px-20 lg:py-28 max-w-3xl mx-auto px-10 pb-15">
-        <h1 class="text-7xl font-bold text-center">Schnell erklärt</h1>
+      <div class="lg:px-20 lg:py-28 max-w-3xl mx-auto p-4 pb-15">
+        <h1 class="text-5xl lg:text-7xl font-bold text-center">Schnell erklärt</h1>
         <p class="text-2xl text-center mt-6">Du kannst bei Deinem Lieblingsrestaurant zur Abholung vorbestellen. Dein
           Restaurant zahlt keine Provision, und erhält den vollen Betrag.</p>
       </div>
-
-      <!--      <div class="mb-3 font-bold text-4xl lg:text-6xl lg:pt-12 ">-->
-      <!--        <span class="text-gray-900">Schnell erklärt, </span>-->
-      <!--        <span class="text-teal-800"> was wir tun</span>-->
-      <!--      </div>-->
-      <!--      <div class="text-gray-700 max-w-6xl my-4 mx-auto lg:text-xl text-lg mb-8">Wir haben eine Plattform entwickelt, die-->
-      <!--        es-->
-      <!--        dir ermöglicht,-->
-      <!--        deine Lieblingsgerichte vorzubestellen und dann bei deinem Lieblingsrestaurant abzuholen. Dabei verzichten wir-->
-      <!--        auf eine Provision, sodass die Restaurants den vollen Betrag erhalten.-->
-      <!--      </div>-->
 
       <div class="mb-3 font-bold text-3xl lg:text-4xl lg:pt-8 text-gray-900">Für den Gast:</div>
       <!-- Beispiel Bild 1 -->
@@ -86,38 +75,8 @@
 
     </div>
 
-    <!-- HERO -->
-    <!--    <div class="flex flex-col md:flex-row">-->
-    <!--      <img src="/landing/draw_authentication_fs4.jpeg"-->
-    <!--           alt="Image" class="md:ml-auto block md:hidden object-cover"-->
-    <!--           style="height: 30vh"/>-->
-    <!--      <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">-->
-    <!--        <section class="flex flex-col lg:px-12 gap-2">-->
-    <!--          <span class="block text-4xl sm:text-6xl font-bold mb-1">Über <span-->
-    <!--              class="text-green-600">Bestell Fair</span></span>-->
-    <!--          <div class="text-2xl sm:text-4xl font-bold mb-7">Was wir machen</div>-->
-    <!--          <p class="mt-0 mb-5 text-xl text-700 line-height-3">-->
-    <!--            Unser Team hat es sich zur Aufgabe gemacht, die Gastronomie in der Dresdner Neustadt zu unterstützen.-->
-    <!--            Wir bieten eine Plattform, auf der du deine Lieblingsgerichte vorbestellen kannst, um sie dann bei deinem-->
-    <!--            Lieblingsrestaurant abzuholen. Dabei verzichten wir auf eine Provision, sodass die Restaurants den vollen-->
-    <!--            Betrag erhalten.-->
-
-    <!--          </p>-->
-    <!--          <div>-->
-    <!--            <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner-->
-    <!--              werden-->
-    <!--            </v-btn>-->
-    <!--          </div>-->
-    <!--        </section>-->
-    <!--      </div>-->
-    <!--      <div class="col-12 flex-1 md:col-6 overflow-hidden">-->
-    <!--        <img src="/landing/draw_authentication_fs4.jpeg" alt="Image" class="md:ml-auto hidden md:block"-->
-    <!--             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);min-height: calc(100vh - 64px);"/>-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <div class="px-20 py-28 max-w-3xl mx-auto">
-      <h1 class="text-7xl font-bold text-center">Roadmap</h1>
+    <div class="p-8 lg:px-20 lg:py-28 max-w-3xl mx-auto">
+      <h1 class="text-5xl lg:text-7xl font-bold text-center">Roadmap</h1>
       <p class="text-2xl text-center mt-6">Wir entwickeln unsere Plattform stetig weiter, um dir die beste Erfahrung
         zu
         bieten.</p>
@@ -148,7 +107,7 @@
     </div>
 
     <!-- FUTURE FUNCTIONALITY 2/3 -->
-    <div class="bg-white flex  flex-col md:flex-row">
+    <div class="bg-white flex  flex-col md:flex-row flex-col-reverse">
       <!-- badge "In kürze verfügbar" -->
       <div class="col-12 flex-1 md:col-6 p-8 py-12 md:text-left flex flex-col justify-center md:items-start">
         <section class="flex flex-col lg:px-12 gap-2">
@@ -169,12 +128,6 @@
         <img src="/landing/functionality/collection_orders.jpeg" alt="Image" class="md:ml-auto block md:hidden"
              style="min-height: calc(50vh - 64px);"/>
       </div>
-      <!--      -->
-      <!--      <div class="col-12 flex-1 md:col-6 overflow-hidden p-20">-->
-      <!--        <img src="/landing/functionality/collection_orders.jpeg" alt="Image"-->
-      <!--             class="rounded-full md:ml-auto hidden md:block"-->
-      <!--             style="min-height: calc(50vh - 64px);"/>-->
-      <!--      </div>-->
     </div>
     <!-- FUTURE FUNCTIONALITY 3/3 -->
     <div class="bg-amber-100 flex  flex-col md:flex-row">
@@ -203,19 +156,19 @@
 
     <!-- FEATURES -->
     <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-gray-100">
-      <div class="mb-6 font-bold text-4xl lg:text-6xl lg:pt-12 ">
+      <h1 class="text-5xl lg:text-7xl font-bold text-center lg:mt-6 max-w-3xl mx-auto">
         <span class="text-gray-900">Einmal zahlen, </span>
         <span class="text-teal-800">unzählige Funktionen</span>
-      </div>
-      <div class="text-gray-700 lg:text-2xl text-lg mb-8 max-w-4xl mx-auto">Wir entwickeln unsere Plattform stetig
+      </h1>
+      <p class="text-gray-700 text-2xl mt-6 mb-8 max-w-4xl mx-auto">Wir entwickeln unsere Plattform stetig
         weiter, alle
         Funktionen sind im Preis enthalten und jegliche Zusatzkosten.
-      </div>
+      </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-16 lg:max-w-6xl mx-auto">
         <!-- Transparent Pricing -->
         <div class="mb-4 px-5">
-            <span class="p-3 shadow-lg mb-3 inline-block bg-white rounded-lg">
+            <span class="p-3 shadow-lg mb-3 inline-block bg-white rounded-xl">
                 <v-icon size="54" color="teal">mdi-water-opacity</v-icon>
             </span>
           <div class="text-gray-900 text-xl mb-3 font-medium">Transparente Preisgestaltung</div>
@@ -273,11 +226,13 @@
 
     <!-- PRICING -->
 
-    <div class="bg-gray-200 px-4 py-16 lg:px-24">
-      <div class="text-gray-900 font-bold text-6xl mb-4 text-center">Preise</div>
-      <div class="text-gray-700 lg:text-2xl text-lg mb-8 text-center">
+    <div class="bg-gray-200 p-4 lg:py-16 lg:px-24">
+      <h1 class="text-5xl p-4 lg:text-7xl font-bold text-center">
+        <span class="text-gray-900">Preise, </span>
+        <span class="text-teal-800">die fair sind</span>
+      </h1>
+      <div class="text-gray-700 px-4 lg:text-2xl text-lg mb-8 text-center max-w-4xl mx-auto">
         Wir bieten drei verschiedene Pakete an, um für alle einen fairen und bezahlbaren Preis zu ermöglichen.
-        <br/>
         *Zukünftige Funktionen
       </div>
 
@@ -285,8 +240,8 @@
         <!-- Basic Plan -->
         <div class="col-span-1">
           <div class="p-3 h-full">
-            <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
-              <div class="text-gray-900 font-medium text-xl mb-2">Supporti</div>
+            <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
+              <h1 class="text-gray-900 font-medium text-4xl p-4 text-center mb-2">Supporti</h1>
               <div class="text-gray-600">Alle Funktionen, unterstützt andere Partner</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
@@ -336,8 +291,8 @@
         <!-- Basic Plan -->
         <div class="col-span-1">
           <div class="p-3 h-full">
-            <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
-              <div class="text-gray-900 font-medium text-xl mb-2">Supporti</div>
+            <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
+              <h1 class="font-medium text-4xl p-4 text-center mb-2">Supporti-Plan</h1>
               <div class="text-gray-600">Alle Funktionen, unterstützt andere Partner</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
@@ -387,8 +342,8 @@
         <!-- Basic Plan -->
         <div class="col-span-1">
           <div class="p-3 h-full">
-            <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-md">
-              <div class="text-gray-900 font-medium text-xl mb-2">Soli-Plan</div>
+            <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
+              <h1 class="font-medium text-4xl p-4 text-center mb-2">Soli-Plan</h1>
               <div class="text-gray-600">Alle Funktionen, gestützt durch andere Partner</div>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
@@ -493,6 +448,10 @@ footer a::after {
     width: 100%;
     height: auto;
   }
+}
+
+* {
+  max-width: 100vw;
 }
 
 .insta > div {
