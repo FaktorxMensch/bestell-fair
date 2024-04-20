@@ -76,6 +76,7 @@ export const useInboxStore = defineStore('inbox', {
                 console.warn('init() already called')
                 return
             }
+            const supabase = useSupabaseClient()
 
             // get orders
             await this.getOrders()
