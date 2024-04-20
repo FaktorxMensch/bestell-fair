@@ -23,7 +23,6 @@ export const useInboxStore = defineStore('inbox', {
         order: null, // die aktuell geöffnete Bestellung
         orders: [], // alle Bestellungen
         updatedAt: new Date(),
-        restaurant:null,
         listenerSet: false, // wurde der Listener für neue Bestellungen gesetzt
         initDone: false,
         closedUntil: null,
@@ -31,6 +30,19 @@ export const useInboxStore = defineStore('inbox', {
         closedDecreaser: null,
         // isDarkMode: true,
     }),
+    getters: {
+        restaurant(state) {
+            // from the first order get the restaurant
+            if (state.orders.length === 0) return null
+            return state.orders[0].restaurant_id
+            // return 'NOT IMPLEMENTED YET'
+            // const verwaltenStore = useVerwaltenStore()
+            // console.log('restaurant', verwaltenStore.restaurants)
+            // if (verwaltenStore.restaurant === null) return null
+            // return verwaltenStore.restaurant
+        }
+
+    },
     actions: {
         playClick() {
             const audio = new Audio('/partner/inbox/click.mp3')
@@ -46,13 +58,8 @@ export const useInboxStore = defineStore('inbox', {
             this.playClick()
         },
         // get orders for the restaurant
-        async init() {
-            if (this.initDone) {
-                console.warn('init() already called')
-                return
-            }
+        async getOrders() {
             const supabase = useSupabaseClient()
-            // alle orders ausser Entwurf und Archiviert
             const {
                 data,
                 error
@@ -62,17 +69,33 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
             this.orders = data
-            console.log('orders', this.orders)
+            this.updatedAt = new Date()
+        },
+        async init() {
+            if (this.initDone) {
+                console.warn('init() already called')
+                return
+            }
+
+            // get orders
+            await this.getOrders()
+            // set 30s interval to get new orders// TODO fix websocket and remove this
+            setInterval(() => {
+                this.getOrders()
+            }, 30000)
 
             // get restaurant_open
             // ToDo Domi: Select restaurant_id from restaurant_has_personal oder user_owns_restaurant
-            const {data: restaurant_open, error: error2} = await supabase.from('restaurant_open').select('*').eq('restaurant', '8c9ca1b6-0f91-407f-a073-c2b90407d571')
+            const {
+                data: restaurant_open,
+                error: error2
+            } = await supabase.from('restaurant_open').select('*').eq('restaurant', '8c9ca1b6-0f91-407f-a073-c2b90407d571')
             if (error2) {
                 console.error(error2)
                 return
             }
             if (restaurant_open) {
-                this.closedUntil = restaurant_open[0].closed_until
+                this.closedUntil = restaurant_open?.[0]?.closed_until
                 // this.changeTempClose()
             }
 
@@ -145,16 +168,16 @@ export const useInboxStore = defineStore('inbox', {
                 //     Kill setInterval which was set a bit earlier
                 // console.log('clearing interval timer')
                 clearInterval(this.closedDecreaser)
-            } else if (this.closedUntil && new Date(this.closedUntil) > new Date()){
-                    // Increment it by 30 minutes but be aware of date
-                    this.closedUntil = new Date(new Date(this.closedUntil).getTime() + 30 * 60000)
-                    this.closedMinutes = Math.round((new Date(this.closedUntil).getTime() - new Date().getTime()) / 60000)
+            } else if (this.closedUntil && new Date(this.closedUntil) > new Date()) {
+                // Increment it by 30 minutes but be aware of date
+                this.closedUntil = new Date(new Date(this.closedUntil).getTime() + 30 * 60000)
+                this.closedMinutes = Math.round((new Date(this.closedUntil).getTime() - new Date().getTime()) / 60000)
             } else {
-                    // Set it to 30 minutes in the future
-                    this.closedUntil = new Date(new Date().getTime() + 30 * 60000)
-                    this.closedMinutes = 30
+                // Set it to 30 minutes in the future
+                this.closedUntil = new Date(new Date().getTime() + 30 * 60000)
+                this.closedMinutes = 30
             }
-            if(this.closedMinutes > 0) {
+            if (this.closedMinutes > 0) {
                 // Start async function that decreases closedUntil every 1 minute
                 this.closedDecreaser = setInterval(() => {
                     console.log('decreaseClosedMinutes running')
@@ -180,9 +203,9 @@ export const useInboxStore = defineStore('inbox', {
                 console.warn('listenForNewOrders() already called')
                 return
             }
+
             const supabase = useSupabaseClient()
             // TODO implement
-
 
             supabase
                 .channel('realtime')
@@ -206,6 +229,8 @@ export const useInboxStore = defineStore('inbox', {
 
 
             this.listenerSet = true
+
+
         },
     }
 })

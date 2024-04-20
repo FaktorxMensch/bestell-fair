@@ -59,7 +59,8 @@ setInterval(() => {
       </v-toolbar-title>
       <v-spacer/>
       <v-chip :color="open ? 'grey' : 'warning'"
-              class="ml-4"
+              variant="text"
+              class="ml-4 opacity-50"
       size="default">
       Bestellungen {{open? "offen" : 'noch ' + closedMinutes + ' min geschlossen'}}
     </v-chip>

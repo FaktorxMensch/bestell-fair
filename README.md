@@ -2,6 +2,8 @@
 supabase url:  https://api.bestell-fair.de
 release branch ist: production
 
+gh pr erstenne: `gh pr create --base release --title "pull request" --body "erbitte review" --assignee @me`
+
 # Admin
 Wenn man *@bestell-fair.de* als Email hat, ist man automatisch Admin.
 

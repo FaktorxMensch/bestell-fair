@@ -1,15 +1,12 @@
-import {createClient} from '@supabase/supabase-js'
 
-// dotenv
-import {config} from 'dotenv'
-config()
 
 // zeit, nach der ein demo restaurant gelöscht wird
+import {supabaseServiceRole as supabase} from "~/composables/supabaseServiceRole";
+
 const lifeTime = 24 * 60 * 60 * 1000
 
 export default defineEventHandler(async event => {
 
-    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE)
 
     // allow a maxium of 50 demo restaurants at a time
     const {
