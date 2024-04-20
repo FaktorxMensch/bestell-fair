@@ -1,6 +1,7 @@
 # Hosting
 supabase url:  https://api.bestell-fair.de
-release branch ist: production
+release branch ist: release
+work on main. merge locally to main, then pullrequest to release
 
 gh pr erstenne: `gh pr create --base release --title "pull request" --body "erbitte review" --assignee @me`
 
