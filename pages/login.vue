@@ -117,12 +117,14 @@ const loading = ref(false)
           <v-btn rounded size="large" type="submit" variant="flat" color="teal-darken-3"
                  :loading="loading" :disabled="!email || !password"
                  @click="signInWithPassword">
-            Login
+            Anmelden
           </v-btn>
           <!-- register -->
           <!--          <v-btn rounded size="large" variant="plain" @click="$router.push('/register')" class="normal-case ms-2"> Neu hier? Registrieren </v-btn>-->
-          <v-btn rounded size="large" variant="plain" @click="$router.push('/partner-werden')" class="normal-case ms-2">
-            Neu hier? Partner werden
+          <v-btn rounded size="large" variant="plain" @click="$router.push('/demo')"
+                 append-icon="mdi-arrow-right"
+                 class="normal-case ms-2">
+            Neu hier? Demo starten
           </v-btn>
         </v-form>
       </v-col>

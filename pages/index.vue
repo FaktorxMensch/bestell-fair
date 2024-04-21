@@ -280,8 +280,8 @@
                 </li>
               </ul>
               <hr class="mb-3 border-t border-gray-300 mt-auto"/>
-              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner
-                werden
+              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/demo">Jetzt Demo
+                starten
               </v-btn>
             </div>
           </div>
@@ -331,8 +331,8 @@
                 </li>
               </ul>
               <hr class="mb-3 border-t border-gray-300 mt-auto"/>
-              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/partner-werden">Jetzt Partner
-                werden
+              <v-btn rounded size="large" variant="flat" color="teal-darken-3" href="/demo">Jetzt
+                Demo starten
               </v-btn>
             </div>
           </div>
