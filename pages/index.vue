@@ -236,13 +236,14 @@
         *Zukünftige Funktionen
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:max-w-6xl mx-auto">
         <!-- Basic Plan -->
         <div class="col-span-1">
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
-              <h1 class="text-gray-900 font-medium text-4xl p-4 text-center mb-2">Supporti</h1>
-              <div class="text-gray-600">Alle Funktionen, unterstützt andere Partner</div>
+              <h1 class="text-gray-900 font-medium text-4xl p-4 text-center mb-2">Testen</h1>
+              <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, unterstützt andere Partner</div>
+              <img :src="`/landing/tarife/${randomImages[0]}.jpg`" alt="Image" class="w-full mt-5 rounded-lg object-cover"/>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">22€</span>
@@ -292,8 +293,9 @@
         <div class="col-span-1">
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
-              <h1 class="font-medium text-4xl p-4 text-center mb-2">Supporti-Plan</h1>
-              <div class="text-gray-600">Alle Funktionen, unterstützt andere Partner</div>
+              <h1 class="font-medium text-4xl p-4 text-center mb-2">Supporti</h1>
+              <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, unterstützt andere Partner</div>
+              <img :src="`/landing/tarife/${randomImages[1]}.jpg`" alt="Image" class="w-full mt-5 rounded-lg object-cover"/>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">220€</span>
@@ -344,7 +346,8 @@
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
               <h1 class="font-medium text-4xl p-4 text-center mb-2">Soli-Plan</h1>
-              <div class="text-gray-600">Alle Funktionen, gestützt durch andere Partner</div>
+              <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, gestützt durch andere Partner</div>
+              <img :src="`/landing/tarife/${randomImages[2]}.jpg`" alt="Image" class="w-full mt-5 rounded-lg object-cover"/>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">110€</span>
@@ -460,4 +463,6 @@ footer a::after {
 </style>
 <script setup lang="ts">
 definePageMeta({layout: 'landing'})
+// get 3 unique random images
+const randomImages = [...Array(6).keys()].sort(() => Math.random() - 0.5).slice(0, 3)
 </script>
