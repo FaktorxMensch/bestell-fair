@@ -209,7 +209,7 @@ export const useInboxStore = defineStore('inbox', {
             // TODO implement
 
             supabase
-                .channel('realtime')
+                .channel('realtime-insert')
                 .on('postgres_changes', {event: 'INSERT', schema: 'public', table: 'orders'}, payload => {
                     console.log('Change received!', payload)
                     this.orders.push(payload.new)
@@ -219,7 +219,7 @@ export const useInboxStore = defineStore('inbox', {
 
             // also listen to update
             supabase
-                .channel('realtime')
+                .channel('realtime-update')
                 .on('postgres_changes', {event: 'UPDATE', schema: 'public', table: 'orders'}, payload => {
                     console.log('Change received!', payload)
                     const index = this.orders.findIndex(o => o.id === payload.new.id)
