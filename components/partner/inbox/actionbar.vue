@@ -53,9 +53,9 @@ setInterval(() => {
     </template>
     <template v-else>
       <v-toolbar-title>
-        <v-chip :color="connected ? 'success' : 'error'" :prepend-icon="connected ? 'mdi-access-point' : 'mdi-access-point-off'">
-          {{ connected ? 'Verbunden' : 'Keine Verbindung' }}
-        </v-chip>
+<!--        <v-chip :color="connected ? 'success' : 'error'" :prepend-icon="connected ? 'mdi-access-point' : 'mdi-access-point-off'">-->
+<!--          {{ connected ? 'Verbunden' : 'Keine Verbindung' }}-->
+<!--        </v-chip>-->
       </v-toolbar-title>
       <v-spacer/>
       <v-chip :color="open ? 'grey' : 'warning'"
