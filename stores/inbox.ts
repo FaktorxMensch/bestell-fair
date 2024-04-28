@@ -76,6 +76,7 @@ export const useInboxStore = defineStore('inbox', {
                 console.warn('init() already called')
                 return
             }
+            const supabase = useSupabaseClient()
 
             // get orders
             await this.getOrders()
@@ -85,11 +86,13 @@ export const useInboxStore = defineStore('inbox', {
             }, 30000)
 
             // get restaurant_open
-            // ToDo Domi: Select restaurant_id from restaurant_has_personal oder user_owns_restaurant
+            // ToDo Domi: The selected restaurant is the first one which the user owns. So not working for multiple restaurants or persnal which is in the table restaurant_has_personal!!!!!!!!!!!
             const {
                 data: restaurant_open,
                 error: error2
-            } = await supabase.from('restaurant_open').select('*').eq('restaurant', '8c9ca1b6-0f91-407f-a073-c2b90407d571')
+                //Select only the first one
+            } = await supabase.from('user_owns_restaurant').select('*').limit(1)
+            console.log("Restaurant id: ", restaurant_open)
             if (error2) {
                 console.error(error2)
                 return

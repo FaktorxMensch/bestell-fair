@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "dev-1pass": "OP_SERVICE_ACCOUNT_TOKEN=ops_eyJzaWduSW5BZGRyZXNzIjoibXkuMXBhc3N3b3JkLmNvbSIsInVzZXJBdXRoIjp7Im1ldGhvZCI6IlNSUGctNDA5NiIsImFsZyI6IlBCRVMyZy1IUzI1NiIsIml0ZXJhdGlvbnMiOjY1MDAwMCwic2FsdCI6ImtZM3dZUmJFUU1NWDdwcWJCZUV6VHcifSwiZW1haWwiOiJqdXhrdHdveDd6bmt1QDFwYXNzd29yZHNlcnZpY2VhY2NvdW50cy5jb20iLCJzcnBYIjoiZjNlZjNjZDc3OGI4YjZkY2ZjNWM1NGZmODdlOWUwZjUyMDMzNTVjMGNlM2ZhYmY5YzIyYmM2YjI5YjY4NzBlNCIsIm11ayI6eyJhbGciOiJBMjU2R0NNIiwiZXh0Ijp0cnVlLCJrIjoib0Z1UlJCYndPZWVXdXk5VUc0Z0lKNHlYaEtwNnlPYU43RGlnbUsxU2pkZyIsImtleV9vcHMiOlsiZW5jcnlwdCIsImRlY3J5cHQiXSwia3R5Ijoib2N0Iiwia2lkIjoibXAifSwic2VjcmV0S2V5IjoiQTMtWTdOQkRTLUY1QlNYTi1UQ0I0TS00SDNTRi1MNkNZOC1CR0NKSyIsInRocm90dGxlU2VjcmV0Ijp7InNlZWQiOiJjNDU2YmU1NWRjMmZjYTZhYzcxY2MyMjM0MGY0YWM0M2VmYmQ4ZWRjNjhjNmIyMDY0Zjc3NGNkNWI2M2FjNGRjIiwidXVpZCI6IkpYTEM0S1NWUEpCWFRGNkhaUkVOUTRLNjQ0In0sImRldmljZVV1aWQiOiJyem1zZnZpcXBhb3N5YnV1eDMzd2Q2ZGoyeSJ9 op run --env-file=.env -- source ~/.zshrc ; nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
