@@ -154,6 +154,16 @@
     </div>
 
 
+    <div class="p-16 text-center flex flex-col gap-2">
+      <h1 class="text-5xl lg:text-7xl font-bold text-center lg:mt-6 max-w-3xl mx-auto">
+        Du bist ein Restaurant?</h1>
+      <a href="/restaurant"
+         class="text-teal-800 text-xl lg:text-4xl font-bold py-4 px-8 rounded-full hover:underline cursor-pointer">
+        Nein, ich möchte einfach nur essen vorbestellen &rarr;
+      </a>
+      <h2 class="text-xl text-gray-500 font-bold ">Ja, ich möchte das auch (scrolle weiter) &darr; </h2>
+    </div>
+
     <!-- FEATURES -->
     <div class="px-4 py-8 md:px-6 lg:px-8 text-center bg-gray-100">
       <h1 class="text-5xl lg:text-7xl font-bold text-center lg:mt-6 max-w-3xl mx-auto">
@@ -243,7 +253,8 @@
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
               <h1 class="text-gray-900 font-medium text-4xl p-4 text-center mb-2">Testen</h1>
               <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, unterstützt andere Partner</div>
-              <img :src="`/landing/tarife/${randomImages[0]}.jpg`" alt="Image" class="w-full mt-5 rounded-lg object-cover"/>
+              <img :src="`/landing/tarife/${randomImages[0]}.jpg`" alt="Image"
+                   class="w-full mt-5 rounded-lg object-cover"/>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">22€</span>
@@ -295,7 +306,8 @@
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
               <h1 class="font-medium text-4xl p-4 text-center mb-2">Supporti</h1>
               <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, unterstützt andere Partner</div>
-              <img :src="`/landing/tarife/${randomImages[1]}.jpg`" alt="Image" class="w-full mt-5 rounded-lg object-cover"/>
+              <img :src="`/landing/tarife/${randomImages[1]}.jpg`" alt="Image"
+                   class="w-full mt-5 rounded-lg object-cover"/>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">220€</span>
@@ -346,8 +358,10 @@
           <div class="p-3 h-full">
             <div class="shadow-lg p-3 h-full flex flex-col bg-white rounded-3xl">
               <h1 class="font-medium text-4xl p-4 text-center mb-2">Soli-Plan</h1>
-              <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, gestützt durch andere Partner</div>
-              <img :src="`/landing/tarife/${randomImages[2]}.jpg`" alt="Image" class="w-full mt-5 rounded-lg object-cover"/>
+              <div class="text-gray-600 text-center max-w-64 mx-auto">Alle Funktionen, gestützt durch andere Partner
+              </div>
+              <img :src="`/landing/tarife/${randomImages[2]}.jpg`" alt="Image"
+                   class="w-full mt-5 rounded-lg object-cover"/>
               <hr class="my-3 border-t border-gray-300"/>
               <div class="flex items-center">
                 <span class="font-bold text-2xl text-gray-900">110€</span>

@@ -35,7 +35,7 @@
 
       <!-- wenn bestellung neu, zeigen alert, dass die bestellung noch nicht bestätigt wurde -->
       <v-alert v-if="order.status === 'Neu'" type="warning" icon="mdi-information"
-      class="mt-3">
+               class="mt-3">
         HINWEIS: Diese Bestellung wurde vom Restaurant noch nicht bestätigt. Bitte warte auf die Bestätigung.
       </v-alert>
 
@@ -99,10 +99,26 @@
   <v-alert v-else>Bestellung nicht gefunden.</v-alert>
 
   <div class="text-center mb-3">
-    <gast-dialog-report :order="order.id"/>
+    <v-btn :href="mailtolink"
+           color="error"
+           size="large"
+           variant="flat"
+           rounded
+           class="my-3"
+           prepend-icon="mdi-alert-circle-outline"
+    >Problem oder Feedback zur Plattform?
+    </v-btn>
+
+    <p class="text-gray-500 text-sm">Ein Projekt unterstützt von <a href="https://faktorxmensch.com"
+                                                                    class="text-gray-500 underline hover:text-gray-700"
+                                                                    target="_blank" rel="noopener noreferrer">Faktor&times;Mensch</a></p>
+    <!--    <gast-dialog-report :order="order.id"/>-->
   </div>
 </template>
 <script setup>
+const mailtolink = computed(()=> {
+  return `mailto:info@bestell-fair.de?subject=Problem oder Feedback zur Plattform&body=Hallo Bestell-Fair Team, meine Bestellung ist ${order.value.id} und ich habe folgendes Problem/Feedback: `
+})
 const supabase = useSupabaseClient()
 const route = useRoute()
 const {data: orders, error} = await supabase.rpc('get_order', {order_id: route.params.bestellung});
