@@ -18,7 +18,12 @@
       <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
       <div class="flex justify-between">
         <p>Bestellt für {{ order.name || 'Gast' }} aufgegeben {{ timeDiff(order.created_at) }}, Abholung
-          {{ timeDiff(order.pickup_at) }} (um {{ order.pickup_at.substr(11, 5) }} Uhr).
+          {{ timeDiff(order.pickup_at) }} (um {{
+            new Date(order.pickup_at).toLocaleTimeString('de-de', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          }} Uhr).
           <!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
           Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.
         </p>
