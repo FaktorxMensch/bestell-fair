@@ -82,6 +82,7 @@ function handleKeyPress(event) {
 <!--        Show all available information about who ordered-->
         <div class="flex flex-col p-4">
           <p class="text-md">Bestellt von {{ order?.name }}</p>
+          <p>Anmerkungen: {{ order?.remark }}</p>
           <p>Telefon: {{ order?.phone }}</p>
           <p>Email: {{ order?.email }}</p>
         </div>
