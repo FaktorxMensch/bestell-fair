@@ -137,6 +137,7 @@ export const useGastStore = defineStore('gast', {
                 id: insert_id,
                 restaurant_id: this.restaurant_id,
                 custom_fields: this.custom_fields,
+                remark: this.remark,
                 products: this.products,
                 total_price: this.price,
                 status: 'Neu',
