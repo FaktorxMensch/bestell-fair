@@ -35,6 +35,7 @@
       <p class="font-bold text-lg mt-2"> {{ pricef(product.price) }}
         <v-btn size="small" class="float-right -mt-4 mb-2"
                variant="text"
+               v-if="hasAdditionalInfo(product)"
                :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-information-outline'"
                @click="showAdditionalInfo = !showAdditionalInfo"/>
       </p>
@@ -66,5 +67,9 @@ const getWahlAusText = (optionGroups) => {
   const first4 = options.slice(0, 4)
 
   return first4.join(', ') + (options.length > 4 ? ' und mehr' : '')
+}
+
+const hasAdditionalInfo = (product) => {
+  return product.tags?.length > 0 || product.allergens?.length > 0 || product.additives?.length > 0 || product.ingredients?.length > 0
 }
 </script>
