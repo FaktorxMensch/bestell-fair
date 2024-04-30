@@ -6,9 +6,11 @@
            variant="tonal"
            color="teal-darken-3"/>
   </v-app-bar>
-  <v-card v-if="order" style="margin-top:-10px" class="max-w-2xl mx-auto">
+  <v-card v-if="order" style="margin-top:-10px" variant="flat" class="max-w-2xl mx-auto">
 
-    <v-alert v-if="order.status === 'Neu'" type="warning" icon="mdi-information" class="mt-3"> HINWEIS: Diese Bestellung wurde vom Restaurant noch nicht gesehen. Bitte warte auf die Bestätigung des Restaurants. </v-alert>
+    <!--    <v-alert v-if="order.status === 'Neu'" type="warning" icon="mdi-information" class="mt-3"> HINWEIS: Diese Bestellung-->
+    <!--      wurde vom Restaurant noch nicht gesehen. Bitte warte auf die Bestätigung des Restaurants.-->
+    <!--    </v-alert>-->
 
     <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.feature_image_url"
          class="flex-shrink-0 h-40 w-full object-cover border-b"/>
@@ -19,18 +21,81 @@
     <v-card-text>
 
       <h2 class="text-2xl font-bold">{{ restaurant.name }}</h2>
-      <div class="flex justify-between">
-        <p>Bestellt für {{ order.name || 'Gast' }} aufgegeben {{ timeDiff(order.created_at) }}, Abholung
-          {{ timeDiff(order.pickup_at) }} (um {{
+      <div class="flex gap-2 flex-wrap my-2">
+
+        <v-chip density="compact" v-if="order.status === 'Storniert'" color="red" prepend-icon="mdi-cancel">Bestellung
+          Storniert
+        </v-chip>
+        <v-chip density="compact" v-else-if="order.status === 'Neu'" color="orange" prepend-icon="mdi-information">Das
+          Restaurant hat die Bestellung noch nicht gesehen
+        </v-chip>
+        <v-chip v-else :prepend-icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"
+                variant="flat"
+                :class="orderstatusToClass(order.status)"
+                density="compact"
+        >Bestellung {{ order.status }}
+        </v-chip>
+
+        <v-chip density="compact" prepend-icon="mdi-account">{{ order.name || 'Gast' }}</v-chip>
+
+        <v-chip density="compact" prepend-icon="mdi-room-service" v-if="order.pickup_at_init === order.pickup_at">Abholung
+          {{ timeDiff(order.pickup_at) }}
+        </v-chip>
+        <v-chip density="compact" prepend-icon="mdi-room-service" v-else
+        >Abholung&nbsp;<span class="line-through">
+            {{
+            new Date(order.pickup_at_init).toLocaleTimeString('de-de', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          }}
+          </span>›<b>
+          {{
             new Date(order.pickup_at).toLocaleTimeString('de-de', {
               hour: '2-digit',
               minute: '2-digit'
             })
-          }} Uhr).
-          <!--          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>-->
-          Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.
-        </p>
+          }}
+          Uhr</b>
+        </v-chip>
+
+
+        <!--        <v-chip density="compact" prepend-icon="mdi-refresh">{{ refreshedDiff }}</v-chip>-->
       </div>
+      <!--      <div class="flex justify-between">-->
+      <!--        <p>Bestellt für {{ order.name || 'Gast' }} aufgegeben {{ timeDiff(order.created_at) }}, Abholung-->
+      <!--          {{ timeDiff(order.pickup_at) }} (um-->
+
+      <!--          <span v-if="order.pickup_at === order.pickup_at_init">-->
+      <!--           {{-->
+      <!--              new Date(order.pickup_at).toLocaleTimeString('de-de', {-->
+      <!--                hour: '2-digit',-->
+      <!--                minute: '2-digit'-->
+      <!--              })-->
+      <!--            }}-->
+      <!--            </span>-->
+      <!--          <span v-else class="text-red-500 font-bold">-->
+      <!--            <span class="line-through">-->
+      <!--              {{-->
+      <!--                new Date(order.pickup_at_init).toLocaleTimeString('de-de', {-->
+      <!--                  hour: '2-digit',-->
+      <!--                  minute: '2-digit'-->
+      <!--                })-->
+      <!--              }}-->
+      <!--            </span>-->
+      <!--            {{-->
+      <!--              new Date(order.pickup_at).toLocaleTimeString('de-de', {-->
+      <!--                hour: '2-digit',-->
+      <!--                minute: '2-digit'-->
+      <!--              })-->
+      <!--            }}-->
+      <!--          </span>-->
+      <!--          Uhr).-->
+
+      <!--          &lt;!&ndash;          <v-icon :icon="orderstatusToIcon(order.status)" :color="orderstatusToColor(order.status)"/>&ndash;&gt;-->
+      <!--          Bestellung ist <span :class="orderstatusToClass(order.status)">{{ order.status }}</span>.-->
+      <!--        </p>-->
+      <!--      </div>-->
 
       <div class="notifications">
         <v-alert v-for="notification in order.notifications" :key="notification.id" :type="notification.type"
@@ -42,25 +107,28 @@
       </div>
 
 
-      <v-btn @click="refresh"
-             prepend-icon="mdi-refresh"
-             class="mt-4 mb-2 w-full"
-             size="large"
-             :loading="loading"
-             v-if="order.status !== 'Storniert'"
-             color="teal-darken-3"
-      >Status Aktualisieren
-      </v-btn>
-      <v-btn @click="stornieren"
-             v-if="order.status === 'Neu'"
-             variant="text"
-             color="grey" class="w-full" size="large" :loading="loading" prepend-icon="mdi-cancel">
-        Bestellung stornieren
-      </v-btn>
+      <!--      <v-btn @click="refresh"-->
+      <!--             prepend-icon="mdi-refresh"-->
+      <!--             class="mt-4 mb-2 w-full"-->
+      <!--             size="large"-->
+      <!--             :loading="loading"-->
+      <!--             v-if="order.status !== 'Storniert'"-->
+      <!--             color="teal-darken-3"-->
+      <!--      >Status Aktualisieren-->
+      <!--      </v-btn>-->
 
-      <p class="text-sm mt-4 text-gray-500"> Seite {{ refreshedDiff }} aktualisiert.</p>
 
-      <h1 class="text-2xl font-bold mt-4">Bestell Details</h1>
+      <!--      <p class="text-sm mt-4 text-gray-500"> Seite {{ refreshedDiff }} aktualisiert.</p>-->
+      <div class="flex gap-4 justify-between items-center mt-4 border-t  pt-4">
+        <h1 class="text-2xl font-bold">Bestellung</h1>
+        <v-btn @click="stornieren"
+               v-if="order.status === 'Neu'"
+               variant="text"
+               color="grey" prepend-icon="mdi-cancel">
+          Stornieren
+        </v-btn>
+      </div>
+
       <v-list
           v-if="showProducts"
           class="divide-y border my-4 rounded "
@@ -85,25 +153,36 @@
         <a @click="undoStornieren" v-if="undoStornierungAvailable" class="text-teal-darken-3 cursor-pointer">Stornierung
           rückgängig machen</a>
       </p>
-      <p v-else> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}. Abholung bei {{ restaurant.name }}
-        <div> {{ restaurant.location }}.</div>
+      <p v-else> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}.
+        <!--        Abholung bei {{ restaurant.name }}-->
+        <div> {{ restaurant.location }}.
+          <a :href="'https://maps.google.com/?q=' + restaurant.location"
+             target="_blank"
+             class="text-teal-darken-3 hover:text-teal-darken-4"
+             rel="noopener noreferrer"
+             prepend-icon="mdi-map-marker"
+          >Google Maps &rarr;</a></div>
       </p>
 
     </v-card-text>
-    <v-card-actions class="flex justify-around">
-      <v-btn :href="'tel:' + restaurant.contact_phone"
-             prepend-icon="mdi-phone">Anrufen
-      </v-btn>
-      <v-btn :href="'https://maps.google.com/?q=' + restaurant.location"
-             target="_blank"
-             rel="noopener noreferrer"
-             prepend-icon="mdi-map-marker">Anfahrt
-      </v-btn>
-    </v-card-actions>
+    <!--    <v-card-actions class="flex justify-around">-->
+
+    <!--      <v-btn :href="'https://maps.google.com/?q=' + restaurant.location"-->
+    <!--             target="_blank"-->
+    <!--             class="flex-1"-->
+    <!--             rel="noopener noreferrer"-->
+    <!--             prepend-icon="mdi-map-marker">Anfahrt-->
+    <!--      </v-btn>-->
+
+    <!--      <v-btn :href="'tel:' + restaurant.contact_phone"-->
+    <!--             class="flex-1"-->
+    <!--             prepend-icon="mdi-phone">Anrufen-->
+    <!--      </v-btn>-->
+    <!--    </v-card-actions>-->
   </v-card>
   <v-alert v-else>Bestellung nicht gefunden.</v-alert>
 
-  <div class="text-center mb-3">
+  <div class="text-center mb-3  pt-3 border-t">
     <v-btn :href="mailtolink"
            color="error"
            size="large"
@@ -116,12 +195,13 @@
 
     <p class="text-gray-500 text-sm">Ein Projekt unterstützt von <a href="https://faktorxmensch.com"
                                                                     class="text-gray-500 underline hover:text-gray-700"
-                                                                    target="_blank" rel="noopener noreferrer">Faktor&times;Mensch</a></p>
+                                                                    target="_blank" rel="noopener noreferrer">Faktor&times;Mensch</a>
+    </p>
     <!--    <gast-dialog-report :order="order.id"/>-->
   </div>
 </template>
 <script setup>
-const mailtolink = computed(()=> {
+const mailtolink = computed(() => {
   return `mailto:info@bestell-fair.de?subject=Problem oder Feedback zur Plattform&body=Hallo Bestell-Fair Team, meine Bestellung ist ${order.value.id} und ich habe folgendes Problem/Feedback: `
 })
 const supabase = useSupabaseClient()

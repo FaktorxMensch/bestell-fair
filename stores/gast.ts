@@ -145,6 +145,7 @@ export const useGastStore = defineStore('gast', {
                 phone: this.phone,
                 email: this.email,
                 pickup_at: timestampValue,
+                pickup_at_init: timestampValue
             }
             const {data, error} = await supabase.from('orders').insert(newOrder)
 
