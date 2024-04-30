@@ -109,12 +109,16 @@ export const useInboxStore = defineStore('inbox', {
         },
         // update the status of an order
         async updateOrderStatus(order, status) {
+            console.log('updateOrderStatus', order, status)
+
             const supabase = useSupabaseClient()
+
             // check if status is valid
             if (!orderStates.includes(status)) {
                 console.error('Invalid status: ' + status)
                 return
             }
+
             if (status === 'Storniert') {
                 const result = await Swal.fire({
                     title: 'Bestellung stornieren?',
@@ -129,11 +133,21 @@ export const useInboxStore = defineStore('inbox', {
                     return
                 }
             }
+
+            console.log('updateOrderStatus', order.id, status)
             const {data, error} = await supabase.from('orders').update({status: status}).eq('id', order.id)
+
             if (error) {
-                console.error(error)
+                console.error("supabase err",error)
                 return
             }
+
+            // email senden
+            console.log('email senden',order)
+            await fetch('/api/v1/order/' + order.id, {
+                method: 'PATCH',
+            })
+
 
             // manipulate the order in the store to avoid a new request
             const index = this.orders.indexOf(order)

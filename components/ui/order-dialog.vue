@@ -34,17 +34,30 @@
           <v-text-field
               prepend-inner-icon="mdi-phone-outline"
               type="text" v-model="phone" label="Für Rückfragen" variant="outlined"/>
+
           <label>E-Mail</label>
-          <v-text-field
-              prepend-inner-icon="mdi-email-outline"
-              type="text" v-model="email" label="Bestellbestätigung per E-Mail"
-              variant="outlined"/>
-          <p class="text-sm -mt-1 opacity-80 flex gap-2">
-            <v-icon icon="mdi-information-outline"/>
-            Du bekommst eine Bestellbestätigung per E-Mail mit einem Link, um deine Bestellung zu
-            stornieren und deinen Bestellstatus zu verfolgen.
-          </p>
+          <div class="no-input-details">
+            <v-text-field
+                prepend-inner-icon="mdi-email-outline"
+                type="text" v-model="email" label="Bestellbestätigung per E-Mail"
+                variant="outlined"/>
+
+            <v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
+                        label="Updates zu dieser Bestellung per E-Mail erhalten"/>
+          </div>
+<!--          <div class="mb-5">-->
+<!--            <p class="text-sm opacity-80 flex gap-2" v-if="receive_email_updates">-->
+<!--              <v-icon icon="mdi-information-outline"/>-->
+<!--              Du bekommst eine Bestellbestätigung per E-Mail mit einem Link sowie Bestellstatus-Updates.-->
+<!--            </p>-->
+<!--            <p class="text-sm opacity-80 flex gap-2" v-else>-->
+<!--              <v-icon icon="mdi-information-outline"/>-->
+<!--              Du bekommst nun nur eine Bestellbestätigung per E-Mail.-->
+<!--            </p>-->
+<!--          </div>-->
+
           <hr/>
+          <div class="h-1"></div>
           <label>Anmerkungen</label>
           <v-textarea
               prepend-inner-icon="mdi-message-outline"
@@ -57,7 +70,8 @@
                     :error="!pickup_at"
                     :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                     variant="outlined"/>
-          <v-btn size="x-large" class="mt-1 mb-5 w-full" color="teal-darken-4" rounded v-bind="props" @click="placeOrder"
+          <v-btn size="x-large" class="mt-1 mb-5 w-full" color="teal-darken-4" rounded v-bind="props"
+                 @click="placeOrder"
                  :loading="loading"
                  prepend-icon="mdi-check">
             Fertig ({{ pricef(price) }})
@@ -83,6 +97,7 @@ const {
   name,
   phone,
   email,
+  receive_email_updates,
   pickup_at
 } = storeToRefs(gastStore);
 const dialog = ref(false);
