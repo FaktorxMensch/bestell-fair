@@ -2,15 +2,39 @@
   <v-dialog
       v-model="dialog"
       width="1024"
+      fullscreen
   >
     <v-card>
-      <v-card-title>
-        Bestellung
-      </v-card-title>
-      <v-card-text>
-        <v-row>
+        <v-toolbar density="comfortable" class="fixed">
+          <v-btn
+              icon="mdi-close"
+              @click="dialog = false"
+          ></v-btn>
+
+          <v-app-bar-title>Bestellung von {{ order.name }}</v-app-bar-title>
+
+
+            <v-btn
+                tabindex="3"
+                prepend-icon="mdi-cancel"
+                color="error"
+                @click="reject"
+            >
+              Stornieren
+            </v-btn>
+            <v-btn
+                tabindex="3"
+                prepend-icon="mdi-content-save"
+                color="success"
+                @click="save"
+            >
+              Betätigen
+            </v-btn>
+        </v-toolbar>
+      <v-col class="p-0">
+        <v-row class="mt-14 mx-1 ">
           <v-col
-              cols="4"
+              cols="6"
               sm="2"
           >
             <v-btn color="success" class="mt-2 w-full"
@@ -21,7 +45,7 @@
             </v-btn>
           </v-col>
           <v-col
-              cols="4"
+              cols="6"
               sm="2"
           >
             <v-btn color="success" class="mt-2 w-full"
@@ -32,7 +56,7 @@
             </v-btn>
           </v-col>
           <v-col
-              cols="8"
+              cols="12"
               sm="4"
           >
             <v-text-field
@@ -42,12 +66,13 @@
                 tabindex="1"
                 append-inner-icon="mdi-timer-outline"
                 required
-                disabled=""
+                disabled
+                hide-details
                 :value="new Date(order.pickup_at).toLocaleTimeString('de-de', {hour: '2-digit', minute: '2-digit'})"
             ></v-text-field>
           </v-col>
           <v-col
-              cols="4"
+              cols="6"
               sm="2"
           >
             <v-btn color="warning" class="mt-2 w-full"
@@ -58,7 +83,7 @@
             </v-btn>
           </v-col>
           <v-col
-              cols="4"
+              cols="6"
               sm="2"
           >
             <v-btn color="warning" class="mt-2 w-full"
@@ -68,7 +93,9 @@
               +10 min
             </v-btn>
           </v-col>
-          <v-col cols="12" v-if="order.status === 'Neu'">
+          </v-row>
+      <v-row>
+          <v-col cols="12" v-if="order.status === 'Neu'" align-self="start">
             <ui-order-element
                 v-for="product in order.products" :key="product.name" :product="product" layout="normal"/>
           </v-col>
@@ -87,33 +114,14 @@
             </div>
           </v-col>
         </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-            prepend-icon="mdi-close"
-            variant="text"
-            @click="dialog = false"
-        >
-          Schließen
-        </v-btn>
-        <v-btn
-            tabindex="3"
-            prepend-icon="mdi-cancel"
-            color="error"
-            @click="reject"
-        >
-          Stornieren
-        </v-btn>
-        <v-btn
-            tabindex="3"
-            prepend-icon="mdi-content-save"
-            color="success"
-            @click="save"
-        >
-          Betätigen
-        </v-btn>
-      </v-card-actions>
+
+        <div class="flex flex-col p-4">
+          <p class="text-md">Bestellt von {{ order?.name }}</p>
+          <p>Anmerkungen: {{ order?.remark }}</p>
+          <p>Telefon: {{ order?.phone }}</p>
+          <p>Email: {{ order?.email }}</p>
+        </div>
+      </v-col>
     </v-card>
   </v-dialog>
 </template>
@@ -195,3 +203,9 @@ const reject = async () => {
 
 }
 </script>
+
+<style scoped>
+.fixed {
+  position: fixed;
+}
+</style>
