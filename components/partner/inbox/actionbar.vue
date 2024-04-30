@@ -23,6 +23,27 @@ setInterval(() => {
   connected.value = timeSinceUpdated < 65000
 }, 5000)
 
+const showPhone = (phone) => {
+  Swal.fire({
+    title: 'Telefonnummer',
+    text: phone,
+    // icon: 'info',
+    timer: 20000,
+    timerProgressBar: true,
+    showCancelButton: true,
+    confirmButtonText: 'Schließen',
+    cancelButtonText: 'Anrufen',
+    reverseButtons: true,
+    preConfirm: () => {
+      // Aktionen für den "OK"-Button
+    },
+    cancelButtonColor: '#3085d6',
+    onCancel: () => {
+      // Aktionen für den "Anrufen"-Button
+      window.open(`tel:${phone}`);
+    }
+  })
+}
 
 
 </script>
@@ -32,19 +53,17 @@ setInterval(() => {
       <v-btn icon="mdi-chevron-left" @click="inboxStore.closeOrder()"/>
       <v-toolbar-title>Bestellung {{ order.name }}, Nr: ...{{ order.id.slice(-4) }}</v-toolbar-title>
       <div class="flex gap-1.5 align-center justify-end py-1 mr-4">
-        <a :href="'tel: '+order.phone">
           <v-chip color="success"
-                  @click.stop
+                  @click.stop="showPhone(order.phone)"
                   prepend-icon="mdi-phone">
             Anrufen
           </v-chip>
-        </a>
-        <v-chip color="warning"
-                @click.stop
-                title="Problem mit Bestellung melden"
-                prepend-icon="mdi-alert-circle-outline">
-          Problem
-        </v-chip>
+<!--        <v-chip color="warning"-->
+<!--                @click.stop="confirmOrder(order)"-->
+<!--                title="Problem mit Bestellung melden"-->
+<!--                prepend-icon="mdi-alert-circle-outline">-->
+<!--          Problem-->
+<!--        </v-chip>-->
         <v-chip color="error"
                 @click.stop="inboxStore.updateOrderStatus(order, 'Storniert')"
                 title="Stornieren"

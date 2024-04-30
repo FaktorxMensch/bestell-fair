@@ -70,7 +70,7 @@ const showPhone = (phone) => {
   Swal.fire({
     title: 'Telefonnummer',
     text: phone,
-    icon: 'info',
+    // icon: 'info',
     timer: 20000,
     timerProgressBar: true,
     showCancelButton: true,
