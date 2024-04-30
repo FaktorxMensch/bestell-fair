@@ -16,13 +16,14 @@
     </template>
     <v-card>
       <v-toolbar color="teal-darken-4">
-        <v-btn dark @click="dialog = false" icon="mdi-arrow-left"/>
+        <v-btn color="white" @click="dialog = false" icon="mdi-arrow-left"/>
         <v-toolbar-title>Bestellung abschließen</v-toolbar-title>
       </v-toolbar>
 
-      <v-form class="container px-5 no-input-details flex flex-col gap-4
+      <v-form class="container px-5 no-input-dtails flex flex-col gap-4
       ">
         <div class="
+        space-y-2
       ">
           <h2>Persönliche Daten</h2>
           <label>Dein Name</label>
@@ -56,7 +57,7 @@
                     :error="!pickup_at"
                     :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                     variant="outlined"/>
-          <v-btn size="x-large" class="mt-1 mb-5" color="teal-darken-4" rounded v-bind="props" @click="placeOrder"
+          <v-btn size="x-large" class="mt-1 mb-5 w-full" color="teal-darken-4" rounded v-bind="props" @click="placeOrder"
                  :loading="loading"
                  prepend-icon="mdi-check">
             Fertig ({{ pricef(price) }})

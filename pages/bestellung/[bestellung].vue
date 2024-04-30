@@ -7,6 +7,9 @@
            color="teal-darken-3"/>
   </v-app-bar>
   <v-card v-if="order" style="margin-top:-10px" class="max-w-2xl mx-auto">
+
+    <v-alert v-if="order.status === 'Neu'" type="warning" icon="mdi-information" class="mt-3"> HINWEIS: Diese Bestellung wurde vom Restaurant noch nicht gesehen. Bitte warte auf die Bestätigung des Restaurants. </v-alert>
+
     <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.feature_image_url"
          class="flex-shrink-0 h-40 w-full object-cover border-b"/>
 
@@ -38,11 +41,6 @@
         </v-alert>
       </div>
 
-      <!-- wenn bestellung neu, zeigen alert, dass die bestellung noch nicht bestätigt wurde -->
-      <v-alert v-if="order.status === 'Neu'" type="warning" icon="mdi-information"
-               class="mt-3">
-        HINWEIS: Diese Bestellung wurde vom Restaurant noch nicht bestätigt. Bitte warte auf die Bestätigung.
-      </v-alert>
 
       <v-btn @click="refresh"
              prepend-icon="mdi-refresh"
@@ -51,16 +49,18 @@
              :loading="loading"
              v-if="order.status !== 'Storniert'"
              color="teal-darken-3"
-      >Aktualisieren
+      >Status Aktualisieren
       </v-btn>
       <v-btn @click="stornieren"
              v-if="order.status === 'Neu'"
+             variant="text"
              color="grey" class="w-full" size="large" :loading="loading" prepend-icon="mdi-cancel">
-        Stornieren
+        Bestellung stornieren
       </v-btn>
 
       <p class="text-sm mt-4 text-gray-500"> Seite {{ refreshedDiff }} aktualisiert.</p>
 
+      <h1 class="text-2xl font-bold mt-4">Bestell Details</h1>
       <v-list
           v-if="showProducts"
           class="divide-y border my-4 rounded "
