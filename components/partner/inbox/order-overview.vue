@@ -31,7 +31,7 @@ function handleKeyPress(event) {
 
       <v-slide-group>
         <v-btn-toggle
-            class="w-full max-md:flex-col"
+            class="w-full max-sm:flex-col"
             v-model="order.status"
             divided
             density="comfortable"
@@ -124,7 +124,7 @@ function handleKeyPress(event) {
     @apply fixed bottom-0 p-4 flex w-full;
   }
   .v-btn-group {
-    @apply max-md:flex max-md:h-60;
+    @apply max-sm:flex max-sm:h-60;
   }
 }
 </style>
