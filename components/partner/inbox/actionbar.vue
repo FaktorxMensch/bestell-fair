@@ -17,8 +17,10 @@ const toggleTheme = () => {
 const connected = ref(false)
 const supabase = useSupabaseClient()
 setInterval(() => {
-  const channels = supabase.getChannels()
-  connected.value = channels?.[0]?.state === 'joined'
+  // const channels = supabase.getChannels()
+  // connected.value = channels?.[0]?.state === 'joined'
+  const timeSinceUpdated = new Date() - inboxStore.updatedAt
+  connected.value = timeSinceUpdated < 65000
 }, 5000)
 
 
@@ -53,9 +55,9 @@ setInterval(() => {
     </template>
     <template v-else>
       <v-toolbar-title>
-<!--        <v-chip :color="connected ? 'success' : 'error'" :prepend-icon="connected ? 'mdi-access-point' : 'mdi-access-point-off'">-->
-<!--          {{ connected ? 'Verbunden' : 'Keine Verbindung' }}-->
-<!--        </v-chip>-->
+        <v-chip :color="connected ? 'success' : 'error'" :prepend-icon="connected ? 'mdi-access-point' : 'mdi-access-point-off'">
+          {{ connected ? 'Verbunden' : 'Keine Verbindung' }}
+        </v-chip>
       </v-toolbar-title>
       <v-spacer/>
       <v-chip :color="open ? 'grey' : 'warning'"
