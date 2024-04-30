@@ -33,6 +33,7 @@ export const useGastStore = defineStore('gast', {
         remark: '',
         cartOpen: false,
         ordersHistory: [],
+        receive_email_updates: true,
         // embedOptions: {
         // should the back button be shown (to the other restaurants)
         // showBackButton: false,
@@ -144,6 +145,7 @@ export const useGastStore = defineStore('gast', {
                 name: this.name,
                 phone: this.phone,
                 email: this.email,
+                receive_email_updates: this.receive_email_updates,
                 pickup_at: timestampValue,
                 pickup_at_init: timestampValue
             }
@@ -161,11 +163,18 @@ export const useGastStore = defineStore('gast', {
                 })
                 return
             }
+
+            // email senden
+            fetch('/api/v1/order/' + insert_id, {
+                method: 'POST'
+            })
+
             await Swal.fire({
                 title: 'Bestellung aufgegeben',
                 text: 'Deine Bestellung wurde erfolgreich aufgegeben.',
                 icon: 'success',
             })
+
 
             // im localstorage speichern
             let ordersHistory = JSON.parse(localStorage.getItem('ordersHistory')) || []

@@ -59,7 +59,6 @@
           Uhr</b>
         </v-chip>
 
-
         <!--        <v-chip density="compact" prepend-icon="mdi-refresh">{{ refreshedDiff }}</v-chip>-->
       </div>
       <!--      <div class="flex justify-between">-->
