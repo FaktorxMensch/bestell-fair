@@ -9,40 +9,11 @@ const updateOrder = async (status: string) => {
   await inboxStore.updateOrderStatus(order, order.status)
 }
 
-let closeInterval = null
-
 watch(order, (order) => {
   if (order?.id && typeof document !== 'undefined') {
     document.addEventListener('keydown', handleKeyPress)
-    closeInterval = setInterval(() => {
-      Swal.fire({
-            title: 'Bestellung wird geschlossen',
-            timer: 10000,
-            icon: 'info',
-            timerProgressBar: true,
-            showConfirmButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Schließen',
-            cancelButtonText: 'Abbrechen',
-            cancelButtonColor: '#3085d6',
-            preConfirm: () => {
-              // Aktionen für den "OK"-Button
-              if (order?.id) {
-                inboxStore.closeOrder()
-              }},
-            onCancel: () => {
-              // Aktionen für den "Abbrechen"-Button
-              // close swal
-              Swal.close()
-            },
-
-
-          }
-      )
-    }, 60000)
   } else {
     document.removeEventListener('keydown', handleKeyPress)
-    clearInterval(closeInterval)
   }
 })
 
@@ -52,10 +23,6 @@ function handleKeyPress(event) {
   }
 }
 
-onMounted(() => {
-
-})
-
 </script>
 
 <template>
@@ -64,7 +31,7 @@ onMounted(() => {
 
       <v-slide-group>
         <v-btn-toggle
-            class="w-full max-sm:flex-col"
+            class="w-full max-md:flex-col"
             v-model="order.status"
             divided
             density="comfortable"
@@ -157,7 +124,7 @@ onMounted(() => {
     @apply fixed bottom-0 p-4 flex w-full;
   }
   .v-btn-group {
-    @apply max-sm:flex max-sm:h-60;
+    @apply max-md:flex max-md:h-60;
   }
 }
 </style>

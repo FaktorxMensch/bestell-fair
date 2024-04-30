@@ -105,15 +105,12 @@ const showPhone = (phone) => {
   <partner-inbox-order-overview/>
   <v-data-table :headers="headers"
                 :items="orders"
-                items-per-page="-1"
+                items-per-page="50"
                 density="comfortable"
                 item-key="name"
                 :search="search"
                 :custom-filter="filterAll"
-                :sort-by="[{key: 'pickup_at', order: 'asc'}]"
-                no-data-text="Aktuell keine offenen Bestellungen."
-  >
-
+                :sort-by="[{key: 'pickup_at', order: 'asc'}]">
     <template v-slot:footer.prepend>
       <v-switch v-model="search"
                 label="Alle anzeigen"
