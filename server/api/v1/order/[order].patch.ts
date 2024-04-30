@@ -39,17 +39,27 @@ export default defineEventHandler(async event => {
             },
         });
 
+
         console.log('transporter', transporter)
+
+    console.log('init pick up', order.pickup_at_init)
+    console.log('current pick up', order.pickup_at)
+
+    // didi it change
+    console.log('did it change', order.pickup_at_init !== order.pickup_at)
+
+        const ifDifferentPickup = order.pickup_at_init !== order.pickup_at ? `<p>Bitte beachte: Die geplante Abholung wurde geändert auf: <b>${new Date(order.pickup_at).toLocaleString('de-DE')} Uhr</b> (ursprünglich  ${new Date(order.pickup_at_init).toLocaleString('de-DE')})</p>` : `<p>Aktuelle Abholung: ${new Date(order.pickup_at).toLocaleString('de-DE')}</p>`;
+        const dirrentPickup = order.pickup_at_init !== order.pickup_at ? `Geänderte Abholzeit - ` : ' ';
 
         // Setup email data
         const mailOptions = {
             from: '"Bestell Fair!" <noreply@bestell-fair.de>',
             to: 'info@faktorxmensch.com',                  // list of receivers
-            subject: '[' + order.status + '] Deine Bestellung über Bestell Fair!', // Subject line
+            subject: '[' + order.status + '] ' + dirrentPickup + 'Deine Bestellung über Bestell Fair!', // Subject line
             html: `
     <h1>Bestellung</h1>
     <p>Deine Bestellung hat den Status <strong>${order.status}</strong></p>
-    <p>Aktuelle Abholung: ${new Date(order.pickup_at).toLocaleString('de-DE')}</p>
+    ${ifDifferentPickup}
     <p><a href="https://bestell-fair.de/bestellung/${order.id}">Weitere Informationen zur Bestellung ansehen &rarr;</a></p>
     <p>Vielen Dank für deine Bestellung!</p>
     <p>Dein Bestell Fair! Team</p>
