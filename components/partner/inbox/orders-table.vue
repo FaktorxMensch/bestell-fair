@@ -65,6 +65,28 @@ const filterAll = (value, searchQuery, item) => {
 const hasNewOrders = computed(() => {
   return orders.value.some((order) => order.status === 'Neu')
 })
+
+const showPhone = (phone) => {
+  Swal.fire({
+    title: 'Telefonnummer',
+    text: phone,
+    icon: 'info',
+    timer: 20000,
+    timerProgressBar: true,
+    showCancelButton: true,
+    confirmButtonText: 'Schließen',
+    cancelButtonText: 'Anrufen',
+    reverseButtons: true,
+    preConfirm: () => {
+      // Aktionen für den "OK"-Button
+    },
+    cancelButtonColor: '#3085d6',
+    onCancel: () => {
+      // Aktionen für den "Anrufen"-Button
+      window.open(`tel:${phone}`);
+    }
+  })
+}
 </script>
 
 <template>
@@ -117,11 +139,9 @@ const hasNewOrders = computed(() => {
         <td>{{ item.name }}</td>
         <td class="text-end">{{ pricef(item.total_price) }}</td>
         <td class="flex gap-1.5 align-center justify-end py-1">
-          <a :href="'tel: '+item.phone">
-            <v-chip class="cursor-pointer" color="success" @click.stop>
-              <v-icon icon="mdi-phone"/>
-            </v-chip>
-          </a>
+          <v-chip class="cursor-pointer" color="success" @click.stop="showPhone(item.phone)">
+            <v-icon icon="mdi-phone"/>
+          </v-chip>
           <v-chip class="cursor-pointer"
                   @click.stop="confirmOrder(item)"
                   color="warning" title="Problem mit Bestellung melden">
