@@ -42,7 +42,10 @@ export default defineEventHandler(async event => {
             html: `
     <h1>Vielen Dank</h1>
     <p>Deine Bestellung ist eingegangen, wir informieren dich per E-Mail, <b>sobald das Restaurant deine Bestellung bestätigt hat</b>.</p>
-    <p>Geplante Abholung: ${new Date(order.pickup_at).toLocaleString('de-DE')}</p>
+    <p>Geplante Abholung: ${new Date(order.pickup_at).toLocaleTimeString('de-de', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })}</p>
     <p><a href="https://bestell-fair.de/bestellung/${order.id}">Weitere Informationen zur Bestellung ansehen &rarr;</a></p>
     <p>Vielen Dank für deine Bestellung!</p>
     <p>Dein Bestell Fair! Team</p>
