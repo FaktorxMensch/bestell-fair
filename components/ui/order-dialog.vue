@@ -42,8 +42,8 @@
                 type="text" v-model="email" label="Bestellbestätigung per E-Mail"
                 variant="outlined"/>
 
-            <v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
-                        label="Updates zu dieser Bestellung per E-Mail erhalten"/>
+            <!--v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
+                        label="Updates zu dieser Bestellung per E-Mail erhalten"/-->
           </div>
 <!--          <div class="mb-5">-->
 <!--            <p class="text-sm opacity-80 flex gap-2" v-if="receive_email_updates">-->
