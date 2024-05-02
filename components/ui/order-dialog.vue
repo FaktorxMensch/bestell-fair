@@ -39,7 +39,7 @@
           <div class="no-input-details">
             <v-text-field
                 prepend-inner-icon="mdi-email-outline"
-                type="text" v-model="email" label="Bestellbestätigung per E-Mail"
+                type="text" v-model="email" label="E-Mail"
                 variant="outlined"/>
 
             <!--v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
