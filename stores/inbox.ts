@@ -138,12 +138,13 @@ export const useInboxStore = defineStore('inbox', {
             const {data, error} = await supabase.from('orders').update({status: status}).eq('id', order.id)
 
             if (error) {
-                console.error("supabase err",error)
+                console.error("supabase err", error)
                 return
             }
 
+            this.playClick()
             // email senden
-            console.log('email senden',order)
+            console.log('email senden', order)
             await fetch('/api/v1/order/' + order.id, {
                 method: 'PATCH',
             })
@@ -153,8 +154,8 @@ export const useInboxStore = defineStore('inbox', {
             const index = this.orders.indexOf(order)
             this.orders[index].status = status
             this.updatedAt = new Date()
-            this.playClick()
         },
+
         // update the pickup time of an order
         async updatePickupAt(order, pickupAt) {
             const supabase = useSupabaseClient()
@@ -169,12 +170,13 @@ export const useInboxStore = defineStore('inbox', {
                 return
             }
 
+            this.playClick()
+
             // manipulate the order in the store to avoid a new request
             const index = this.orders.indexOf(order)
             this.orders[index].pickup_at = pickupAt
             this.updatedAt = new Date()
 
-            this.playClick()
         },
         async changeTempClose(reset = false) {
             if (reset) {

@@ -16,7 +16,7 @@
          class="flex-shrink-0 h-40 w-full object-cover border-b"/>
 
     <img
-        class="h-20 w-20 rounded-lg border -mt-14 ml-4"
+        class="h-24 w-24 rounded-lg border -mt-20 ml-4"
         :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + restaurant.icon_image_url"/>
     <v-card-text>
 
@@ -38,7 +38,8 @@
 
         <v-chip density="compact" prepend-icon="mdi-account">{{ order.name || 'Gast' }}</v-chip>
 
-        <v-chip density="compact" prepend-icon="mdi-room-service" v-if="order.pickup_at_init === order.pickup_at">Abholung
+        <v-chip density="compact" prepend-icon="mdi-room-service" v-if="order.pickup_at_init === order.pickup_at">
+          Abholung
           {{ timeDiff(order.pickup_at) }}
         </v-chip>
         <v-chip density="compact" prepend-icon="mdi-room-service" v-else
@@ -99,7 +100,8 @@
       <div class="notifications">
         <v-alert v-for="notification in order.notifications" :key="notification.id" :type="notification.type"
                  icon="mdi-information"
-                 class="mt-2"
+                 density="compact"
+                 class="mt-2 rounded-lg"
         >
           {{ notification }}
         </v-alert>
@@ -118,50 +120,56 @@
 
 
       <!--      <p class="text-sm mt-4 text-gray-500"> Seite {{ refreshedDiff }} aktualisiert.</p>-->
-      <div class="flex gap-4 justify-between items-center mt-4 border-t  pt-4">
-        <h1 class="text-2xl font-bold">Bestellung</h1>
-        <v-btn @click="stornieren"
-               v-if="order.status === 'Neu'"
-               variant="text"
-               color="grey" prepend-icon="mdi-cancel">
-          Stornieren
-        </v-btn>
+      <div class=" mt-4 py-4">
+        <div class="flex gap-4 justify-between items-center">
+          <h1 class="text-2xl font-bold">Bestellung</h1>
+          <v-btn @click="stornieren"
+                 v-if="order.status === 'Neu'"
+                 variant="text"
+                 color="grey" prepend-icon="mdi-cancel">
+            Stornieren
+          </v-btn>
+        </div>
+
+        <p class="mt-2 text-gray-500" v-if="order.remark">
+          Anmerkung: {{ order.remark }}
+        </p>
+
+        <v-list
+            v-if="showProducts"
+            class="divide-y border my-4 rounded "
+            :class="{'line-through': order.status === 'Storniert'}"
+        >
+          <v-list-item v-for="product in order.products">
+            <div class="flex items-center gap-4">
+              <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + product.image"
+                   class="h-16 rounded-lg border"/>
+              <v-list-item-content>
+                <v-list-item-title>{{ product.name }}</v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ product.quantity }}x {{ pricef(product.price) }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+        </v-list>
+
+        <p v-if="order.status === 'Storniert'">
+          Diese Bestellung wurde storniert, du kannst sie nicht mehr abholen.
+          <a @click="undoStornieren" v-if="undoStornierungAvailable" class="text-teal-darken-3 cursor-pointer">Stornierung
+            rückgängig machen</a>
+        </p>
+        <p v-else> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}.
+          <!--        Abholung bei {{ restaurant.name }}-->
+          <div> {{ restaurant.location }}.
+            <a :href="'https://maps.google.com/?q=' + restaurant.location"
+               target="_blank"
+               class="text-teal-darken-3 hover:text-teal-darken-4"
+               rel="noopener noreferrer"
+               prepend-icon="mdi-map-marker"
+            >Google Maps &rarr;</a></div>
+        </p>
       </div>
-
-      <v-list
-          v-if="showProducts"
-          class="divide-y border my-4 rounded "
-          :class="{'line-through': order.status === 'Storniert'}"
-      >
-        <v-list-item v-for="product in order.products">
-          <div class="flex items-center gap-4">
-            <img :src="'https://api.bestell-fair.de/storage/v1/object/public/restaurants/' + product.image"
-                 class="h-16 rounded-lg border"/>
-            <v-list-item-content>
-              <v-list-item-title>{{ product.name }}</v-list-item-title>
-              <v-list-item-subtitle>
-                {{ product.quantity }}x {{ pricef(product.price) }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
-      </v-list>
-
-      <p v-if="order.status === 'Storniert'">
-        Diese Bestellung wurde storniert, du kannst sie nicht mehr abholen.
-        <a @click="undoStornieren" v-if="undoStornierungAvailable" class="text-teal-darken-3 cursor-pointer">Stornierung
-          rückgängig machen</a>
-      </p>
-      <p v-else> Bezahlung bei Abholung, Summe {{ pricef(order.total_price) }}.
-        <!--        Abholung bei {{ restaurant.name }}-->
-        <div> {{ restaurant.location }}.
-          <a :href="'https://maps.google.com/?q=' + restaurant.location"
-             target="_blank"
-             class="text-teal-darken-3 hover:text-teal-darken-4"
-             rel="noopener noreferrer"
-             prepend-icon="mdi-map-marker"
-          >Google Maps &rarr;</a></div>
-      </p>
 
     </v-card-text>
     <!--    <v-card-actions class="flex justify-around">-->
@@ -181,7 +189,8 @@
   </v-card>
   <v-alert v-else>Bestellung nicht gefunden.</v-alert>
 
-  <div class="text-center mb-3  pt-3 border-t">
+
+  <div class="text-center mb-3  pt-3">
     <v-btn :href="mailtolink"
            color="error"
            size="large"

@@ -1,5 +1,9 @@
 <template>
-  <v-card variant="outlined">
+  <v-card
+      variant="outlined"
+      @click="addToCart"
+
+  >
     <v-card-text>
       <div class="flex space-between gap-2 md:gap-8">
         <div class="flex-1">
@@ -20,7 +24,7 @@
                 variant="flat"
                 class="rounded-full"
                 color="grey-lighten-3"
-                @click="addToCart"/>
+                />
             <gast-dialog-optiongroups v-else :product="product"/>
           </div>
 
@@ -37,7 +41,7 @@
                variant="text"
                v-if="hasAdditionalInfo(product)"
                :icon="showAdditionalInfo ? 'mdi-chevron-up' : 'mdi-information-outline'"
-               @click="showAdditionalInfo = !showAdditionalInfo"/>
+               @click.stop="showAdditionalInfo = !showAdditionalInfo"/>
       </p>
     </v-card-text>
 
