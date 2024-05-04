@@ -18,6 +18,8 @@
  * @property changeTempClose bis wann ist das Restaurant tenporär geschlossen
  */
 
+let timeoutCloseOpenedOrder = null
+
 export const useInboxStore = defineStore('inbox', {
     state: () => ({
         order: null, // die aktuell geöffnete Bestellung
@@ -52,10 +54,14 @@ export const useInboxStore = defineStore('inbox', {
         openOrder(order) {
             this.order = order
             this.playClick()
+
+            timeoutCloseOpenedOrder = setTimeout(this.closeOrder, 1000 * 60 * 2) // 2 minutes
         },
         closeOrder() {
             this.order = null
             this.playClick()
+
+            clearTimeout(timeoutCloseOpenedOrder)
         },
         // get orders for the restaurant
         async getOrders() {

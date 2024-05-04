@@ -84,12 +84,10 @@ function handleKeyPress(event) {
           <p class="text-md">Bestellt von {{ order?.name }}</p>
           <p>Anmerkungen: {{ order?.remark }}</p>
           <p>Telefon: {{ order?.phone }}</p>
-          <p>Email: {{ order?.email }}</p>
+<!--          <p>Email: {{ order?.email }}</p>-->
         </div>
 
       </div>
-<!--      Button for closing Order-->
-        <v-btn @click="inboxStore.closeOrder()" class="bg-neutral-600">Bestellung schließen</v-btn>
     </main>
   </div>
 </template>
