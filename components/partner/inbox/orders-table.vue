@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {orderstatusToColor} from "~/composables/orderstatusToColor";
+import {setIn} from "immutable";
 
 const inboxStore = useInboxStore()
 const {orders} = storeToRefs(inboxStore)
@@ -66,6 +67,28 @@ const hasNewOrders = computed(() => {
   return orders.value.some((order) => order.status === 'Neu')
 })
 
+// alle 10 sekunden bling.mp3 apspielen wenn es neue bestellungen gibt
+const playBling = () => {
+  const audio = new Audio('/partner/inbox/notification.mp3')
+  audio.play()
+}
+
+
+let interval: any = null
+watch(hasNewOrders, (newVal, oldVal) => {
+  console.log('hasNewOrders', newVal)
+  // interval setzen oder cleare
+  if (newVal) {
+    playBling()
+    interval = setInterval(playBling, 10000)
+    setTimeout(() => {
+      clearInterval(interval)
+    }, 60000)
+  } else {
+    clearInterval(interval)
+  }
+})
+
 const showPhone = (phone) => {
   Swal.fire({
     title: 'Telefonnummer',
@@ -87,6 +110,7 @@ const showPhone = (phone) => {
     }
   })
 }
+
 </script>
 
 <template>
@@ -105,7 +129,7 @@ const showPhone = (phone) => {
   <partner-inbox-order-overview/>
   <v-data-table :headers="headers"
                 :items="orders"
-                items-per-page="50"
+                items-per-page="150"
                 density="comfortable"
                 item-key="name"
                 :search="search"
@@ -113,6 +137,7 @@ const showPhone = (phone) => {
                 :sort-by="[{key: 'pickup_at', order: 'asc'}]">
     <template v-slot:footer.prepend>
       <v-switch v-model="search"
+                class="mr-5"
                 label="Alle anzeigen"
                 true-value="all"
                 false-value="no">
@@ -160,6 +185,11 @@ const showPhone = (phone) => {
 </template>
 
 <style>
+.v-data-table-footer .v-input__details,
+.v-data-table-footer__items-per-page, .v-data-table-footer__info, .v-data-table-footer__pagination {
+  display: none !important;
+}
+
 tr.Neu, .v-btn.Neu {
   animation: blinking 1s infinite;
 }

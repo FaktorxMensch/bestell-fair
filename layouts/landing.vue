@@ -15,14 +15,21 @@
                  prepend-icon="mdi-account-circle-outline"
                  href="/partner/verwalten" v-if="user && user.user_metadata.role === 'partner'">Mein Account
           </v-btn>
-          <v-btn rounded size="large" variant="flat" href="/partner/inbox" v-else-if="user"
-                 prepend-icon="mdi-list-status"
-          >Bestellungen
-          </v-btn>
+          <template v-else-if="user">
+            <v-btn rounded size="large" variant="flat" href="/partner/inbox"
+
+                   prepend-icon="mdi-list-status"
+            >Bestellungen
+            </v-btn>
+            <v-btn rounded="full" size="large" variant="flat" href="/partner/verwalten"
+                   density="comfortable"
+                   icon="mdi-store"
+            />
+          </template>
           <v-btn rounded size="large" variant="text" color="teal-darken-3" href="/login" v-else>Anmelden</v-btn>
-          <v-btn rounded="full" size="large" variant="flat" href="/logout" color="teal-darken-3" v-if="user"
+          <v-btn rounded="full" size="large" variant="flat" href="/logout" color="red" v-if="user"
                  density="comfortable"
-                  icon="mdi-logout"
+                 icon="mdi-logout"
           ></v-btn>
           <v-btn rounded size="large" variant="flat" color="teal-darken-3" v-else href="/demo"
                  append-icon="mdi-arrow-right">Demo starten
