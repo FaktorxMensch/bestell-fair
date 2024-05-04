@@ -69,7 +69,7 @@ const hasNewOrders = computed(() => {
 
 // alle 10 sekunden bling.mp3 apspielen wenn es neue bestellungen gibt
 const playBling = () => {
-  const audio = new Audio('/partner/inbox/bling.mp3')
+  const audio = new Audio('/partner/inbox/notification.mp3')
   audio.play()
 }
 
