@@ -3,10 +3,7 @@
       v-model="dialog"
       fullscreen
       transition="dialog-bottom-transition"
-      class="
-        max-h-screen
-        overflow-y-auto
-"
+      class=" max-h-screen overflow-y-auto "
   >
     <template v-slot:activator="{ props }">
       <v-btn size="large" color="teal-darken-4" text rounded block v-bind="props">

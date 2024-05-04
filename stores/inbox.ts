@@ -18,7 +18,6 @@
  * @property changeTempClose bis wann ist das Restaurant tenporär geschlossen
  */
 
-let timeoutCloseOpenedOrder = null
 
 export const useInboxStore = defineStore('inbox', {
     state: () => ({
@@ -30,6 +29,7 @@ export const useInboxStore = defineStore('inbox', {
         closedUntil: null,
         closedMinutes: 0,
         closedDecreaser: null,
+        timeoutCloseOpenedOrder: null,
         // isDarkMode: true,
     }),
     getters: {
@@ -51,17 +51,42 @@ export const useInboxStore = defineStore('inbox', {
             audio.volume = 0.5
             audio.play()
         },
+        setupAutoclose() {
+            clearTimeout(this.timeoutClosOpenedOrder)
+            this.timeoutCloseOpenedOrder = setTimeout(async () => {
+
+                // have an autocloseing swal that after 3 seconds without interaction closes the dialog otherwise resets the timer
+                const shoudlClose = await Swal.fire({
+                    title: 'Noch da?',
+                    text: 'Wir schließen die Bestellung in 3 Sekunden',
+                    icon: 'question',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showTimerProgressBar: true,
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    denyButtonText: 'Abbrechen'
+                })
+
+                if (shoudlClose.isDenied) {
+                    this.setupAutoclose()
+                } else {
+                    this.closeOrder()
+                }
+
+            }, 1000 * 60 * 2) // 2 minutes
+        },
         openOrder(order) {
             this.order = order
             this.playClick()
 
-            timeoutCloseOpenedOrder = setTimeout(this.closeOrder, 1000 * 60 * 2) // 2 minutes
+            this.setupAutoclose()
         },
         closeOrder() {
             this.order = null
             this.playClick()
 
-            clearTimeout(timeoutCloseOpenedOrder)
+            clearTimeout(this.timeoutCloseOpenedOrder)
         },
         // get orders for the restaurant
         async getOrders() {

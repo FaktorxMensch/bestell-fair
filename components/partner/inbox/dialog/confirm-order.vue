@@ -1,36 +1,30 @@
 <template>
   <v-dialog
-      v-model="dialog"
-      width="1024"
-      fullscreen
-  >
+      v-model="dialog" fullscreen>
     <v-card>
-        <v-toolbar density="comfortable" class="fixed">
-          <v-btn
-              icon="mdi-close"
-              @click="dialog = false"
-          ></v-btn>
+      <v-toolbar density="comfortable" class="fixed">
+        <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
 
-          <v-app-bar-title>Bestellung von {{ order.name }}</v-app-bar-title>
+        <v-app-bar-title>Bestellung von {{ order.name }}</v-app-bar-title>
 
 
-            <v-btn
-                tabindex="3"
-                prepend-icon="mdi-cancel"
-                color="error"
-                @click="reject"
-            >
-              Stornieren
-            </v-btn>
-            <v-btn
-                tabindex="3"
-                prepend-icon="mdi-content-save"
-                color="success"
-                @click="save"
-            >
-              Betätigen
-            </v-btn>
-        </v-toolbar>
+        <v-btn
+            tabindex="3"
+            prepend-icon="mdi-cancel"
+            color="error"
+            @click="reject"
+        >
+          Stornieren
+        </v-btn>
+        <v-btn
+            tabindex="3"
+            prepend-icon="mdi-content-save"
+            color="success"
+            @click="save"
+        >
+          Betätigen
+        </v-btn>
+      </v-toolbar>
       <v-col class="p-0">
         <v-row class="mt-14 mx-1 ">
           <v-col
@@ -93,8 +87,8 @@
               +10 min
             </v-btn>
           </v-col>
-          </v-row>
-      <v-row>
+        </v-row>
+        <v-row>
           <v-col cols="12" v-if="order.status === 'Neu'" align-self="start">
             <ui-order-element
                 v-for="product in order.products" :key="product.name" :product="product" layout="normal"/>
@@ -104,12 +98,12 @@
                 class="text-xl font-semibold mb-2"
             >Gast benachrichtigen</h2>
             <div class="grid grid-cols-4 gap-4">
-             <div
-                 class="border p-2 rounded-lg cursor-pointer hover:bg-gray-500/10"
-                 @click="notify(notification)"
-                 v-for="notification in notificationTemplates" :key="notification">
-               <v-icon class="text-2xl">mdi-alert</v-icon>
-               {{ notification }}
+              <div
+                  class="border p-2 rounded-lg cursor-pointer hover:bg-gray-500/10"
+                  @click="notify(notification)"
+                  v-for="notification in notificationTemplates" :key="notification">
+                <v-icon class="text-2xl">mdi-alert</v-icon>
+                {{ notification }}
               </div>
             </div>
           </v-col>
@@ -133,10 +127,10 @@ const dialog = ref(typeof props.dialog === 'undefined' ? false : props.dialog)
 const order = ref(props.order)
 
 const notificationTemplates = [
-    'Leider gibt es einige Zutaten nicht mehr. Möchtest du die Bestellung stornieren oder ersetzen?',
-    'Aktuell keine EC-Kartenzahlung möglich. Bitte bar zahlen.',
-    'Es ist gerade sehr voll. Die Bestellung kann etwas länger dauern.',
-    'Deine Bestellung verzögert sich. Wir informieren dich, sobald sie fertig ist.'
+  'Leider gibt es einige Zutaten nicht mehr. Möchtest du die Bestellung stornieren oder ersetzen?',
+  'Aktuell keine EC-Kartenzahlung möglich. Bitte bar zahlen.',
+  'Es ist gerade sehr voll. Die Bestellung kann etwas länger dauern.',
+  'Deine Bestellung verzögert sich. Wir informieren dich, sobald sie fertig ist.'
 ]
 
 // apply prop changes
@@ -156,7 +150,7 @@ const changePickupTime = async (change) => {
 
 const supabase = useSupabaseClient()
 const notify = async (notification) => {
-  if(!order.value.notifications) {
+  if (!order.value.notifications) {
     order.value.notifications = []
   }
   // add to notifications in order
@@ -202,6 +196,39 @@ const reject = async () => {
   dialog.value = false
 
 }
+
+let autoClose = null
+const setupAutoclose = () => {
+  clearTimeout(autoClose)
+  autoClose = setTimeout(async () => {
+
+    // have an autocloseing swal that after 3 seconds without interaction closes the dialog otherwise resets the timer
+    const shoudlClose = await Swal.fire({
+      title: 'Noch da?',
+      text: 'Wir schließen das Fenster in 3 Sekunden',
+      icon: 'question',
+      timer: 3000,
+      timerProgressBar: true,
+      showTimerProgressBar: true,
+      showConfirmButton: true,
+      showDenyButton: true,
+      denyButtonText: 'Abbrechen'
+    })
+
+    if (shoudlClose.isDenied) {
+      setupAutoclose()
+    } else {
+      dialog.value = false
+    }
+  }, 120 * 1000)
+}
+onMounted(() => {
+  setupAutoclose()
+})
+
+onUnmounted(() => {
+  clearTimeout(autoClose)
+})
 </script>
 
 <style scoped>
@@ -209,3 +236,5 @@ const reject = async () => {
   position: fixed;
 }
 </style>
+
+
