@@ -42,16 +42,16 @@
             <v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
                         label="Updates zu dieser Bestellung per E-Mail erhalten"/>
           </div>
-<!--          <div class="mb-5">-->
-<!--            <p class="text-sm opacity-80 flex gap-2" v-if="receive_email_updates">-->
-<!--              <v-icon icon="mdi-information-outline"/>-->
-<!--              Du bekommst eine Bestellbestätigung per E-Mail, sowie Bestellstatus-Updates.-->
-<!--            </p>-->
-<!--            <p class="text-sm opacity-80 flex gap-2" v-else>-->
-<!--              <v-icon icon="mdi-information-outline"/>-->
-<!--              Du bekommst nun nur eine Bestellbestätigung per E-Mail.-->
-<!--            </p>-->
-<!--          </div>-->
+          <div class="mb-5">
+            <p class="text-sm opacity-80 flex gap-2" v-if="receive_email_updates">
+              <v-icon icon="mdi-information-outline"/>
+              Du bekommst eine Bestellbestätigung per E-Mail, sowie Bestellstatus-Updates.
+            </p>
+            <p class="text-sm opacity-80 flex gap-2" v-else>
+              <v-icon icon="mdi-information-outline"/>
+              Du wirst auf eine Seite weitergeleitet, auf der Du den aktuellen Status Deiner Bestellung siehst.
+            </p>
+          </div>
 
           <hr/>
           <div class="h-1"></div>
