@@ -39,19 +39,19 @@
                 type="text" v-model="email" label="E-Mail"
                 variant="outlined"/>
 
-            <!--v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
-                        label="Updates zu dieser Bestellung per E-Mail erhalten"/-->
+            <v-checkbox class="-ml-2 mt-1" v-model="receive_email_updates"
+                        label="Updates zu dieser Bestellung per E-Mail erhalten"/>
           </div>
-<!--          <div class="mb-5">-->
-<!--            <p class="text-sm opacity-80 flex gap-2" v-if="receive_email_updates">-->
-<!--              <v-icon icon="mdi-information-outline"/>-->
-<!--              Du bekommst eine Bestellbestätigung per E-Mail mit einem Link sowie Bestellstatus-Updates.-->
-<!--            </p>-->
-<!--            <p class="text-sm opacity-80 flex gap-2" v-else>-->
-<!--              <v-icon icon="mdi-information-outline"/>-->
-<!--              Du bekommst nun nur eine Bestellbestätigung per E-Mail.-->
-<!--            </p>-->
-<!--          </div>-->
+          <div class="mb-5">
+            <p class="text-sm opacity-80 flex gap-2" v-if="receive_email_updates">
+              <v-icon icon="mdi-information-outline"/>
+              Du bekommst eine Bestellbestätigung per E-Mail, sowie Bestellstatus-Updates.
+            </p>
+            <p class="text-sm opacity-80 flex gap-2" v-else>
+              <v-icon icon="mdi-information-outline"/>
+              Du wirst auf eine Seite weitergeleitet, auf der Du den aktuellen Status Deiner Bestellung siehst.
+            </p>
+          </div>
 
           <hr/>
           <div class="h-1"></div>
@@ -63,7 +63,7 @@
           <label>Abholzeitpunkt</label>
           <v-select v-model="pickup_at" :items="pickupTimes"
                     :prepend-inner-icon=" pickup_at ? 'mdi-clock-time-four-outline' : 'mdi-alert'"
-                    clearable=""
+                    clearable
                     :error="!pickup_at"
                     :label="pickup_at ? '' : 'Bitte wähle einen Abholzeitpunkt'"
                     variant="outlined"/>

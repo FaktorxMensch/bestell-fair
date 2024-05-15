@@ -15,6 +15,7 @@ export default defineEventHandler(async event => {
 
     const mailOptions = {
         subject: '[' + order.status + dirrentPickup + '] ' + 'Deine Bestellung über Bestell Fair!', // Subject line
+        to: order.email,
         html: `
         <h1>Vielen Dank</h1>
         <p>Deine Bestellung ist eingegangen, wir informieren dich per E-Mail, <b>sobald das Restaurant deine Bestellung bestätigt hat</b>.</p>
